@@ -1,0 +1,12 @@
+name: router
+description: Flexible routing for Flutter.
+version: 0.0.1
+author: Posse Productions LLC
+homepage: http://goposse.com
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+flutter:
+  uses-material-design: false
