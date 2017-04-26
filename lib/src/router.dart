@@ -46,16 +46,24 @@ class Router {
     return match?.route ?? notFoundRoute;
   }
 
-  /// used by the [MaterialApp.onGenerateRoute] function as callback to
-  /// create a route that is able to be consumed.
-  Route<Null> generator(RouteSettings routeSettings) {
-    AppRouteMatch match = _routeTree.matchRoute(routeSettings.name);
+  Route<Null> matchRoute(String path, {RouteSettings routeSettings = null}) {
+    RouteSettings settingsToUse = routeSettings;
+    if (routeSettings == null) {
+      settingsToUse = new RouteSettings(name: path);
+    }
+    AppRouteMatch match = _routeTree.matchRoute(path);
     AppRoute route = match?.route ?? notFoundRoute;
     if (route == null) {
       return null;
     }
     Map<String, String> parameters = match?.parameters ?? <String, String>{};
-    return route.routeCreator(routeSettings, parameters);
+    return route.routeCreator(settingsToUse, parameters);
+  }
+
+  /// used by the [MaterialApp.onGenerateRoute] function as callback to
+  /// create a route that is able to be consumed.
+  Route<Null> generator(RouteSettings routeSettings) {
+    return matchRoute(routeSettings.name, routeSettings: routeSettings);
   }
 
   /// Prints the route tree so you can analyze it.
