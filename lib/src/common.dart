@@ -9,6 +9,6 @@ typedef Widget RouteHandler(Map<String, String> parameters);
 ///
 class AppRoute {
   String route;
-  RouteCreator routeCreator;
-  AppRoute(this.route, this.routeCreator);
+  RouteHandler handler;
+  AppRoute(this.route, this.handler);
 }

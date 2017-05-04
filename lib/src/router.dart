@@ -1,67 +1,80 @@
 part of router;
 
+enum TransitionType {
+  native,
+  nativeModal,
+}
+
 class Router {
   /// The tree structure that stores the defined routes
   RouteTree _routeTree = new RouteTree();
 
   /// Generic handler for when a route has not been defined
-  AppRoute notFoundRoute;
-
-  /// Creates a custom [Route] definition
-  void defineRoute(String routePath, {@required RouteCreator creator}) {
-    _routeTree.addRoute(new AppRoute(routePath, creator));
-  }
+  RouteHandler notFoundHandler;
 
   /// Creates a [PageRoute] definition for the passed [RouteHandler]. You can optionally provide a custom
   /// transition builder for the route.
-  void defineRouteHandler(String routePath, {@required RouteHandler handler, RouteTransitionsBuilder transitionsBuilder,
-      Duration duration = const Duration(milliseconds: 250)})
-  {
-    RouteCreator creator = (RouteSettings routeSettings, Map<String, String> params) {
-      return new PageRouteBuilder(settings: routeSettings, transitionDuration: duration,
-          transitionsBuilder:  transitionsBuilder,
-          pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-            return handler(params);
-          });
-    };
-    _routeTree.addRoute(new AppRoute(routePath, creator));
+  void define(String routePath, {@required RouteHandler handler}) {
+    _routeTree.addRoute(new AppRoute(routePath, handler));
   }
 
-  /// Creates a [MaterialPageRoute] definition
-  void defineMaterialRoute(String routePath, {@required RouteHandler handler}) {
-    RouteCreator creator = (RouteSettings routeSettings, Map<String, String> params) {
-      return new MaterialPageRoute<Null>(settings: routeSettings, builder: (BuildContext context) {
-        return handler(params);
-      });
-    };
-    _routeTree.addRoute(new AppRoute(routePath, creator));
-  }
-
-  void addRoute(AppRoute route) {
-    _routeTree.addRoute(route);
-  }
-
+  /// Finds a defined [AppRoute] for the path value. If no [AppRoute] definition was found
+  /// then function will return null.
   AppRoute match(String path) {
     AppRouteMatch match = _routeTree.matchRoute(path);
-    return match?.route ?? notFoundRoute;
+    return match?.route;
   }
 
+  ///
+  void navigateTo(BuildContext context, String path, {TransitionType transition = TransitionType.native}) {
+    Route<Null> route;
+    if (transition == TransitionType.native) {
+      route = matchRoute(path);
+    }
+    if (route == null && notFoundHandler != null) {
+      route = _notFoundRoute(context, path);
+    }
+    if (route != null) {
+      Navigator.push(context, route);
+    } else {
+      print("No registered route was found to handle '$path'.");
+    }
+  }
+
+  ///
+  Route<Null> _notFoundRoute(BuildContext context, String path) {
+    RouteCreator creator = (RouteSettings routeSettings, Map<String, String> params) {
+      return new MaterialPageRoute<Null>(settings: routeSettings, builder: (BuildContext context) {
+        return notFoundHandler(params);
+      });
+    };
+    return creator(new RouteSettings(name: path), null);
+  }
+
+  ///
   Route<Null> matchRoute(String path, {RouteSettings routeSettings = null}) {
     RouteSettings settingsToUse = routeSettings;
     if (routeSettings == null) {
       settingsToUse = new RouteSettings(name: path);
     }
     AppRouteMatch match = _routeTree.matchRoute(path);
-    AppRoute route = match?.route ?? notFoundRoute;
-    if (route == null) {
+    AppRoute route = match?.route;
+    if (route == null && notFoundHandler == null) {
       return null;
     }
+    RouteHandler handler = (route != null ? route.handler : notFoundHandler);
     Map<String, String> parameters = match?.parameters ?? <String, String>{};
-    return route.routeCreator(settingsToUse, parameters);
+    RouteCreator creator = (RouteSettings routeSettings, Map<String, String> params) {
+      return new MaterialPageRoute<Null>(settings: routeSettings, builder: (BuildContext context) {
+        return handler(params);
+      });
+    };
+    return creator(settingsToUse, parameters);
   }
 
-  /// used by the [MaterialApp.onGenerateRoute] function as callback to
-  /// create a route that is able to be consumed.
+  /// Route generation method. This function can be used as a way to create routes on-the-fly
+  /// if any defined handler is found. It can also be used with the [MaterialApp.onGenerateRoute]
+  /// property as callback to create routes that can be used with the [Navigator] class.
   Route<Null> generator(RouteSettings routeSettings) {
     return matchRoute(routeSettings.name, routeSettings: routeSettings);
   }

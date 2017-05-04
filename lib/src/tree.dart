@@ -120,9 +120,17 @@ class RouteTree {
           RouteTreeNodeMatch match = new RouteTreeNodeMatch.fromMatch(parentMatch, node);
           if (node.isParameter()) {
             String paramKey = node.part.substring(1);
-            match.parameters[paramKey] = checkComponent;
+            if (checkComponent.contains("?")) {
+              var splitParam = checkComponent.split("?");
+              var namedParam = splitParam[0];
+              var queryParams = parseQueryString(splitParam[1]);
+              match.parameters[paramKey] = namedParam;
+              match.parameters.addAll(queryParams);
+            } else {
+              match.parameters[paramKey] = checkComponent;
+            }
           }
-//					print("matched: ${node.part}, isParam: ${node.isParameter()}, params: ${match.parameters}");
+          print("matched: ${node.part}, isParam: ${node.isParameter()}, params: ${match.parameters}");
           currentMatches[node] = match;
           if (node.nodes != null) {
             nextNodes.addAll(node.nodes);
@@ -193,5 +201,16 @@ class RouteTree {
   /// Is the path component a parameter
   bool _isParameterComponent(String component) {
     return component.startsWith(":");
+  }
+
+  Map<String, String> parseQueryString(String query) {
+    var search = new RegExp('([^&=]+)=?([^&]*)');
+    var params = new Map();
+    if (query.startsWith('?')) query = query.substring(1);
+    decode(String s) => Uri.decodeComponent(s.replaceAll('+', ' '));
+    for (Match match in search.allMatches(query)) {
+      params[decode(match.group(1))] = decode(match.group(2));
+    }
+    return params;
   }
 }
