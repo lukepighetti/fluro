@@ -46,7 +46,9 @@ You can use the `Router` with the `MaterialApp.onGenerateRoute` parameter
  the `onGenerate` parameter like: `onGenerateRoute: router.generator`.
  
 You can then use `Navigator.push` and the flutter routing mechanism will match the routes
-for you. You can also manually push to a route yourself. To do so:
+for you. 
+
+You can also manually push to a route yourself. To do so:
 
 ```dart
 router.navigateTo(context, "/users/1234");
