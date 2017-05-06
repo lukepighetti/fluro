@@ -1,5 +1,7 @@
 # Router
 
+[![Build Status](https://travis-ci.org/goposse/flutter-router.svg?branch=master)](https://travis-ci.org/goposse/flutter-router)
+
 ## Getting started
  
  You should ensure that you add the router as a dependency in your flutter project. 
