@@ -13,7 +13,9 @@ before_script:
   - ./scripts/travis_setup.sh
   - ./flutter/bin/flutter doctor
 script:
-  - ./flutter/bin/flutter test
+  - ./flutter/bin/flutter test --coverage
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -t $CODE_COV_TOKEN
 cache:
   directories:
     - $HOME/.pub-cache

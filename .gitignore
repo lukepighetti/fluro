@@ -1,3 +1,5 @@
 .idea
 .packages
 pubspec.lock
+coverage
+__temp_coverage*

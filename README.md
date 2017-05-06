@@ -1,6 +1,7 @@
 # Router
 
 [![Build Status](https://travis-ci.org/goposse/flutter-router.svg?branch=master)](https://travis-ci.org/goposse/flutter-router)
+[![codecov](https://codecov.io/gh/goposse/flutter-router/branch/master/graph/badge.svg)](https://codecov.io/gh/goposse/flutter-router)
 
 ## Getting started
  
