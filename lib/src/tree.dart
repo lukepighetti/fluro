@@ -120,24 +120,25 @@ class RouteTree {
       Map<RouteTreeNode, RouteTreeNodeMatch> currentMatches = <RouteTreeNode, RouteTreeNodeMatch>{};
       List<RouteTreeNode> nextNodes = <RouteTreeNode>[];
       for (RouteTreeNode node in nodesToCheck) {
-        bool isMatch = (node.part == checkComponent || node.isParameter());
+        String pathPart = checkComponent;
+        Map<String, String> queryMap;
+        if (checkComponent.contains("?")) {
+          var splitParam = checkComponent.split("?");
+          pathPart = splitParam[0];
+          queryMap = parseQueryString(splitParam[1]);
+        }
+        bool isMatch = (node.part == pathPart || node.isParameter());
         if (isMatch) {
           RouteTreeNodeMatch parentMatch = nodeMatches[node.parent];
-//					print("pm: ${parentMatch?.node?.part}, ${parentMatch?.parameters}");
           RouteTreeNodeMatch match = new RouteTreeNodeMatch.fromMatch(parentMatch, node);
           if (node.isParameter()) {
             String paramKey = node.part.substring(1);
-            if (checkComponent.contains("?")) {
-              var splitParam = checkComponent.split("?");
-              var namedParam = splitParam[0];
-              var queryParams = parseQueryString(splitParam[1]);
-              match.parameters[paramKey] = namedParam;
-              match.parameters.addAll(queryParams);
-            } else {
-              match.parameters[paramKey] = checkComponent;
-            }
+            match.parameters[paramKey] = pathPart;
           }
-          print("matched: ${node.part}, isParam: ${node.isParameter()}, params: ${match.parameters}");
+          if (queryMap != null) {
+            match.parameters.addAll(queryMap);
+          }
+//          print("matched: ${node.part}, isParam: ${node.isParameter()}, params: ${match.parameters}");
           currentMatches[node] = match;
           if (node.nodes != null) {
             nextNodes.addAll(node.nodes);

@@ -27,9 +27,8 @@ class Router {
 
   /// Finds a defined [AppRoute] for the path value. If no [AppRoute] definition was found
   /// then function will return null.
-  AppRoute match(String path) {
-    AppRouteMatch match = _routeTree.matchRoute(path);
-    return match?.route;
+  AppRouteMatch match(String path) {
+    return _routeTree.matchRoute(path);
   }
 
   ///
