@@ -1,8 +1,8 @@
 name: fluro
-description: Flexible routing for Flutter.
-version: 0.1.0
+description: The brightest, hippest, coolest router for Flutter.
+version: 1.0.0
 author: Posse Productions LLC
-homepage: http://goposse.com
+homepage: https://github.com/goposse/fluro
 
 dependencies:
   flutter:
