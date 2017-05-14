@@ -76,3 +76,10 @@ You can also manually push to a route yourself. To do so:
 router.navigateTo(context, "/users/1234",
     transition: TransitionType.fadeIn);
 ```
+<br/>
+<hr/>
+Fluro is a Posse Production.
+<br/>
+<a href="http://goposse.com" target="_posse">
+<img src="https://storage.googleapis.com/posse-logos/logo-posse.png"
+  width="60"></a>
