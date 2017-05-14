@@ -3,6 +3,7 @@
 
 The brightest, hippest, coolest router for Flutter.
 
+[![Version]](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://pub.dartlang.org/packages/fluro)
 [![Build Status](https://travis-ci.org/goposse/fluro.svg?branch=master)](https://travis-ci.org/goposse/fluro)
 [![Coverage](https://codecov.io/gh/goposse/fluro/branch/master/graph/badge.svg)](https://codecov.io/gh/goposse/fluro)
 
@@ -17,15 +18,19 @@ The brightest, hippest, coolest router for Flutter.
 ## Getting started
 
 You should ensure that you add the router as a dependency in your flutter project.
-Currently, you will need to add the git repo directly. A submitted pub package will be available **soon**.
-
-To add the dependency directly:
-
- ```yaml
+```yaml
 dependencies:
-  fluro:
-    git: git://github.com/goposse/flutter-router.git
+ fluro: "^1.0.0"
 ```
+
+You can also reference the git repo directly if you want:
+```yaml
+dependencies:
+ fluro:
+   git: git://github.com/goposse/fluro.git
+```
+
+
 You should then run `flutter packages upgrade` or update your packages in IntelliJ.
 
 ## Example Project
