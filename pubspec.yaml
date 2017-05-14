@@ -1,6 +1,6 @@
-name: router
+name: fluro
 description: Flexible routing for Flutter.
-version: 0.0.1
+version: 0.1.0
 author: Posse Productions LLC
 homepage: http://goposse.com
 
