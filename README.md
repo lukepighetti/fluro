@@ -3,7 +3,7 @@
 
 The brightest, hippest, coolest router for Flutter.
 
-[![Version]](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://pub.dartlang.org/packages/fluro)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://pub.dartlang.org/packages/fluro)
 [![Build Status](https://travis-ci.org/goposse/fluro.svg?branch=master)](https://travis-ci.org/goposse/fluro)
 [![Coverage](https://codecov.io/gh/goposse/fluro/branch/master/graph/badge.svg)](https://codecov.io/gh/goposse/fluro)
 
