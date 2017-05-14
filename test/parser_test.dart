@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fluro/router.dart';
+import 'package:fluro/fluro.dart';
 
 void main() {
 

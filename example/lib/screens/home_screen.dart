@@ -6,7 +6,7 @@
  * See LICENSE for distribution and usage details.
  */
 import 'package:flutter/material.dart';
-import 'package:router/router.dart';
+import 'package:router/fluro.dart';
 import 'package:router_example/config/application.dart';
 
 class HomeScreen extends StatelessWidget {

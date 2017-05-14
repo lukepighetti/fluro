@@ -6,7 +6,7 @@
  * See LICENSE for distribution and usage details.
  */
 import 'package:flutter/painting.dart';
-import 'package:router/router.dart';
+import 'package:router/fluro.dart';
 import 'package:router_example/helpers/color_helpers.dart';
 import 'package:router_example/screens/test_screen_01.dart';
 

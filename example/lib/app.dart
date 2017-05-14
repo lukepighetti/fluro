@@ -7,7 +7,7 @@
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:router/router.dart';
+import 'package:router/fluro.dart';
 import 'package:router_example/config/application.dart';
 import 'package:router_example/config/route_handlers.dart';
 import 'package:router_example/screens/home_screen.dart';
