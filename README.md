@@ -3,8 +3,8 @@
 
 The brightest, hippest, coolest router for Flutter.
 
-[![Build Status](https://travis-ci.org/goposse/flutter-router.svg?branch=master)](https://travis-ci.org/goposse/flutter-router)
-[![Coverage](https://codecov.io/gh/goposse/flutter-router/branch/master/graph/badge.svg)](https://codecov.io/gh/goposse/flutter-router)
+[![Build Status](https://travis-ci.org/goposse/fluro.svg?branch=master)](https://travis-ci.org/goposse/fluro)
+[![Coverage](https://codecov.io/gh/goposse/fluro/branch/master/graph/badge.svg)](https://codecov.io/gh/goposse/fluro)
 
 ## Features
 
