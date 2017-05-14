@@ -5,12 +5,9 @@
  * Copyright (c) 2017 Posse Productions LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
-library fluro;
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:router_example/app.dart';
 
-part 'src/common.dart';
-part 'src/router.dart';
-part 'src/tree.dart';
+void main() {
+  runApp(new App());
+}

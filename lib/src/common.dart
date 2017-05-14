@@ -5,7 +5,7 @@
  * Copyright (c) 2017 Posse Productions LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
-part of router;
+part of fluro;
 
 ///
 typedef Route<Null> RouteCreator(RouteSettings route, Map<String, String> parameters);

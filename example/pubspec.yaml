@@ -1,0 +1,13 @@
+name: router_example
+description: An example project for the flutter router.
+
+dependencies:
+  flutter:
+    sdk: flutter
+  router:
+    path: ../
+flutter:
+  uses-material-design: false
+  assets:
+    - assets/images/logo_fluro.png
+    - assets/images/acc_boom.png

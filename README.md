@@ -1,26 +1,40 @@
-# Router
+<img src="https://storage.googleapis.com/app-logos/logo_fluro.png" width="220">
+<br/><br/>
+
+The brightest, hippest, coolest router for Flutter.
 
 [![Build Status](https://travis-ci.org/goposse/flutter-router.svg?branch=master)](https://travis-ci.org/goposse/flutter-router)
-[![codecov](https://codecov.io/gh/goposse/flutter-router/branch/master/graph/badge.svg)](https://codecov.io/gh/goposse/flutter-router)
+[![Coverage](https://codecov.io/gh/goposse/flutter-router/branch/master/graph/badge.svg)](https://codecov.io/gh/goposse/flutter-router)
+
+## Features
+
+- Simple route navigation
+- Wildcard parameter matching
+- Querystring parameter parsing
+- Common transitions built-in
+- Simple custom transition creation
 
 ## Getting started
- 
- You should ensure that you add the router as a dependency in your flutter project. 
- Currently, you will need to add the git repo directly. A submitted pub package will
- be available soon.
- 
- To add the dependency directly:
- 
+
+You should ensure that you add the router as a dependency in your flutter project.
+Currently, you will need to add the git repo directly. A submitted pub package will be available **soon**.
+
+To add the dependency directly:
+
  ```yaml
 dependencies:
-  router:
+  fluro:
     git: git://github.com/goposse/flutter-router.git
 ```
-You should then run `pub update` or update your packages in IntelliJ.
+You should then run `flutter packages upgrade` or update your packages in IntelliJ.
+
+## Example Project
+
+There is a pretty sweet example project in the `example` folder. Check it out. Otherwise, keep reading to get up and running.
 
 ## Setting up
 
-First, you should define a new `Router` object by initializing it as such:  
+First, you should define a new `Router` object by initializing it as such:
 ```dart
 final Router router = new Router();
 ```
@@ -38,21 +52,22 @@ void defineRoutes(Router router) {
 }
 ```
 
-In the above example, the router will intercept a route such as 
+In the above example, the router will intercept a route such as
 `/users/1234` and route the application to the `UsersScreen` passing
 the value `1234` as a parameter to that screen.
 
 ## Navigating
 
 You can use the `Router` with the `MaterialApp.onGenerateRoute` parameter
- via the `Router.generator` function. To do so, pass the function reference to
- the `onGenerate` parameter like: `onGenerateRoute: router.generator`.
- 
+via the `Router.generator` function. To do so, pass the function reference to
+the `onGenerate` parameter like: `onGenerateRoute: router.generator`.
+
 You can then use `Navigator.push` and the flutter routing mechanism will match the routes
-for you. 
+for you.
 
 You can also manually push to a route yourself. To do so:
 
 ```dart
-router.navigateTo(context, "/users/1234");
+router.navigateTo(context, "/users/1234",
+    transition: TransitionType.fadeIn);
 ```
