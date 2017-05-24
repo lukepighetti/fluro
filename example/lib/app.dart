@@ -5,12 +5,12 @@
  * Copyright (c) 2017 Posse Productions LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
+import 'config/application.dart';
+import 'config/route_handlers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:router/fluro.dart';
-import 'package:router_example/config/application.dart';
-import 'package:router_example/config/route_handlers.dart';
-import 'package:router_example/screens/home_screen.dart';
+import 'package:fluro/fluro.dart';
+import 'screens/home_screen.dart';
 
 class App extends StatelessWidget {
 
@@ -18,7 +18,8 @@ class App extends StatelessWidget {
 
   App() {
     Router router = new Router();
-    router.define("/demo", handler: showDemoHandler);
+    router.define("/demo", handler: demoRouteHandler);
+    router.define("/demo/func", handler: demoFunctionHandler);
     Application.router = router;
     configureDeepLinker();
   }

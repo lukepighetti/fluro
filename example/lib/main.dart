@@ -5,8 +5,8 @@
  * Copyright (c) 2017 Posse Productions LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
+import 'app.dart';
 import 'package:flutter/material.dart';
-import 'package:router_example/app.dart';
 
 void main() {
   runApp(new App());

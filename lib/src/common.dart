@@ -8,14 +8,45 @@
 part of fluro;
 
 ///
-typedef Route<Null> RouteCreator(RouteSettings route, Map<String, String> parameters);
+enum HandlerType {
+  route,
+  function,
+}
 
 ///
-typedef Widget RouteHandler(Map<String, String> parameters);
+class Handler {
+  Handler({this.type = HandlerType.route, this.handlerFunc});
+  final HandlerType type;
+  final HandlerFunc handlerFunc;
+}
+
+///
+typedef Route<Null> RouteCreator(RouteSettings route, Map<String, dynamic> parameters);
+
+///
+typedef Widget HandlerFunc(BuildContext context, Map<String, dynamic> parameters);
 
 ///
 class AppRoute {
   String route;
-  RouteHandler handler;
+  dynamic handler;
   AppRoute(this.route, this.handler);
+}
+
+enum RouteMatchType {
+  visual,
+  nonVisual,
+  noMatch,
+}
+
+///
+class RouteMatch {
+  RouteMatch({
+    @required this.matchType = RouteMatchType.noMatch,
+    this.route = null,
+    this.errorMessage = "Unable to match route. Please check the logs."
+  });
+  final Route<Null> route;
+  final RouteMatchType matchType;
+  final String errorMessage;
 }

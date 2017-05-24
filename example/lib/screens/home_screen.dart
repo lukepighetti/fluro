@@ -5,29 +5,28 @@
  * Copyright (c) 2017 Posse Productions LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
+
+import '../config/application.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:router/fluro.dart';
-import 'package:router_example/config/application.dart';
 
 class HomeScreen extends StatelessWidget {
 
-  BuildContext context;
-
   @override
   Widget build(BuildContext context) {
-    this.context = context;
     var menuWidgets = <Widget>[
       new Padding(
         padding: new EdgeInsets.only(bottom: 15.0),
         child: new Image(image: new AssetImage("assets/images/logo_fluro.png"), width: 200.0),
       ),
-      menuButton("Native Animation", "native"),
-      menuButton("Preset (In from Left)", "preset-from-left"),
-      menuButton("Preset (Fade In)", "preset-fade"),
-      menuButton("Custom", "custom"),
+      menuButton(context, "Native Animation", "native"),
+      menuButton(context, "Preset (In from Left)", "preset-from-left"),
+      menuButton(context, "Preset (Fade In)", "preset-fade"),
+      menuButton(context, "Custom Transition", "custom"),
+      menuButton(context, "Function Call", "function-call"),
     ];
     return new Material(
-      color: new Color(0xFF00D6F7),
+      color: const Color(0xFF00D6F7),
       child: new Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: menuWidgets,
@@ -36,7 +35,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   // helpers
-  Widget menuButton(String title, String key) {
+  Widget menuButton(BuildContext context, String title, String key) {
     return new Padding(
       padding: new EdgeInsets.all(4.0),
       child: new ConstrainedBox(
@@ -45,11 +44,11 @@ class HomeScreen extends StatelessWidget {
           child: new Text(
             title,
             style: new TextStyle(
-              color: new Color(0xFF004F8F),
+              color: const Color(0xFF004F8F),
             ),
           ),
           onPressed: () {
-            tappedMenuButton(key);
+            tappedMenuButton(context, key);
           },
         ),
       ),
@@ -57,11 +56,11 @@ class HomeScreen extends StatelessWidget {
   }
 
   // actions
-  void tappedMenuButton(String key) {
+  void tappedMenuButton(BuildContext context, String key) {
     String message = "";
     String hexCode = "#FFFFFF";
     TransitionType transitionType = TransitionType.native;
-    if (key != "custom") {
+    if (key != "custom" && key != "function-call") {
       if (key == "native") {
         hexCode = "#F76F00";
         message = "This screen should have appeared using the default flutter animation for the current OS";
@@ -74,9 +73,9 @@ class HomeScreen extends StatelessWidget {
         message = "This screen should have appeared with a fade in transition";
         transitionType = TransitionType.fadeIn;
       }
-      Application.router.navigateTo(this.context, "/demo?message=$message&color_hex=$hexCode",
+      Application.router.navigateTo(context, "/demo?message=$message&color_hex=$hexCode",
           transition: transitionType);
-    } else {
+    } else if (key == "custom") {
       hexCode = "#DFF700";
       message = "This screen should have appeared with a crazy custom transition";
       var transition = (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation,
@@ -89,10 +88,13 @@ class HomeScreen extends StatelessWidget {
           ),
         );
       };
-      Application.router.navigateTo(this.context, "/demo?message=$message&color_hex=$hexCode",
+      Application.router.navigateTo(context, "/demo?message=$message&color_hex=$hexCode",
         transition: TransitionType.fadeIn, transitionBuilder: transition,
         transitionDuration: const Duration(milliseconds: 600),
       );
+    } else {
+      message = "You tapped the function button!";
+      Application.router.navigateTo(context, "/demo/func?message=$message");
     }
   }
 }
