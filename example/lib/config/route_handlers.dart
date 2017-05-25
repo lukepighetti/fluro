@@ -6,7 +6,7 @@
  * See LICENSE for distribution and usage details.
  */
 import '../helpers/color_helpers.dart';
-import '../screens/test_screen_01.dart';
+import '../components/demo/demo_simple_component.dart';
 import 'package:flutter/painting.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +18,12 @@ Handler demoRouteHandler = new Handler(handlerFunc: (BuildContext context, Map<S
   if (colorHex != null && colorHex.length > 0) {
     color = new Color(ColorHelpers.fromHexString(colorHex));
   }
-  return new TestScreen01(message: message, color: color);
+  return new DemoSimpleComponent(message: message, color: color);
 });
 
 Handler demoFunctionHandler = new Handler(type: HandlerType.function,
-    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    handlerFunc: (BuildContext context, Map<String, dynamic> params)
+{
       String message = params["message"];
       showDialog(context: context,
         child: new AlertDialog(
@@ -49,3 +50,7 @@ Handler demoFunctionHandler = new Handler(type: HandlerType.function,
         ),
       );
     });
+
+Handler deepLinkHandler = new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+
+});

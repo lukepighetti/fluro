@@ -14,25 +14,20 @@ import io.flutter.plugins.GeneratedPluginRegistrant
 class MainActivity : FlutterActivity() {
 
 	private val LOG_TAG = "A:Main"
-	private var deepLinkChannel: MethodChannel = MethodChannel(flutterView, Channels.DEEP_LINK_RECEIVED)
+	private var deepLinkChannel: MethodChannel? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		GeneratedPluginRegistrant.registerWith(this)
+		deepLinkChannel = MethodChannel(flutterView, Channels.DEEP_LINK_RECEIVED)
 		checkForLinkEvent(intent)
 	}
 
 	private fun checkForLinkEvent(intent: Intent) {
-		val action = intent.action
-		Log.d(LOG_TAG, "Hey!!! " + action)
-		if (action == Intent.ACTION_VIEW) {
-			val data = intent.data
-			if (data != null) {
-				val path = data.getQueryParameter("path")
-				if (path != null) {
-					Log.d(LOG_TAG, String.format("Received external link: %s", data.toString()))
-					deepLinkChannel!!.invokeMethod("linkReceived", path)
-				}
+		if (intent.action == Intent.ACTION_VIEW && intent.data != null) {
+			val path = intent.data.getQueryParameter("path")
+			if (path != null) {
+				deepLinkChannel?.invokeMethod("linkReceived", path)
 			}
 		}
 	}

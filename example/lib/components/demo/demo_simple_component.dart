@@ -5,12 +5,12 @@
  * Copyright (c) 2017 Posse Productions LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
-import '../helpers/color_helpers.dart';
+import '../../helpers/color_helpers.dart';
 import 'package:flutter/material.dart';
 
-class TestScreen01 extends StatelessWidget {
+class DemoSimpleComponent extends StatelessWidget {
 
-  TestScreen01({String message = "Testing", Color color = const Color(0xFFFFFFFF)})
+  DemoSimpleComponent({String message = "Testing", Color color = const Color(0xFFFFFFFF)})
       : this.message = message,
         this.color = color;
 

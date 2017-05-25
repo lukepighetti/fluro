@@ -9,9 +9,9 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-class MessageScreen extends StatelessWidget {
+class DemoMessageComponent extends StatelessWidget {
 
-  MessageScreen({@required this.message, this.color = const Color(0xFFFFFFFF)});
+  DemoMessageComponent({@required this.message, this.color = const Color(0xFFFFFFFF)});
 
   final String message;
   final Color color;

@@ -6,11 +6,11 @@
  * See LICENSE for distribution and usage details.
  */
 
-import '../config/application.dart';
+import '../../config/application.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
