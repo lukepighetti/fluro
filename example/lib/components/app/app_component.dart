@@ -14,32 +14,35 @@ import 'package:router_example/config/routes.dart';
 
 class AppComponent extends StatefulWidget {
 
-  static const platform = const MethodChannel('channel:com.goposse.routersample/deeplink');
-
   @override
   State createState() {
-    configureDeepLinker();
     return new AppComponentState();
-  }
-
-  void configureDeepLinker() {
-    platform.setMethodCallHandler((MethodCall call) async {
-      if (call.method == "linkReceived") {
-        String path = call.arguments;
-        if (path != null) {
-          print("got path: $path");
-        }
-      }
-    });
   }
 }
 
 class AppComponentState extends State<AppComponent> {
 
+  static MethodChannel platform = const MethodChannel('channel:com.goposse.routersample/deeplink');
+
   AppComponentState() {
     Router router = new Router();
     Routes.configureRoutes(router);
     Application.router = router;
+    configureDeepLinker();
+    print("Configured channel receiver in flutter ..");
+  }
+
+
+  void configureDeepLinker() {
+    platform.setMethodCallHandler((MethodCall call) async {
+      if (call.method == "linkReceived") {
+        Map<String, dynamic> passedObjs = call.arguments;
+        if (passedObjs != null) {
+          var path = passedObjs["path"];
+          Application.router.navigateTo(context, path);
+        }
+      }
+    });
   }
 
   @override

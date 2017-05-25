@@ -20,14 +20,24 @@ class MainActivity : FlutterActivity() {
 		super.onCreate(savedInstanceState)
 		GeneratedPluginRegistrant.registerWith(this)
 		deepLinkChannel = MethodChannel(flutterView, Channels.DEEP_LINK_RECEIVED)
+	}
+
+	override fun onResume() {
+		super.onResume()
 		checkForLinkEvent(intent)
 	}
 
 	private fun checkForLinkEvent(intent: Intent) {
 		if (intent.action == Intent.ACTION_VIEW && intent.data != null) {
 			val path = intent.data.getQueryParameter("path")
+			val query = intent.data.getQueryParameter("query")
 			if (path != null) {
-				deepLinkChannel?.invokeMethod("linkReceived", path)
+				val passedObjs = mutableMapOf<String, Any>("path" to path)
+				if (query != null) {
+					passedObjs["query"] = query
+				}
+				deepLinkChannel?.invokeMethod("linkReceived", passedObjs)
+				Log.d(LOG_TAG, "Sent message to flutter: linkReceived=$path")
 			}
 		}
 	}

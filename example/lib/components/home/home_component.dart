@@ -11,7 +11,6 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
 class HomeComponent extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     var menuWidgets = <Widget>[
@@ -27,12 +26,20 @@ class HomeComponent extends StatelessWidget {
       new Padding(
         padding: new EdgeInsets.only(top: 65.0, left: 60.0, right: 60.0),
         child: new Center(
-          child: new Text(
-            "Try going to fluro://deeplink?path=/message&text=fluro%20rocks%21%21",
-            textAlign: TextAlign.center,
-            style: new TextStyle(
-              fontSize: 10.0,
-              color: const Color(0xFFFFFFFF),
+          child: new ConstrainedBox(
+            constraints: new BoxConstraints.tightFor(height: 50.0),
+            child: new FlatButton(
+              onPressed: () {
+
+              },
+              child: new Text(
+                "Try going to fluro://deeplink?path=/message&text=fluro%20rocks%21%21",
+                textAlign: TextAlign.center,
+                style: new TextStyle(
+                  fontSize: 10.0,
+                  color: const Color(0xFFFFFFFF),
+                ),
+              ),
             ),
           ),
         ),
@@ -87,13 +94,12 @@ class HomeComponent extends StatelessWidget {
         message = "This screen should have appeared with a fade in transition";
         transitionType = TransitionType.fadeIn;
       }
-      Application.router.navigateTo(context, "/demo?message=$message&color_hex=$hexCode",
-          transition: transitionType);
+      Application.router.navigateTo(context, "/demo?message=$message&color_hex=$hexCode", transition: transitionType);
     } else if (key == "custom") {
       hexCode = "#DFF700";
       message = "This screen should have appeared with a crazy custom transition";
-      var transition = (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation,
-          Widget child) {
+      var transition =
+          (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
         return new ScaleTransition(
           scale: animation,
           child: new RotationTransition(
@@ -102,8 +108,11 @@ class HomeComponent extends StatelessWidget {
           ),
         );
       };
-      Application.router.navigateTo(context, "/demo?message=$message&color_hex=$hexCode",
-        transition: TransitionType.custom, transitionBuilder: transition,
+      Application.router.navigateTo(
+        context,
+        "/demo?message=$message&color_hex=$hexCode",
+        transition: TransitionType.custom,
+        transitionBuilder: transition,
         transitionDuration: const Duration(milliseconds: 600),
       );
     } else {
