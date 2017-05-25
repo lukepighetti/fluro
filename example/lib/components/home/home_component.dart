@@ -16,7 +16,7 @@ class HomeComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     var menuWidgets = <Widget>[
       new Padding(
-        padding: new EdgeInsets.only(bottom: 15.0),
+        padding: new EdgeInsets.only(bottom: 25.0),
         child: new Image(image: new AssetImage("assets/images/logo_fluro.png"), width: 200.0),
       ),
       menuButton(context, "Native Animation", "native"),
@@ -24,7 +24,21 @@ class HomeComponent extends StatelessWidget {
       menuButton(context, "Preset (Fade In)", "preset-fade"),
       menuButton(context, "Custom Transition", "custom"),
       menuButton(context, "Function Call", "function-call"),
+      new Padding(
+        padding: new EdgeInsets.only(top: 65.0, left: 60.0, right: 60.0),
+        child: new Center(
+          child: new Text(
+            "Try going to fluro://deeplink?path=/message&text=fluro%20rocks%21%21",
+            textAlign: TextAlign.center,
+            style: new TextStyle(
+              fontSize: 10.0,
+              color: const Color(0xFFFFFFFF),
+            ),
+          ),
+        ),
+      ),
     ];
+
     return new Material(
       color: const Color(0xFF00D6F7),
       child: new Column(
@@ -39,7 +53,7 @@ class HomeComponent extends StatelessWidget {
     return new Padding(
       padding: new EdgeInsets.all(4.0),
       child: new ConstrainedBox(
-        constraints: new BoxConstraints(minHeight: 42.0),
+        constraints: new BoxConstraints(minHeight: 32.0),
         child: new FlatButton(
           child: new Text(
             title,
@@ -89,7 +103,7 @@ class HomeComponent extends StatelessWidget {
         );
       };
       Application.router.navigateTo(context, "/demo?message=$message&color_hex=$hexCode",
-        transition: TransitionType.fadeIn, transitionBuilder: transition,
+        transition: TransitionType.custom, transitionBuilder: transition,
         transitionDuration: const Duration(milliseconds: 600),
       );
     } else {

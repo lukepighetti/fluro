@@ -5,7 +5,7 @@ class Routes {
 
   static String demoSimple = "/demo";
   static String demoFunc = "/demo/func";
-  static String deepLink = "/deeplink";
+  static String deepLink = "/message";
 
   static void configureRoutes(Router router) {
     router.define(demoSimple, handler: demoRouteHandler);
