@@ -11,7 +11,7 @@ import 'package:flutter/painting.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
-Handler demoRouteHandler = new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+var demoRouteHandler = new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   String message = params["message"];
   String colorHex = params["color_hex"];
   Color color = new Color(0xFFFFFFFF);
@@ -21,7 +21,7 @@ Handler demoRouteHandler = new Handler(handlerFunc: (BuildContext context, Map<S
   return new DemoSimpleComponent(message: message, color: color);
 });
 
-Handler demoFunctionHandler = new Handler(type: HandlerType.function,
+var demoFunctionHandler = new Handler(type: HandlerType.function,
     handlerFunc: (BuildContext context, Map<String, dynamic> params)
 {
       String message = params["message"];
@@ -51,6 +51,6 @@ Handler demoFunctionHandler = new Handler(type: HandlerType.function,
       );
     });
 
-Handler deepLinkHandler = new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+var deepLinkHandler = new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
 
 });
