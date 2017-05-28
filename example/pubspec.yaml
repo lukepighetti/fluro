@@ -4,10 +4,14 @@ description: An example project for the flutter router.
 dependencies:
   flutter:
     sdk: flutter
-  router:
+  fluro:
     path: ../
 flutter:
   uses-material-design: false
   assets:
     - assets/images/logo_fluro.png
     - assets/images/acc_boom.png
+  fonts:
+    - family: Lazer84
+      fonts:
+        - asset: assets/fonts/Lazer84.ttf
