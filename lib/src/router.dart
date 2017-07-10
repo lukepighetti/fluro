@@ -37,7 +37,7 @@ class Router {
   }
 
   ///
-  void navigateTo(BuildContext context, String path, {TransitionType transition = TransitionType.native,
+  void navigateTo(BuildContext context, String path, {bool replace = false, TransitionType transition = TransitionType.native,
     Duration transitionDuration = const Duration(milliseconds: 250),
     RouteTransitionsBuilder transitionBuilder})
   {
@@ -51,7 +51,7 @@ class Router {
       route = _notFoundRoute(context, path);
     }
     if (route != null) {
-      Navigator.push(context, route);
+      replace ? Navigator.pushReplacement(context, route) : Navigator.push(context, route);
     } else {
       print("No registered route was found to handle '$path'.");
     }
