@@ -60,7 +60,7 @@ class Router {
   ///
   Route<Null> _notFoundRoute(BuildContext context, String path) {
     RouteCreator creator = (RouteSettings routeSettings, Map<String, dynamic> parameters) {
-      return new MaterialPageRoute<Null>(settings: routeSettings, builder: (BuildContext context) {
+      return new MaterialPageRoute<dynamic>(settings: routeSettings, builder: (BuildContext context) {
         return notFoundHandler.handlerFunc(context, parameters);
       });
     };
@@ -102,7 +102,7 @@ class Router {
         } else {
           routeTransitionsBuilder = _standardTransitionsBuilder(transitionType);
         }
-        return new PageRouteBuilder<Null>(settings: routeSettings,
+        return new PageRouteBuilder<dynamic>(settings: routeSettings,
           pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
             return handler.handlerFunc(context, parameters);
           },
