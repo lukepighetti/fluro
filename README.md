@@ -3,7 +3,7 @@
 
 The brightest, hippest, coolest router for Flutter.
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://pub.dartlang.org/packages/fluro)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://pub.dartlang.org/packages/fluro)
 [![Build Status](https://travis-ci.org/goposse/fluro.svg?branch=master)](https://travis-ci.org/goposse/fluro)
 [![Coverage](https://codecov.io/gh/goposse/fluro/branch/master/graph/badge.svg)](https://codecov.io/gh/goposse/fluro)
 
@@ -40,7 +40,7 @@ var usersHandler = new Handler(handlerFunc: (BuildContext context, Map<String, d
 You should ensure that you add the router as a dependency in your flutter project.
 ```yaml
 dependencies:
- fluro: "^1.1.0"
+ fluro: "^1.2.0"
 ```
 
 You can also reference the git repo directly if you want:
