@@ -122,18 +122,21 @@ class Router {
       if (transitionType == TransitionType.fadeIn) {
         return new FadeTransition(opacity: animation, child: child);
       } else {
-        FractionalOffset startOffset = FractionalOffset.bottomLeft;
-        FractionalOffset endOffset = FractionalOffset.topLeft;
+        const Offset topLeft = const Offset(0.0, 0.0);
+        const Offset topRight = const Offset(1.0, 0.0);
+        const Offset bottomLeft = const Offset(0.0, 1.0);
+        Offset startOffset = bottomLeft;
+        Offset endOffset = topLeft;
         if (transitionType == TransitionType.inFromLeft) {
           startOffset = new FractionalOffset(-1.0, 0.0);
-          endOffset = FractionalOffset.topLeft;
+          endOffset = topLeft;
         } else if (transitionType == TransitionType.inFromRight) {
-          startOffset = FractionalOffset.topRight;
-          endOffset = FractionalOffset.topLeft;
+          startOffset = topRight;
+          endOffset = topLeft;
         }
 
         return new SlideTransition(
-          position: new FractionalOffsetTween(
+          position: new Tween<Offset>(
             begin: startOffset,
             end: endOffset,
           ).animate(animation),
