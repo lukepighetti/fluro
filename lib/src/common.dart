@@ -21,7 +21,7 @@ class Handler {
 }
 
 ///
-typedef Route<Null> RouteCreator(RouteSettings route, Map<String, dynamic> parameters);
+typedef Route<T> RouteCreator<T>(RouteSettings route, Map<String, dynamic> parameters);
 
 ///
 typedef Widget HandlerFunc(BuildContext context, Map<String, dynamic> parameters);
@@ -46,7 +46,7 @@ class RouteMatch {
     this.route = null,
     this.errorMessage = "Unable to match route. Please check the logs."
   });
-  final Route<Null> route;
+  final Route<dynamic> route;
   final RouteMatchType matchType;
   final String errorMessage;
 }
