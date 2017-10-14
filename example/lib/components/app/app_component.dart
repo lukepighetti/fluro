@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluro/fluro.dart';
 import '../home/home_component.dart';
-import 'package:router_example/config/routes.dart';
+import '../../config/routes.dart';
 
 class AppComponent extends StatefulWidget {
 
