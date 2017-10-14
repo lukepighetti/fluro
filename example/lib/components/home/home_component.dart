@@ -23,6 +23,7 @@ class HomeComponent extends StatelessWidget {
       menuButton(context, "Preset (Fade In)", "preset-fade"),
       menuButton(context, "Custom Transition", "custom"),
       menuButton(context, "Function Call", "function-call"),
+      menuButton(context, "Navigator Result", "pop-result"),
       new Padding(
         padding: new EdgeInsets.only(top: 65.0, left: 60.0, right: 60.0),
         child: new Center(
@@ -80,26 +81,49 @@ class HomeComponent extends StatelessWidget {
   void tappedMenuButton(BuildContext context, String key) {
     String message = "";
     String hexCode = "#FFFFFF";
+    String result;
     TransitionType transitionType = TransitionType.native;
     if (key != "custom" && key != "function-call") {
       if (key == "native") {
         hexCode = "#F76F00";
-        message = "This screen should have appeared using the default flutter animation for the current OS";
+        message =
+        "This screen should have appeared using the default flutter animation for the current OS";
       } else if (key == "preset-from-left") {
         hexCode = "#5BF700";
-        message = "This screen should have appeared with a slide in from left transition";
+        message =
+        "This screen should have appeared with a slide in from left transition";
         transitionType = TransitionType.inFromLeft;
       } else if (key == "preset-fade") {
         hexCode = "#F700D2";
         message = "This screen should have appeared with a fade in transition";
         transitionType = TransitionType.fadeIn;
+      } else if (key == "pop-result") {
+        transitionType = TransitionType.native;
+        hexCode = "#407F7F";
+        message = "This screen should return the current weekday";
+        result = new DateTime.now().weekday.toString();
       }
-      Application.router.navigateTo(context, "/demo?message=$message&color_hex=$hexCode", transition: transitionType);
+
+      String route = "/demo?message=$message&color_hex=$hexCode";
+
+      if (result != null) {
+        route = "$route&result=$result";
+      }
+
+      Application.router.navigateTo(
+          context, route,
+          transition: transitionType).then((result) {
+            if (key == "pop-result") {
+              Application.router.navigateTo(context, "/demo/func?message=$result");
+            }
+          });
     } else if (key == "custom") {
       hexCode = "#DFF700";
-      message = "This screen should have appeared with a crazy custom transition";
+      message =
+      "This screen should have appeared with a crazy custom transition";
       var transition =
-          (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+          (BuildContext context, Animation<double> animation,
+          Animation<double> secondaryAnimation, Widget child) {
         return new ScaleTransition(
           scale: animation,
           child: new RotationTransition(

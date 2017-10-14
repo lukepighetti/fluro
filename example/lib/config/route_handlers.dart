@@ -14,11 +14,12 @@ import 'package:flutter/material.dart';
 var demoRouteHandler = new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   String message = params["message"];
   String colorHex = params["color_hex"];
+  String result = params["result"];
   Color color = new Color(0xFFFFFFFF);
   if (colorHex != null && colorHex.length > 0) {
     color = new Color(ColorHelpers.fromHexString(colorHex));
   }
-  return new DemoSimpleComponent(message: message, color: color);
+  return new DemoSimpleComponent(message: message, color: color, result: result);
 });
 
 var demoFunctionHandler = new Handler(type: HandlerType.function,
