@@ -9,8 +9,8 @@ import '../../config/application.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluro/fluro.dart';
-import '../home/home_component.dart';
 import '../../config/routes.dart';
+import '../home/home_component.dart';
 
 class AppComponent extends StatefulWidget {
 

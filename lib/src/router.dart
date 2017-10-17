@@ -128,7 +128,7 @@ class Router {
         Offset startOffset = bottomLeft;
         Offset endOffset = topLeft;
         if (transitionType == TransitionType.inFromLeft) {
-          startOffset = new Offset(-1.0, 0.0);
+          startOffset = const Offset(-1.0, 0.0);
           endOffset = topLeft;
         } else if (transitionType == TransitionType.inFromRight) {
           startOffset = topRight;
