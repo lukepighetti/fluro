@@ -60,7 +60,7 @@ class Router {
   ///
   Route<Null> _notFoundRoute(BuildContext context, String path) {
     RouteCreator creator = (RouteSettings routeSettings, Map<String, dynamic> parameters) {
-      return new MaterialPageRoute<dynamic>(settings: routeSettings, builder: (BuildContext context) {
+      return new MaterialPageRoute<Null>(settings: routeSettings, builder: (BuildContext context) {
         return notFoundHandler.handlerFunc(context, parameters);
       });
     };
@@ -102,7 +102,7 @@ class Router {
         } else {
           routeTransitionsBuilder = _standardTransitionsBuilder(transitionType);
         }
-        return new PageRouteBuilder<dynamic>(settings: routeSettings,
+        return new PageRouteBuilder<Null>(settings: routeSettings,
           pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
             return handler.handlerFunc(context, parameters);
           },
@@ -128,7 +128,7 @@ class Router {
         Offset startOffset = bottomLeft;
         Offset endOffset = topLeft;
         if (transitionType == TransitionType.inFromLeft) {
-          startOffset = new FractionalOffset(-1.0, 0.0);
+          startOffset = new Offset(-1.0, 0.0);
           endOffset = topLeft;
         } else if (transitionType == TransitionType.inFromRight) {
           startOffset = topRight;
