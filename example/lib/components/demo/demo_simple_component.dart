@@ -10,12 +10,14 @@ import 'package:flutter/material.dart';
 
 class DemoSimpleComponent extends StatelessWidget {
 
-  DemoSimpleComponent({String message = "Testing", Color color = const Color(0xFFFFFFFF)})
+  DemoSimpleComponent({String message = "Testing", Color color = const Color(0xFFFFFFFF), String result})
       : this.message = message,
-        this.color = color;
+        this.color = color,
+        this.result = result;
 
   final String message;
   final Color color;
+  final String result;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,11 @@ class DemoSimpleComponent extends StatelessWidget {
             padding: new EdgeInsets.only(top: 15.0),
             child: new FlatButton(
               onPressed: () {
-                Navigator.pop(context);
+                if (result == null) {
+                  Navigator.pop(context);
+                } else {
+                  Navigator.pop(context, result);
+                }
               },
               child: new Text(
                 "OK",

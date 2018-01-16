@@ -37,29 +37,37 @@ class Router {
   }
 
   ///
-  void navigateTo(BuildContext context, String path, {bool replace = false, TransitionType transition = TransitionType.native,
+  Future navigateTo(BuildContext context, String path, {bool replace = false, TransitionType transition = TransitionType.native,
     Duration transitionDuration = const Duration(milliseconds: 250),
     RouteTransitionsBuilder transitionBuilder})
   {
     RouteMatch routeMatch = matchRoute(context, path, transitionType: transition,
         transitionsBuilder: transitionBuilder, transitionDuration: transitionDuration);
-    Route<Null> route = routeMatch.route;
+    Route<dynamic> route = routeMatch.route;
+    Completer completer = new Completer();
+    Future future = completer.future;
     if (routeMatch.matchType == RouteMatchType.nonVisual) {
-      return;
-    }
-    if (route == null && notFoundHandler != null) {
-      route = _notFoundRoute(context, path);
-    }
-    if (route != null) {
-      replace ? Navigator.pushReplacement(context, route) : Navigator.push(context, route);
+      completer.complete("Non visual route type.");
     } else {
-      print("No registered route was found to handle '$path'.");
+      if (route == null && notFoundHandler != null) {
+        route = _notFoundRoute(context, path);
+      }
+      if (route != null) {
+        future = replace ? Navigator.pushReplacement(context, route) : Navigator.push(context, route);
+        completer.complete();
+      } else {
+        String error = "No registered route was found to handle '$path'.";
+        print(error);
+        completer.completeError(error);
+      }
     }
+
+    return future;
   }
 
   ///
   Route<Null> _notFoundRoute(BuildContext context, String path) {
-    RouteCreator creator = (RouteSettings routeSettings, Map<String, dynamic> parameters) {
+    RouteCreator<Null> creator = (RouteSettings routeSettings, Map<String, dynamic> parameters) {
       return new MaterialPageRoute<Null>(settings: routeSettings, builder: (BuildContext context) {
         return notFoundHandler.handlerFunc(context, parameters);
       });
@@ -91,7 +99,7 @@ class Router {
     RouteCreator creator = (RouteSettings routeSettings, Map<String, dynamic> parameters) {
       bool isNativeTransition = (transitionType == TransitionType.native || transitionType == TransitionType.nativeModal);
       if (isNativeTransition) {
-        return new MaterialPageRoute<Null>(settings: routeSettings, fullscreenDialog: transitionType == TransitionType.nativeModal,
+        return new MaterialPageRoute<dynamic>(settings: routeSettings, fullscreenDialog: transitionType == TransitionType.nativeModal,
             builder: (BuildContext context) {
               return handler.handlerFunc(context, parameters);
             });
