@@ -2,7 +2,7 @@
  * fluro
  * A Posse Production
  * http://goposse.com
- * Copyright (c) 2017 Posse Productions LLC. All rights reserved.
+ * Copyright (c) 2018 Posse Productions LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 import '../../helpers/color_helpers.dart';
@@ -29,8 +29,8 @@ class DemoSimpleComponent extends StatelessWidget {
           new Image(
             image: new AssetImage("assets/images/acc_boom.png"),
             color: ColorHelpers.blackOrWhiteContrastColor(color),
-            width: 350.0,
-          ),          
+            width: 260.0,
+          ),
           new Padding(
             padding: new EdgeInsets.only(left: 50.0, right: 50.0, top: 15.0),
             child: new Text(
@@ -44,19 +44,24 @@ class DemoSimpleComponent extends StatelessWidget {
           ),
           new Padding(
             padding: new EdgeInsets.only(top: 15.0),
-            child: new FlatButton(
-              onPressed: () {
-                if (result == null) {
-                  Navigator.pop(context);
-                } else {
-                  Navigator.pop(context, result);
-                }
-              },
-              child: new Text(
-                "OK",
-                style: new TextStyle(
-                  fontSize: 18.0,
-                  color: ColorHelpers.blackOrWhiteContrastColor(color),
+            child: new ConstrainedBox(
+              constraints: new BoxConstraints(minHeight: 42.0),
+              child: new FlatButton(
+                highlightColor: ColorHelpers.blackOrWhiteContrastColor(color).withAlpha(17),
+                splashColor: ColorHelpers.blackOrWhiteContrastColor(color).withAlpha(34),
+                onPressed: () {
+                  if (result == null) {
+                    Navigator.pop(context);
+                  } else {
+                    Navigator.pop(context, result);
+                  }
+                },
+                child: new Text(
+                  "OK",
+                  style: new TextStyle(
+                    fontSize: 18.0,
+                    color: ColorHelpers.blackOrWhiteContrastColor(color),
+                  ),
                 ),
               ),
             ),

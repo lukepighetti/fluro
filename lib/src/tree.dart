@@ -2,7 +2,7 @@
  * fluro
  * A Posse Production
  * http://goposse.com
- * Copyright (c) 2017 Posse Productions LLC. All rights reserved.
+ * Copyright (c) 2018 Posse Productions LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 part of fluro;
@@ -56,7 +56,7 @@ class RouteTreeNode {
 
 class RouteTree {
   // private
-  List<RouteTreeNode> _nodes = <RouteTreeNode>[];
+  final List<RouteTreeNode> _nodes = <RouteTreeNode>[];
   bool _hasDefaultRoute = false;
 
   // addRoute - add a route to the route tree

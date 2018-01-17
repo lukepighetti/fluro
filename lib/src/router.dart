@@ -2,7 +2,7 @@
  * fluro
  * A Posse Production
  * http://goposse.com
- * Copyright (c) 2017 Posse Productions LLC. All rights reserved.
+ * Copyright (c) 2018 Posse Productions LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 part of fluro;
@@ -18,8 +18,11 @@ enum TransitionType {
 }
 
 class Router {
+
+  static final appRouter = new Router();
+
   /// The tree structure that stores the defined routes
-  RouteTree _routeTree = new RouteTree();
+  final RouteTree _routeTree = new RouteTree();
 
   /// Generic handler for when a route has not been defined
   Handler notFoundHandler;
@@ -76,7 +79,7 @@ class Router {
   }
 
   ///
-  RouteMatch matchRoute(BuildContext buildContext, String path, {RouteSettings routeSettings = null,
+  RouteMatch matchRoute(BuildContext buildContext, String path, {RouteSettings routeSettings,
     TransitionType transitionType, Duration transitionDuration = const Duration(milliseconds: 250),
     RouteTransitionsBuilder transitionsBuilder})
   {
