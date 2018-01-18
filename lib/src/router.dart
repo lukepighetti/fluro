@@ -113,7 +113,7 @@ class Router {
         } else {
           routeTransitionsBuilder = _standardTransitionsBuilder(transitionType);
         }
-        return new PageRouteBuilder<Null>(settings: routeSettings,
+        return new PageRouteBuilder<dynamic>(settings: routeSettings,
           pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
             return handler.handlerFunc(context, parameters);
           },
