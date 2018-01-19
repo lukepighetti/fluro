@@ -18,7 +18,7 @@ class AppRouteMatch {
 
   // properties
   AppRoute route;
-  Map<String, String> parameters = <String, String>{};
+  Map<String, dynamic> parameters = <String, dynamic>{};
 }
 
 class RouteTreeNodeMatch {
@@ -26,7 +26,7 @@ class RouteTreeNodeMatch {
   RouteTreeNodeMatch(this.node);
 
   RouteTreeNodeMatch.fromMatch(RouteTreeNodeMatch match, this.node) {
-    parameters = <String, String>{};
+    parameters = <String, dynamic>{};
     if (match != null) {
       parameters.addAll(match.parameters);
     }
@@ -34,7 +34,7 @@ class RouteTreeNodeMatch {
 
   // properties
   RouteTreeNode node;
-  Map<String, String> parameters = <String, String>{};
+  Map<String, dynamic> parameters = <String, dynamic>{};
 }
 
 class RouteTreeNode {
@@ -121,7 +121,7 @@ class RouteTree {
       List<RouteTreeNode> nextNodes = <RouteTreeNode>[];
       for (RouteTreeNode node in nodesToCheck) {
         String pathPart = checkComponent;
-        Map<String, String> queryMap;
+        Map<String, dynamic> queryMap;
         if (checkComponent.contains("?")) {
           var splitParam = checkComponent.split("?");
           pathPart = splitParam[0];
@@ -211,13 +211,26 @@ class RouteTree {
     return component.startsWith(":");
   }
 
-  Map<String, String> parseQueryString(String query) {
+  Map<String, dynamic> parseQueryString(String query) {
     var search = new RegExp('([^&=]+)=?([^&]*)');
     var params = new Map();
     if (query.startsWith('?')) query = query.substring(1);
     decode(String s) => Uri.decodeComponent(s.replaceAll('+', ' '));
     for (Match match in search.allMatches(query)) {
-      params[decode(match.group(1))] = decode(match.group(2));
+      String key = decode(match.group(1));
+      String value = decode(match.group(2));
+      if (params.containsKey(key)) {
+        dynamic paramValue = params[key];
+        if (paramValue is List<String>) {
+          paramValue.add(value);
+        } else if (paramValue is String) {
+          params[key] = [paramValue, value];
+        } else {
+          params[key] = value;
+        }
+      } else {
+        params[key] = value;
+      }
     }
     return params;
   }
