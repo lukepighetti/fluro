@@ -16,8 +16,8 @@ void main() {
     Router router = new Router();
     router.define(route, handler: null);
     AppRouteMatch match = router.match(path);
-    expect(match?.parameters, equals(<String, String>{
-      "id" : "1234",
+    expect(match?.parameters, equals(<String, List<String>>{
+      "id" : ["1234"],
     }));
   });
 
@@ -27,9 +27,9 @@ void main() {
     Router router = new Router();
     router.define(route, handler: null);
     AppRouteMatch match = router.match(path);
-    expect(match?.parameters, equals(<String, String>{
-      "id" : "1234",
-      "name" : "luke",
+    expect(match?.parameters, equals(<String, List<String>>{
+      "id" : ["1234"],
+      "name" : ["luke"],
     }));
   });
 
@@ -39,10 +39,23 @@ void main() {
     Router router = new Router();
     router.define(route, handler: null);
     AppRouteMatch match = router.match(path);
-    expect(match?.parameters, equals(<String, String>{
-      "name" : "luke",
-      "phrase" : "hello world",
-      "number" : "7",
+    expect(match?.parameters, equals(<String, List<String>>{
+      "name" : ["luke"],
+      "phrase" : ["hello world"],
+      "number" : ["7"],
+    }));
+  });
+
+  testWidgets("Router correctly parses array parameters", (WidgetTester tester) async {
+    String path = "/users/create?name=luke&phrase=hello%20world&number=7&number=10&number=13";
+    String route = "/users/create";
+    Router router = new Router();
+    router.define(route, handler: null);
+    AppRouteMatch match = router.match(path);
+    expect(match?.parameters, equals(<String, List<String>>{
+      "name" : ["luke"],
+      "phrase" : ["hello world"],
+      "number" : ["7", "10", "13"],
     }));
   });
 
