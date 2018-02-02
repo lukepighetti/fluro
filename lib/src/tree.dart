@@ -18,7 +18,7 @@ class AppRouteMatch {
 
   // properties
   AppRoute route;
-  Map<String, dynamic> parameters = <String, dynamic>{};
+  Map<String, List<String>> parameters = <String, List<String>>{};
 }
 
 class RouteTreeNodeMatch {
@@ -26,7 +26,7 @@ class RouteTreeNodeMatch {
   RouteTreeNodeMatch(this.node);
 
   RouteTreeNodeMatch.fromMatch(RouteTreeNodeMatch match, this.node) {
-    parameters = <String, dynamic>{};
+    parameters = <String, List<String>>{};
     if (match != null) {
       parameters.addAll(match.parameters);
     }
@@ -34,7 +34,7 @@ class RouteTreeNodeMatch {
 
   // properties
   RouteTreeNode node;
-  Map<String, dynamic> parameters = <String, dynamic>{};
+  Map<String, List<String>> parameters = <String, List<String>>{};
 }
 
 class RouteTreeNode {
@@ -121,7 +121,7 @@ class RouteTree {
       List<RouteTreeNode> nextNodes = <RouteTreeNode>[];
       for (RouteTreeNode node in nodesToCheck) {
         String pathPart = checkComponent;
-        Map<String, dynamic> queryMap;
+        Map<String, List<String>> queryMap;
         if (checkComponent.contains("?")) {
           var splitParam = checkComponent.split("?");
           pathPart = splitParam[0];
@@ -133,7 +133,7 @@ class RouteTree {
           RouteTreeNodeMatch match = new RouteTreeNodeMatch.fromMatch(parentMatch, node);
           if (node.isParameter()) {
             String paramKey = node.part.substring(1);
-            match.parameters[paramKey] = pathPart;
+            match.parameters[paramKey] = [pathPart];
           }
           if (queryMap != null) {
             match.parameters.addAll(queryMap);
@@ -211,25 +211,18 @@ class RouteTree {
     return component.startsWith(":");
   }
 
-  Map<String, dynamic> parseQueryString(String query) {
+  Map<String, List<String>> parseQueryString(String query) {
     var search = new RegExp('([^&=]+)=?([^&]*)');
-    var params = new Map();
+    var params = new Map<String, List<String>>();
     if (query.startsWith('?')) query = query.substring(1);
     decode(String s) => Uri.decodeComponent(s.replaceAll('+', ' '));
     for (Match match in search.allMatches(query)) {
       String key = decode(match.group(1));
       String value = decode(match.group(2));
       if (params.containsKey(key)) {
-        dynamic paramValue = params[key];
-        if (paramValue is List<String>) {
-          paramValue.add(value);
-        } else if (paramValue is String) {
-          params[key] = [paramValue, value];
-        } else {
-          params[key] = value;
-        }
+        params[key].add(value);
       } else {
-        params[key] = value;
+        params[key] = [value];
       }
     }
     return params;

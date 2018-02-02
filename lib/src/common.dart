@@ -21,10 +21,10 @@ class Handler {
 }
 
 ///
-typedef Route<T> RouteCreator<T>(RouteSettings route, Map<String, dynamic> parameters);
+typedef Route<T> RouteCreator<T>(RouteSettings route, Map<String, List<String>> parameters);
 
 ///
-typedef Widget HandlerFunc(BuildContext context, Map<String, dynamic> parameters);
+typedef Widget HandlerFunc(BuildContext context, Map<String, List<String>> parameters);
 
 ///
 class AppRoute {
