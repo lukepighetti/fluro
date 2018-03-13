@@ -18,22 +18,7 @@ The brightest, hippest, coolest router for Flutter.
 
 ## Version compatability
 
-In general we try not to introduce breaking changes but version 1.1 did introduce a
-breaking change in order to support function handlers. As such, you will need to
-change all of your route handler definitions to use the new `Handler` class. The
-`RouteHandler` definition has now been removed.
-
-Swapping out the handlers should be as simple as changing:
-
-```dart
-RouteHandler usersHandler = (Map<String, String> params) {}
-```
-
-to
-
-```dart
-var usersHandler = new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {});
-```
+See CHANGELOG for all breaking (and non-breaking) changes.
 
 ## Getting started
 
