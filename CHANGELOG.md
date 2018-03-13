@@ -1,4 +1,4 @@
-# 1.2.2
+# 1.3.0
 - **BREAKING**: Parameters now return an array of results even if they have a single value.
 - Support for parameter arrays. e.g: `/some/route?color=red&color=green&color=blue`.
 - Results can now be passed via `Navigator.pop` via use of a `Future`.
