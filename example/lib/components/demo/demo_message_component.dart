@@ -5,8 +5,8 @@
  * Copyright (c) 2018 Posse Productions LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 class DemoMessageComponent extends StatelessWidget {
 
