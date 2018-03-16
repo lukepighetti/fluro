@@ -54,7 +54,7 @@ you can access the router in other areas in your application.
 After instantiating the router, you will need to define your routes and your route handlers:
 ```dart
 var usersHandler = new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-  return new UsersScreen(params["id"]);
+  return new UsersScreen(params["id"][0]);
 });
 
 void defineRoutes(Router router) {
