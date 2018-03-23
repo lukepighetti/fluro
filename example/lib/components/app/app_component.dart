@@ -35,7 +35,7 @@ class AppComponentState extends State<AppComponent> {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      onGenerateRoute: Application.router.generator
+      onGenerateRoute: Application.router.generator,
     );
     print("initial route = ${app.initialRoute}");
     return app;

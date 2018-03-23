@@ -1,3 +1,6 @@
+# 1.3.1
+- Fixes an issue with the route generator (result cannot be Null)
+
 # 1.3.0
 - **BREAKING**: Parameters now return an array of results even if they have a single value.
 - Support for parameter arrays. e.g: `/some/route?color=red&color=green&color=blue`.
