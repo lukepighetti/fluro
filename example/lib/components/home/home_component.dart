@@ -21,7 +21,7 @@ class HomeComponent extends StatefulWidget {
 class HomeComponentState extends State<HomeComponent> {
 
   var _deepLinkOpacity = 1.0;
-  final _deepLinkURL = "fluro://deeplink?path=/message&text=fluro%20rocks%21%21";
+  final _deepLinkURL = "fluro://deeplink?path=/message&mesage=fluro%20rocks%21%21";
   final _daysOfWeek = const [
     "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
   ];

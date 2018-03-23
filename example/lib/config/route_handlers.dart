@@ -7,9 +7,14 @@
  */
 import '../helpers/color_helpers.dart';
 import '../components/demo/demo_simple_component.dart';
+import '../components/home/home_component.dart';
 import 'package:flutter/painting.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+
+var rootHandler = new Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  return new HomeComponent();
+});
 
 var demoRouteHandler = new Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   String message = params["message"]?.first;
@@ -53,4 +58,17 @@ var demoFunctionHandler = new Handler(
       );
     });
 
-var deepLinkHandler = new Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {});
+/// Handles deep links into the app
+/// To test on Android:
+/// 
+/// `adb shell am start -W -a android.intent.action.VIEW -d "fluro://deeplink?path=/message&mesage=fluro%20rocks%21%21" com.goposse.fluro`
+var deepLinkHandler = new Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  String message = params["message"]?.first;
+  String colorHex = params["color_hex"]?.first;
+  String result = params["result"]?.first;
+  Color color = new Color(0xFFFFFFFF);
+  if (colorHex != null && colorHex.length > 0) {
+    color = new Color(ColorHelpers.fromHexString(colorHex));
+  }
+  return new DemoSimpleComponent(message: "DEEEEEP LINK!!!", color: color, result: result);  
+});

@@ -1,101 +1,42 @@
-// flutter
-def localProperties = new Properties()
-def localPropertiesFile = rootProject.file('local.properties')
-if (localPropertiesFile.exists()) {
-    localPropertiesFile.withInputStream { stream ->
-        localProperties.load(stream)
-    }
-}
-
-def flutterRoot = localProperties.getProperty('flutter.sdk')
-if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-
-flutter {
-    source '../..'
-}
-
-// build versioning
-def currentVersionCode() {
-    def propsFile = file('versions.properties')
-    def props = new Properties()
-    props.load(new FileInputStream(propsFile))
-    return props['build.versionCode'].toInteger()
-}
-
-def incrementVersionCode() {
-    def propsFile = file('versions.properties')
-    def props = new Properties()
-    props.load(new FileInputStream(propsFile))
-    def currentCode = props['build.versionCode'].toInteger()
-    def nextCode = currentCode + 1
-    props['build.versionCode'] = nextCode.toString()
-    props.store(propsFile.newWriter(), null)
-    return nextCode
-}
-
-// increments build version code on release builds
-task('incrementVersionCode') << {
-    incrementVersionCode()
-}
-
-tasks.whenTaskAdded { task ->
-    if (task.name == 'assembleRelease') {
-        task.dependsOn 'incrementVersionCode'
-    }
-}
-
-buildscript {
-    // application variables
-    ext.app_ver_name = "1.0"
-
-    // google version codes
-    ext.build_tools_ver = '25.0.3'
-    ext.support_lib_ver = '25.3.1'
-    ext.google_play_ver = '10.2.4'
-    ext.constraint_layout_ver = '1.0.2'
-}
+apply from: "../config.gradle"
+apply from: "../flutter.gradle"
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "$build_tools_ver"
+	compileSdkVersion versions.targetSDK
+	buildToolsVersion "${versions.buildTools}"
 
-    defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 25
-        applicationId "com.goposse.routersample"
-        versionCode currentVersionCode()
-        versionName "$app_ver_name"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-    lintOptions {
-        disable 'InvalidPackage'
-    }
-    buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
-        }
-    }
+	defaultConfig {
+		minSdkVersion versions.minSDK
+		targetSdkVersion versions.targetSDK
+		applicationId "$appInfo.applicationID"
+		versionCode appInfo.build
+		versionName "${appInfo.version}"
+		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+	}
+	lintOptions {
+		disable 'InvalidPackage'
+	}
+	buildTypes {
+		release {
+			// TODO: Add your own signing config for the release build.
+			// Signing with the debug keys for now, so `flutter run --release` works.
+			signingConfig signingConfigs.debug
+		}
+	}
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
-    // google
-    compile "com.android.support:appcompat-v7:$support_lib_ver"
-    compile "com.android.support:support-v13:$support_lib_ver"
-    compile "com.android.support:support-v4:$support_lib_ver"
-
-    // testing
-    androidTestCompile "com.android.support:support-annotations:$support_lib_ver"
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test:rules:0.5'
-	compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+	// kotlin
+	compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+	// google
+	compile "com.android.support:appcompat-v7:${versions.googleSupport}"
+	compile "com.android.support:support-v13:${versions.googleSupport}"
+	compile "com.android.support:support-v4:${versions.googleSupport}"
+	// testing
+	androidTestCompile "com.android.support:support-annotations:${versions.googleSupport}"
+	androidTestCompile 'com.android.support.test:runner:1.0.1'
+	androidTestCompile 'com.android.support.test:rules:1.0.1'
 }

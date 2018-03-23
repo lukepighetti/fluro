@@ -1,0 +1,22 @@
+// Flutter root path helper
+ext.flutterRoot = {
+	def flutterProperties = new Properties()
+	def flutterPropertiesFile = rootProject.file('local.properties')
+	if (!flutterPropertiesFile.exists()) {
+		throw new GradleException("Flutter properties file not found. Define a flutter.properties file in your project root.")
+	}
+	flutterPropertiesFile.withInputStream { stream ->
+		flutterProperties.load(stream)
+	}
+	def flutterRoot = flutterProperties.getProperty('flutter.sdk')
+	if (flutterRoot == null) {
+		throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the flutter.properties file.")
+	}
+	return flutterRoot
+}
+
+apply from: "${flutterRoot()}/packages/flutter_tools/gradle/flutter.gradle"
+
+flutter {
+	source '../..'
+}

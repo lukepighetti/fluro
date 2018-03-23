@@ -1,0 +1,13 @@
+ext.appInfo = [
+		version: '1.3.0',
+		build: 1,
+		applicationID: "com.goposse.fluro"
+]
+
+ext.versions = [
+		minSDK: 21,
+		targetSDK: 27,
+		buildTools: '27.0.3',
+		kotlin: '1.2.30',
+		googleSupport: '27.1.0'
+]

@@ -7,7 +7,6 @@
  */
 import '../../config/application.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluro/fluro.dart';
 import '../../config/routes.dart';
 import '../home/home_component.dart';
@@ -22,38 +21,24 @@ class AppComponent extends StatefulWidget {
 
 class AppComponentState extends State<AppComponent> {
 
-  static MethodChannel platform = const MethodChannel('channel:com.goposse.routersample/deeplink');
-
   AppComponentState() {
     final router = new Router();
     Routes.configureRoutes(router);
     Application.router = router;
-    configureDeepLinker();
-    print("Configured channel receiver in flutter ..");
   }
 
-
-  void configureDeepLinker() {
-    platform.setMethodCallHandler((MethodCall call) async {
-      if (call.method == "linkReceived") {
-        Map<String, dynamic> passedObjs = call.arguments;
-        if (passedObjs != null) {
-          var path = passedObjs["path"];
-          Application.router.navigateTo(context, path);
-        }
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Flutter Demo',
+    final app = new MaterialApp(
+      title: 'Fluro',
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new HomeComponent(),
+      onGenerateRoute: Application.router.generator
     );
+    print("initial route = ${app.initialRoute}");
+    return app;
   }
 }
 

@@ -1,4 +1,4 @@
-package com.goposse.routersample
+package com.goposse.fluro
 
 import io.flutter.app.FlutterApplication
 

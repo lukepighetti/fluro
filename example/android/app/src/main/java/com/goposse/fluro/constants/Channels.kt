@@ -1,4 +1,4 @@
-package com.goposse.routersample.constants
+package com.goposse.fluro.constants
 
 object Channels {
 	private val CHANNEL_PREFIX = "channel:com.goposse.routersample"
