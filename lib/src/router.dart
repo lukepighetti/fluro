@@ -160,7 +160,7 @@ class Router {
   /// Route generation method. This function can be used as a way to create routes on-the-fly
   /// if any defined handler is found. It can also be used with the [MaterialApp.onGenerateRoute]
   /// property as callback to create routes that can be used with the [Navigator] class.
-  Route<Null> generator(RouteSettings routeSettings) {
+  Route<dynamic> generator(RouteSettings routeSettings) {
     RouteMatch match = matchRoute(null, routeSettings.name, routeSettings: routeSettings);
     return match.route;
   }
