@@ -27,6 +27,19 @@ class Router {
   /// Generic handler for when a route has not been defined
   Handler notFoundHandler;
 
+  // /// The root navigator we are going to use for all navigation
+  // Navigator _navigator;
+
+  // Router() {
+  //   _navigator = new Navigator(
+  //     onGenerateRoute: _onGenerateRoute,
+  //     onUnknownRoute: _onUnknownRoute,
+  //     observers: <NavigatorObserver>[
+
+  //     ],
+  //   );
+  // }
+
   /// Creates a [PageRoute] definition for the passed [RouteHandler]. You can optionally provide a custom
   /// transition builder for the route.
   void define(String routePath, {@required Handler handler}) {
@@ -66,6 +79,14 @@ class Router {
     }
 
     return future;
+  }
+
+  bool pop(BuildContext context) => Navigator.of(context).pop();
+
+  List<NavigatorObserver> get routerObservers {
+    return [
+      new RoutableObserver(),
+    ];
   }
 
   ///

@@ -13,5 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 part 'src/common.dart';
+part 'src/routable.dart';
 part 'src/router.dart';
 part 'src/tree.dart';
