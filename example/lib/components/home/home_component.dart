@@ -7,7 +7,7 @@
  */
 import 'dart:async';
 
-import '../../config/application.dart';
+import 'package:router_example/config/application.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

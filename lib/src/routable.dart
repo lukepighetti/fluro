@@ -1,3 +1,10 @@
+/*
+ * fluro
+ * A Posse Production
+ * http://goposse.com
+ * Copyright (c) 2018 Posse Productions LLC. All rights reserved.
+ * See LICENSE for distribution and usage details.
+ */
 part of fluro;
 
 abstract class Routable {

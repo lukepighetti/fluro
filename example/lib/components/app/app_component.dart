@@ -5,11 +5,10 @@
  * Copyright (c) 2018 Posse Productions LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
-import '../../config/application.dart';
+import 'package:router_example/config/application.dart';
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
-import '../../config/routes.dart';
-import '../home/home_component.dart';
+import 'package:router_example/config/routes.dart';
 
 class AppComponent extends StatefulWidget {
 
