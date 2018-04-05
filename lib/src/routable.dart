@@ -9,7 +9,11 @@ part of fluro;
 
 abstract class Routable {
   void didPush(Route<dynamic> route, Route<dynamic> previousRoute) {}
-  void didAppear(bool wasPushed, Route<dynamic> route, Route<dynamic> previousRoute) {}
+  void didAppear(
+    bool wasPushed,
+    Route<dynamic> route,
+    Route<dynamic> previousRoute,
+  ) {}
   void didPop(Route<dynamic> route, Route<dynamic> previousRoute) {}
 }
 
@@ -24,7 +28,8 @@ class RoutableObserver extends RouteObserver<PageRoute<dynamic>> {
   void didPush(Route<dynamic> route, Route<dynamic> previousRoute) {
     super.didPush(route, previousRoute);
     if (route is PageRoute) {
-      final routeWidget = route.buildPage(route.navigator.context, route.animation, route.secondaryAnimation);
+      final routeWidget = route.buildPage(
+          route.navigator.context, route.animation, route.secondaryAnimation);
       if (routeWidget is Routable) {
         Routable w = (routeWidget as Routable);
         w.didPush(route, previousRoute);
@@ -37,7 +42,8 @@ class RoutableObserver extends RouteObserver<PageRoute<dynamic>> {
   void didPop(Route<dynamic> route, Route<dynamic> previousRoute) {
     super.didPop(route, previousRoute);
     if (route is PageRoute) {
-      final leavingWidget = route.buildPage(route.navigator.context, route.animation, route.secondaryAnimation);
+      final leavingWidget = route.buildPage(
+          route.navigator.context, route.animation, route.secondaryAnimation);
       if (leavingWidget is Routable) {
         Routable w = (leavingWidget as Routable);
         w.didPop(route, previousRoute);
@@ -45,7 +51,9 @@ class RoutableObserver extends RouteObserver<PageRoute<dynamic>> {
     }
     if (previousRoute is PageRoute) {
       final returningWidget = previousRoute.buildPage(
-          previousRoute.navigator.context, previousRoute.animation, previousRoute.secondaryAnimation);
+          previousRoute.navigator.context,
+          previousRoute.animation,
+          previousRoute.secondaryAnimation);
       if (returningWidget is Routable) {
         Routable w = (returningWidget as Routable);
         w.didAppear(false, route, previousRoute);
@@ -57,20 +65,20 @@ class RoutableObserver extends RouteObserver<PageRoute<dynamic>> {
   void didReplace({Route newRoute, Route oldRoute}) {
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
     if (oldRoute is PageRoute) {
-      final leavingWidget = oldRoute.buildPage(oldRoute.navigator.context, oldRoute.animation, oldRoute.secondaryAnimation);
+      final leavingWidget = oldRoute.buildPage(oldRoute.navigator.context,
+          oldRoute.animation, oldRoute.secondaryAnimation);
       if (leavingWidget is Routable) {
         Routable w = (leavingWidget as Routable);
         w.didPop(oldRoute, newRoute);
       }
     }
     if (newRoute is PageRoute) {
-      final returningWidget = newRoute.buildPage(
-          newRoute.navigator.context, newRoute.animation, newRoute.secondaryAnimation);
+      final returningWidget = newRoute.buildPage(newRoute.navigator.context,
+          newRoute.animation, newRoute.secondaryAnimation);
       if (returningWidget is Routable) {
         Routable w = (returningWidget as Routable);
         w.didAppear(false, newRoute, oldRoute);
       }
     }
   }
-
 }
