@@ -51,3 +51,10 @@ class RouteMatch {
   final RouteMatchType matchType;
   final String errorMessage;
 }
+
+TargetPlatform currentPlatform() {
+  if (Platform.isIOS) return TargetPlatform.iOS;
+  if (Platform.isAndroid) return TargetPlatform.android;
+  if (Platform.isFuchsia) return TargetPlatform.fuchsia;
+  throw Exception("Unsupported platform");
+}

@@ -145,7 +145,7 @@ class HomeComponentState extends State<HomeComponent> {
     String message = "";
     String hexCode = "#FFFFFF";
     String result;
-    TransitionType transitionType = TransitionType.native;
+    TransitionType transitionType = TransitionType.fluroNative;
     if (key != "custom" && key != "function-call") {
       if (key == "native") {
         hexCode = "#F76F00";
@@ -159,7 +159,7 @@ class HomeComponentState extends State<HomeComponent> {
         message = "This screen should have appeared with a fade in transition";
         transitionType = TransitionType.fadeIn;
       } else if (key == "pop-result") {
-        transitionType = TransitionType.native;
+        transitionType = TransitionType.fluroNative;
         hexCode = "#7d41f4";
         message = "When you close this screen you should see the current day of the week";
         result = "Today is ${_daysOfWeek[new DateTime.now().weekday]}!";

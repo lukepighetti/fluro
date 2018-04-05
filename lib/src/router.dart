@@ -10,6 +10,7 @@ part of fluro;
 enum TransitionType {
   native,
   nativeModal,
+  fluroNative,
   inFromLeft,
   inFromRight,
   inFromBottom,
@@ -41,7 +42,7 @@ class Router {
   ///
   Future navigateTo(BuildContext context, String path,
       {bool replace = false,
-      TransitionType transition = TransitionType.native,
+      TransitionType transition = TransitionType.fluroNative,
       Duration transitionDuration = const Duration(milliseconds: 250),
       RouteTransitionsBuilder transitionBuilder}) {
     RouteMatch routeMatch = matchRoute(context, path,
@@ -118,10 +119,15 @@ class Router {
       return new RouteMatch(matchType: RouteMatchType.nonVisual);
     }
 
+    final platform = currentPlatform();
     RouteCreator creator =
         (RouteSettings routeSettings, Map<String, List<String>> parameters) {
+      // We use the standard material route for .native, .nativeModal and
+      // .fluroNative if you're on iOS
       bool isNativeTransition = (transitionType == TransitionType.native ||
-          transitionType == TransitionType.nativeModal);
+          transitionType == TransitionType.nativeModal ||
+          (transitionType == TransitionType.fluroNative &&
+              platform != TargetPlatform.android));
       if (isNativeTransition) {
         return new MaterialPageRoute<dynamic>(
             settings: routeSettings,
@@ -133,6 +139,10 @@ class Router {
         if (transitionType == TransitionType.custom) {
           routeTransitionsBuilder = transitionsBuilder;
         } else {
+          if (transitionType == TransitionType.fluroNative &&
+              platform == TargetPlatform.android) {
+            transitionDuration = new Duration(milliseconds: 150);
+          }
           routeTransitionsBuilder = _standardTransitionsBuilder(transitionType);
         }
         return new PageRouteBuilder<dynamic>(
@@ -156,7 +166,25 @@ class Router {
       TransitionType transitionType) {
     return (BuildContext context, Animation<double> animation,
         Animation<double> secondaryAnimation, Widget child) {
-      if (transitionType == TransitionType.fadeIn) {
+      if (transitionType == TransitionType.fluroNative) {
+        return new SlideTransition(
+          position: new Tween<Offset>(
+            begin: const Offset(0.0, 0.12),
+            end: const Offset(0.0, 0.0),
+          ).animate(new CurvedAnimation(
+              parent: animation,
+              curve: new Interval(0.125, 0.950, curve: Curves.fastOutSlowIn),
+            reverseCurve: Curves.easeOut,
+          )),
+          child: new FadeTransition(
+            opacity: new Tween<double>(
+              begin: 0.0,
+              end: 1.0,
+            ).animate(animation),
+            child: child,
+          ),
+        );
+      } else if (transitionType == TransitionType.fadeIn) {
         return new FadeTransition(opacity: animation, child: child);
       } else {
         const Offset topLeft = const Offset(0.0, 0.0);
