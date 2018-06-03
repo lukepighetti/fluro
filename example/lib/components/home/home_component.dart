@@ -23,7 +23,7 @@ class HomeComponentState extends State<HomeComponent> {
   var _deepLinkOpacity = 1.0;
   final _deepLinkURL = "fluro://deeplink?path=/message&mesage=fluro%20rocks%21%21";
   final _daysOfWeek = const [
-    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
   ];
 
   Widget deepLinkWidget(BuildContext context) {
@@ -162,7 +162,7 @@ class HomeComponentState extends State<HomeComponent> {
         transitionType = TransitionType.native;
         hexCode = "#7d41f4";
         message = "When you close this screen you should see the current day of the week";
-        result = "Today is ${_daysOfWeek[new DateTime.now().weekday]}!";
+        result = "Today is ${_daysOfWeek[new DateTime.now().weekday - 1]}!";
       }
 
       String route = "/demo?message=$message&color_hex=$hexCode";
