@@ -5,7 +5,7 @@ author: Posse Productions LLC <apps@goposse.com>
 homepage: https://github.com/goposse/fluro
 
 environment:
-  sdk: ">=1.23.0 <2.0.0"
+  sdk: ">=2.0.0-dev.61.0 <3.0.0"
 
 dependencies:
   flutter:

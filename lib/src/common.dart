@@ -21,10 +21,12 @@ class Handler {
 }
 
 ///
-typedef Route<T> RouteCreator<T>(RouteSettings route, Map<String, List<String>> parameters);
+typedef Route<T> RouteCreator<T>(
+    RouteSettings route, Map<String, List<String>> parameters);
 
 ///
-typedef Widget HandlerFunc(BuildContext context, Map<String, List<String>> parameters);
+typedef Widget HandlerFunc(
+    BuildContext context, Map<String, List<String>> parameters);
 
 ///
 class AppRoute {
@@ -41,11 +43,10 @@ enum RouteMatchType {
 
 ///
 class RouteMatch {
-  RouteMatch({
-    this.matchType = RouteMatchType.noMatch,
-    this.route,
-    this.errorMessage = "Unable to match route. Please check the logs."
-  });
+  RouteMatch(
+      {this.matchType = RouteMatchType.noMatch,
+      this.route,
+      this.errorMessage = "Unable to match route. Please check the logs."});
   final Route<dynamic> route;
   final RouteMatchType matchType;
   final String errorMessage;
