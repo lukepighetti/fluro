@@ -1,3 +1,7 @@
+# 1.3.2
+- Dart 2 package (pubspec) compliance changes ONLY
+- **Note**: No functional changes
+
 # 1.3.1
 - Fixes an issue with the route generator (result cannot be Null)
 
