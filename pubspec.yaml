@@ -1,8 +1,10 @@
 name: fluro
-description: The brightest, hippest, coolest router for Flutter.
+description: >
+  The brightest, hippest, coolest router for Flutter. Fluro is a companion to the Flutter routing mechanism
+  which adds flexible routing options like wildcards, named parameters and clearer route definitions.
 version: 1.3.2
-author: Posse Productions LLC <apps@goposse.com>
-homepage: https://github.com/goposse/fluro
+author: Yakka, LLC <code@theyakka.com>
+homepage: https://github.com/theyakka/fluro
 
 environment:
   sdk: ">=2.0.0-dev.61.0 <3.0.0"

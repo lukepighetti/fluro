@@ -1,11 +1,11 @@
-<img src="https://storage.googleapis.com/app-logos/logo_fluro.png" width="220">
+<img src="https://storage.googleapis.com/product-logos/logo_fluro.png" width="220">
 <br/><br/>
 
 The brightest, hippest, coolest router for Flutter.
 
 [![Version](https://img.shields.io/badge/version-1.3.2-blue.svg)](https://pub.dartlang.org/packages/fluro)
-[![Build Status](https://travis-ci.org/goposse/fluro.svg?branch=master)](https://travis-ci.org/goposse/fluro)
-[![Coverage](https://codecov.io/gh/goposse/fluro/branch/master/graph/badge.svg)](https://codecov.io/gh/goposse/fluro)
+[![Build Status](https://travis-ci.org/theyakka/fluro.svg?branch=master)](https://travis-ci.org/theyakka/fluro)
+[![Coverage](https://codecov.io/gh/theyakka/fluro/branch/master/graph/badge.svg)](https://codecov.io/gh/theyakka/fluro)
 
 ## Features
 
@@ -32,7 +32,7 @@ You can also reference the git repo directly if you want:
 ```yaml
 dependencies:
  fluro:
-   git: git://github.com/goposse/fluro.git
+   git: git://github.com/theyakka/fluro.git
 ```
 
 
@@ -83,8 +83,8 @@ router.navigateTo(context, "/users/1234",
 ```
 <br/>
 <hr/>
-Fluro is a Posse Production.
+Fluro is a Yakka original.
 <br/>
-<a href="http://goposse.com" target="_posse">
-<img src="https://storage.googleapis.com/posse-logos/logo-posse.png"
+<a href="https://theyakka.com" target="_yakka">
+<img src="https://storage.googleapis.com/yakka-logos/logo_wordmark.png"
   width="60"></a>

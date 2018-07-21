@@ -1,3 +1,6 @@
+language: dart
+dart:
+  - "dev/release/2.0.0-dev.61.0"
 os:
   - linux
 sudo: false
