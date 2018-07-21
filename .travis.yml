@@ -1,24 +1,33 @@
 language: dart
 dart:
-  - "dev/release/2.0.0-dev.61.0"
+  - dev
 os:
   - linux
 sudo: false
+
+env:
+  - FLUTTER_VERSION=dev
+
 addons:
   apt:
-    # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
     sources:
-      - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+      - ubuntu-toolchain-r-test
     packages:
       - libstdc++6
       - fonts-droid
+
+matrix:
+  allow_failures:
+    - env: FLUTTER_VERSION=dev
+
 before_script:
-  - ./scripts/travis_setup.sh
+  - git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
   - ./flutter/bin/flutter doctor
 script:
   - ./flutter/bin/flutter test --coverage
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t $CODE_COV_TOKEN
+
 cache:
   directories:
     - $HOME/.pub-cache
