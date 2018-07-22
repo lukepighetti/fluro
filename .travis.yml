@@ -5,16 +5,20 @@ os:
   - linux
 sudo: false
 
-env:
-  - FLUTTER_VERSION=dev
-
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - libstdc++6
-      - fonts-droid
+    - libstdc++6
+    - fonts-droid
+
+cache:
+  directories:
+  - $HOME/.pub-cache
+
+env:
+  - FLUTTER_VERSION=dev
 
 matrix:
   allow_failures:
@@ -30,7 +34,3 @@ script:
   - ./flutter/bin/flutter test --coverage
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t $CODE_COV_TOKEN
-
-cache:
-  directories:
-    - $HOME/.pub-cache
