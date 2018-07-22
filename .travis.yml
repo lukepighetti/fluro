@@ -27,10 +27,9 @@ matrix:
 before_script:
   - pwd
   - git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
-  - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
   - flutter doctor
 script:
   - pwd
-  - ./flutter/bin/flutter test --coverage
+  - ./script/travis.sh
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t $CODE_COV_TOKEN
