@@ -1,12 +1,6 @@
-language: dart
-dart:
-  - dev
 os:
   - linux
 sudo: false
-
-env:
-  - FLUTTER_VERSION=dev
 
 addons:
   apt:
@@ -16,21 +10,21 @@ addons:
       - libstdc++6
       - fonts-droid
 
+cache:
+  directories:
+    - $HOME/.pub-cache
+
+env:
+  - FLUTTER_VERSION=dev
+
 matrix:
   allow_failures:
     - env: FLUTTER_VERSION=dev
 
 before_script:
-  - pwd
   - git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
-  - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-  - flutter doctor
+  - $TRAVIS_BUILD_DIR/flutter/bin/flutter doctor
 script:
-  - pwd
-  - ./flutter/bin/flutter test --coverage
+  - ./tool/travis.sh
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t $CODE_COV_TOKEN
-
-cache:
-  directories:
-    - $HOME/.pub-cache
