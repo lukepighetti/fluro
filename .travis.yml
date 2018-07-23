@@ -22,11 +22,9 @@ matrix:
     - env: FLUTTER_VERSION=dev
 
 before_script:
-  - pwd
   - git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
-  - flutter doctor
+  - $TRAVIS_BUILD_DIR/flutter/bin/flutter doctor
 script:
-  - pwd
   - ./script/travis.sh
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t $CODE_COV_TOKEN
