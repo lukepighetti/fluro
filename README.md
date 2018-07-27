@@ -78,8 +78,7 @@ for you.
 You can also manually push to a route yourself. To do so:
 
 ```dart
-router.navigateTo(context, "/users/1234",
-    transition: TransitionType.fadeIn);
+router.navigateTo(context, "/users/1234", transition: TransitionType.fadeIn);
 ```
 <br/>
 <hr/>
