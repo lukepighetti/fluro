@@ -46,15 +46,15 @@ There is a pretty sweet example project in the `example` folder. Check it out. O
 
 First, you should define a new `Router` object by initializing it as such:
 ```dart
-final router = new Router();
+final router = Router();
 ```
 It may be convenient for you to store the router globally/statically so that
 you can access the router in other areas in your application.
 
 After instantiating the router, you will need to define your routes and your route handlers:
 ```dart
-var usersHandler = new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-  return new UsersScreen(params["id"][0]);
+var usersHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return UsersScreen(params["id"][0]);
 });
 
 void defineRoutes(Router router) {
