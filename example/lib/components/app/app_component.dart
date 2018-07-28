@@ -9,10 +9,8 @@ import '../../config/application.dart';
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import '../../config/routes.dart';
-import '../home/home_component.dart';
 
 class AppComponent extends StatefulWidget {
-
   @override
   State createState() {
     return new AppComponentState();
@@ -20,13 +18,11 @@ class AppComponent extends StatefulWidget {
 }
 
 class AppComponentState extends State<AppComponent> {
-
   AppComponentState() {
     final router = new Router();
     Routes.configureRoutes(router);
     Application.router = router;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -41,4 +37,3 @@ class AppComponentState extends State<AppComponent> {
     return app;
   }
 }
-

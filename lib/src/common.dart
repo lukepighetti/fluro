@@ -5,7 +5,8 @@
  * Copyright (c) 2018 Posse Productions LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
-part of fluro;
+
+import 'package:flutter/widgets.dart';
 
 ///
 enum HandlerType {

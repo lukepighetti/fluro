@@ -1,3 +1,8 @@
+# 1.3.3
+- Fix analyzer issues
+- Remove deprecations in example code
+- Fix pubspec analysis issue
+
 # 1.3.2
 - Dart 2 package (pubspec) compliance changes ONLY
 - **Note**: No functional changes

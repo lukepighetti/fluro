@@ -8,8 +8,6 @@ class DemoResultComponent extends StatefulWidget {
 class _DemoResultComponentState extends State<DemoResultComponent> {
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      
-    );
+    return new Container();
   }
 }

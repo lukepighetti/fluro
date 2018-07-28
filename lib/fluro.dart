@@ -7,11 +7,6 @@
  */
 library fluro;
 
-import 'dart:async';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
-part 'src/common.dart';
-part 'src/router.dart';
-part 'src/tree.dart';
+export 'src/common.dart';
+export 'src/router.dart';
+export 'src/tree.dart';

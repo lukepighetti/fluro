@@ -13,17 +13,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class HomeComponent extends StatefulWidget {
-
   @override
   State createState() => new HomeComponentState();
 }
 
 class HomeComponentState extends State<HomeComponent> {
-
   var _deepLinkOpacity = 1.0;
-  final _deepLinkURL = "fluro://deeplink?path=/message&mesage=fluro%20rocks%21%21";
+  final _deepLinkURL =
+      "fluro://deeplink?path=/message&mesage=fluro%20rocks%21%21";
   final _daysOfWeek = const [
-    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
   ];
 
   Widget deepLinkWidget(BuildContext context) {
@@ -89,7 +94,9 @@ class HomeComponentState extends State<HomeComponent> {
     var menuWidgets = <Widget>[
       new Padding(
         padding: new EdgeInsets.only(bottom: 35.0),
-        child: new Image(image: new AssetImage("assets/images/logo_fluro.png"), width: 200.0),
+        child: new Image(
+            image: new AssetImage("assets/images/logo_fluro.png"),
+            width: 200.0),
       ),
       menuButton(context, "Native Animation", "native"),
       menuButton(context, "Preset (In from Left)", "preset-from-left"),
@@ -149,10 +156,12 @@ class HomeComponentState extends State<HomeComponent> {
     if (key != "custom" && key != "function-call") {
       if (key == "native") {
         hexCode = "#F76F00";
-        message = "This screen should have appeared using the default flutter animation for the current OS";
+        message =
+            "This screen should have appeared using the default flutter animation for the current OS";
       } else if (key == "preset-from-left") {
         hexCode = "#5BF700";
-        message = "This screen should have appeared with a slide in from left transition";
+        message =
+            "This screen should have appeared with a slide in from left transition";
         transitionType = TransitionType.inFromLeft;
       } else if (key == "preset-fade") {
         hexCode = "#F700D2";
@@ -161,7 +170,8 @@ class HomeComponentState extends State<HomeComponent> {
       } else if (key == "pop-result") {
         transitionType = TransitionType.native;
         hexCode = "#7d41f4";
-        message = "When you close this screen you should see the current day of the week";
+        message =
+            "When you close this screen you should see the current day of the week";
         result = "Today is ${_daysOfWeek[new DateTime.now().weekday - 1]}!";
       }
 
@@ -171,18 +181,18 @@ class HomeComponentState extends State<HomeComponent> {
         route = "$route&result=$result";
       }
 
-      Application.router.navigateTo(
-          context, route,
-          transition: transitionType).then((result) {
-            if (key == "pop-result") {
-              Application.router.navigateTo(context, "/demo/func?message=$result");
-            }
-          });
+      Application.router
+          .navigateTo(context, route, transition: transitionType)
+          .then((result) {
+        if (key == "pop-result") {
+          Application.router.navigateTo(context, "/demo/func?message=$result");
+        }
+      });
     } else if (key == "custom") {
       hexCode = "#DFF700";
-      message = "This screen should have appeared with a crazy custom transition";
-      var transition =
-          (BuildContext context, Animation<double> animation,
+      message =
+          "This screen should have appeared with a crazy custom transition";
+      var transition = (BuildContext context, Animation<double> animation,
           Animation<double> secondaryAnimation, Widget child) {
         return new ScaleTransition(
           scale: animation,

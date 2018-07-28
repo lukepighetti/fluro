@@ -3,7 +3,7 @@
 
 The brightest, hippest, coolest router for Flutter.
 
-[![Version](https://img.shields.io/badge/version-1.3.2-blue.svg)](https://pub.dartlang.org/packages/fluro)
+[![Version](https://img.shields.io/badge/version-1.3.3-blue.svg)](https://pub.dartlang.org/packages/fluro)
 [![Build Status](https://travis-ci.org/theyakka/fluro.svg?branch=master)](https://travis-ci.org/theyakka/fluro)
 [![Coverage](https://codecov.io/gh/theyakka/fluro/branch/master/graph/badge.svg)](https://codecov.io/gh/theyakka/fluro)
 
@@ -25,7 +25,7 @@ See CHANGELOG for all breaking (and non-breaking) changes.
 You should ensure that you add the router as a dependency in your flutter project.
 ```yaml
 dependencies:
- fluro: "^1.3.2"
+ fluro: "^1.3.3"
 ```
 
 You can also reference the git repo directly if you want:
@@ -80,7 +80,7 @@ You can also manually push to a route yourself. To do so:
 ```dart
 router.navigateTo(context, "/users/1234", transition: TransitionType.fadeIn);
 ```
-<br/>
+
 <hr/>
 Fluro is a Yakka original.
 <br/>

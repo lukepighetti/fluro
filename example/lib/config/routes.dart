@@ -10,14 +10,14 @@ import 'package:flutter/material.dart';
 import './route_handlers.dart';
 
 class Routes {
-
   static String root = "/";
   static String demoSimple = "/demo";
   static String demoFunc = "/demo/func";
   static String deepLink = "/message";
 
   static void configureRoutes(Router router) {
-    router.notFoundHandler = new Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    router.notFoundHandler = new Handler(
+        handlerFunc: (BuildContext context, Map<String, List<String>> params) {
       print("ROUTE WAS NOT FOUND !!!");
     });
     router.define(root, handler: rootHandler);
@@ -25,5 +25,4 @@ class Routes {
     router.define(demoFunc, handler: demoFunctionHandler);
     router.define(deepLink, handler: deepLinkHandler);
   }
-
 }
