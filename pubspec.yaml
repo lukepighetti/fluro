@@ -7,7 +7,7 @@ author: Yakka, LLC <flutter@theyakka.com>
 homepage: https://github.com/theyakka/fluro
 
 environment:
-  sdk: ">=2.0.0-dev.61.0 <3.0.0"
+  sdk: ">=2.0.0-dev.58.0 <3.0.0"
 
 dependencies:
   flutter:
