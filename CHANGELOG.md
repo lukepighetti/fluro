@@ -1,3 +1,6 @@
+# 1.3.4
+- Change lower dart version to cater to older flutter versions
+
 # 1.3.3
 - Fix analyzer issues
 - Remove deprecations in example code
