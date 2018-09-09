@@ -12,16 +12,6 @@ import 'package:fluro/fluro.dart';
 import 'package:fluro/src/common.dart';
 import 'package:flutter/material.dart';
 
-enum TransitionType {
-  native,
-  nativeModal,
-  inFromLeft,
-  inFromRight,
-  inFromBottom,
-  fadeIn,
-  custom, // if using custom then you must also provide a transition
-}
-
 class Router {
   static final appRouter = new Router();
 
@@ -31,10 +21,11 @@ class Router {
   /// Generic handler for when a route has not been defined
   Handler notFoundHandler;
 
-  /// Creates a [PageRoute] definition for the passed [RouteHandler]. You can optionally provide a custom
-  /// transition builder for the route.
-  void define(String routePath, {@required Handler handler}) {
-    _routeTree.addRoute(new AppRoute(routePath, handler));
+  /// Creates a [PageRoute] definition for the passed [RouteHandler]. You can optionally provide a default transition type.
+  void define(String routePath,
+      {@required Handler handler,
+      TransitionType transitionType = TransitionType.native}) {
+    _routeTree.addRoute(new AppRoute(routePath, handler, transitionType));
   }
 
   /// Finds a defined [AppRoute] for the path value. If no [AppRoute] definition was found
@@ -103,6 +94,9 @@ class Router {
     AppRouteMatch match = _routeTree.matchRoute(path);
     AppRoute route = match?.route;
     Handler handler = (route != null ? route.handler : notFoundHandler);
+    transitionType = match?.route != null
+        ? match.route.transitionType ?? transitionType
+        : transitionType;
     if (route == null && notFoundHandler == null) {
       return new RouteMatch(
           matchType: RouteMatchType.noMatch,

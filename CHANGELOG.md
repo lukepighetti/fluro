@@ -1,3 +1,6 @@
+# 1.3.5
+- Added ability to define transition type when defining route
+
 # 1.3.4
 - Change lower dart version to cater to older flutter versions
 

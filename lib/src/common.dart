@@ -33,7 +33,8 @@ typedef Widget HandlerFunc(
 class AppRoute {
   String route;
   dynamic handler;
-  AppRoute(this.route, this.handler);
+  TransitionType transitionType;
+  AppRoute(this.route, this.handler, [this.transitionType = TransitionType.native]);
 }
 
 enum RouteMatchType {
@@ -51,4 +52,14 @@ class RouteMatch {
   final Route<dynamic> route;
   final RouteMatchType matchType;
   final String errorMessage;
+}
+
+enum TransitionType {
+  native,
+  nativeModal,
+  inFromLeft,
+  inFromRight,
+  inFromBottom,
+  fadeIn,
+  custom, // if using custom then you must also provide a transition
 }
