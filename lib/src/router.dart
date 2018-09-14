@@ -24,8 +24,8 @@ class Router {
   /// Creates a [PageRoute] definition for the passed [RouteHandler]. You can optionally provide a default transition type.
   void define(String routePath,
       {@required Handler handler,
-      TransitionType transitionType = TransitionType.native}) {
-    _routeTree.addRoute(new AppRoute(routePath, handler, transitionType));
+      TransitionType transitionType}) {
+    _routeTree.addRoute(new AppRoute(routePath, handler, transitionType: transitionType));
   }
 
   /// Finds a defined [AppRoute] for the path value. If no [AppRoute] definition was found
@@ -37,7 +37,7 @@ class Router {
   ///
   Future navigateTo(BuildContext context, String path,
       {bool replace = false,
-      TransitionType transition = TransitionType.native,
+      TransitionType transition,
       Duration transitionDuration = const Duration(milliseconds: 250),
       RouteTransitionsBuilder transitionBuilder}) {
     RouteMatch routeMatch = matchRoute(context, path,
@@ -94,9 +94,10 @@ class Router {
     AppRouteMatch match = _routeTree.matchRoute(path);
     AppRoute route = match?.route;
     Handler handler = (route != null ? route.handler : notFoundHandler);
-    transitionType = match?.route != null
-        ? match.route.transitionType ?? transitionType
-        : transitionType;
+    var transition = transitionType;
+    if (transitionType == null) {
+      transition = route != null ? route.transitionType : TransitionType.native;
+    }
     if (route == null && notFoundHandler == null) {
       return new RouteMatch(
           matchType: RouteMatchType.noMatch,
@@ -111,21 +112,21 @@ class Router {
 
     RouteCreator creator =
         (RouteSettings routeSettings, Map<String, List<String>> parameters) {
-      bool isNativeTransition = (transitionType == TransitionType.native ||
-          transitionType == TransitionType.nativeModal);
+      bool isNativeTransition = (transition == TransitionType.native ||
+          transition == TransitionType.nativeModal);
       if (isNativeTransition) {
         return new MaterialPageRoute<dynamic>(
             settings: routeSettings,
-            fullscreenDialog: transitionType == TransitionType.nativeModal,
+            fullscreenDialog: transition == TransitionType.nativeModal,
             builder: (BuildContext context) {
               return handler.handlerFunc(context, parameters);
             });
       } else {
         var routeTransitionsBuilder;
-        if (transitionType == TransitionType.custom) {
+        if (transition == TransitionType.custom) {
           routeTransitionsBuilder = transitionsBuilder;
         } else {
-          routeTransitionsBuilder = _standardTransitionsBuilder(transitionType);
+          routeTransitionsBuilder = _standardTransitionsBuilder(transition);
         }
         return new PageRouteBuilder<dynamic>(
           settings: routeSettings,

@@ -34,7 +34,7 @@ class AppRoute {
   String route;
   dynamic handler;
   TransitionType transitionType;
-  AppRoute(this.route, this.handler, [this.transitionType = TransitionType.native]);
+  AppRoute(this.route, this.handler, {this.transitionType});
 }
 
 enum RouteMatchType {
