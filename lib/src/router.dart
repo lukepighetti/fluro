@@ -55,7 +55,7 @@ class Router {
         transitionType: transition,
         transitionsBuilder: transitionBuilder,
         transitionDuration: transitionDuration,
-        object: context
+        object: objcet
     );
     Route<dynamic> route = routeMatch.route;
     Completer completer = new Completer();
