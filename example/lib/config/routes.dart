@@ -17,7 +17,7 @@ class Routes {
 
   static void configureRoutes(Router router) {
     router.notFoundHandler = new Handler(
-        handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+        handlerFunc: (BuildContext context, Map<String, List<String>> params, [dynamic object]) {
       print("ROUTE WAS NOT FOUND !!!");
     });
     router.define(root, handler: rootHandler);
