@@ -49,13 +49,13 @@ class Router {
     TransitionType transition = TransitionType.native,
     Duration transitionDuration = const Duration(milliseconds: 250),
     RouteTransitionsBuilder transitionBuilder,
-    dynamic objcet
+    dynamic object
   }) {
     RouteMatch routeMatch = matchRoute(context, path,
         transitionType: transition,
         transitionsBuilder: transitionBuilder,
         transitionDuration: transitionDuration,
-        object: objcet
+        object: object
     );
     Route<dynamic> route = routeMatch.route;
     Completer completer = new Completer();
