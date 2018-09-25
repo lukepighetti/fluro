@@ -5,9 +5,9 @@
  * Copyright (c) 2018 Posse Productions LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
-
-import 'package:fluro/src/common.dart';
 import 'package:flutter/widgets.dart';
+
+import '../src/common.dart';
 
 enum RouteTreeNodeType {
   component,

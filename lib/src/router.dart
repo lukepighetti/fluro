@@ -7,10 +7,10 @@
  */
 
 import 'dart:async';
-
-import 'package:fluro/fluro.dart';
-import 'package:fluro/src/common.dart';
 import 'package:flutter/material.dart';
+
+import '../fluro.dart';
+import '../src/common.dart';
 
 enum TransitionType {
   native,
@@ -62,6 +62,7 @@ class Router {
     Future future = completer.future;
 
     if (routeMatch.matchType == RouteMatchType.nonVisual) {
+      
       completer.complete("Non visual route type.");
     } else {
       if (route == null && notFoundHandler != null) {
@@ -82,7 +83,6 @@ class Router {
     return future;
   }
 
-  ///
   Route<Null> _notFoundRoute(BuildContext context, String path) {
     RouteCreator<Null> creator = (RouteSettings routeSettings, Map<String, List<String>> parameters) {
       return new MaterialPageRoute<Null>(
@@ -94,7 +94,6 @@ class Router {
     return creator(new RouteSettings(name: path), null);
   }
 
-  ///
   RouteMatch matchRoute(BuildContext buildContext, String path, {
     RouteSettings routeSettings,
     TransitionType transitionType,
@@ -114,15 +113,28 @@ class Router {
 
     if (route == null && notFoundHandler == null) {
       return new RouteMatch(
-          matchType: RouteMatchType.noMatch,
-          errorMessage: "No matching route was found");
+        matchType: RouteMatchType.noMatch,
+        errorMessage: "No matching route was found",
+        handler: handler
+      );
     }
 
     Map<String, List<String>> parameters = match?.parameters ?? <String, List<String>>{};
 
     if (handler.type == HandlerType.function) {
       handler.handlerFunc(buildContext, parameters, object);
-      return new RouteMatch(matchType: RouteMatchType.nonVisual);
+      return new RouteMatch(
+        matchType: RouteMatchType.nonVisual,
+        handler: handler
+      );
+    }
+
+    if (handler.type == HandlerType.future) {
+      handler.handlerFunc(buildContext, parameters, object);
+      return new RouteMatch(
+        matchType: RouteMatchType.nonVisual,
+        handler: handler
+      );
     }
 
     RouteCreator creator = (RouteSettings routeSettings, Map<String, List<String>> parameters) {
@@ -157,6 +169,7 @@ class Router {
     return new RouteMatch(
       matchType: RouteMatchType.visual,
       route: creator(settingsToUse, parameters),
+      handler: handler
     );
   }
 

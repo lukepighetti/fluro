@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 enum HandlerType {
   route,
   function,
+  future,
 }
 
 ///
@@ -28,7 +29,7 @@ typedef Route<T> RouteCreator<T>(
 );
 
 ///
-typedef Widget HandlerFunc(
+typedef dynamic HandlerFunc(
   BuildContext context, 
   Map<String, List<String>> parameters, 
   [dynamic object]
@@ -49,11 +50,15 @@ enum RouteMatchType {
 
 ///
 class RouteMatch {
-  RouteMatch(
-      {this.matchType = RouteMatchType.noMatch,
-      this.route,
-      this.errorMessage = "Unable to match route. Please check the logs."});
+  RouteMatch({
+    this.matchType = RouteMatchType.noMatch,
+    this.route,
+    this.errorMessage = "Unable to match route. Please check the logs.",
+    this.handler
+  });
+
   final Route<dynamic> route;
   final RouteMatchType matchType;
   final String errorMessage;
+  final dynamic handler;
 }
