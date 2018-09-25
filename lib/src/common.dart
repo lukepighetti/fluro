@@ -54,11 +54,15 @@ class RouteMatch {
     this.matchType = RouteMatchType.noMatch,
     this.route,
     this.errorMessage = "Unable to match route. Please check the logs.",
-    this.handler
+    this.handler,
+    this.parameters,
+    this.object
   });
 
   final Route<dynamic> route;
   final RouteMatchType matchType;
   final String errorMessage;
-  final dynamic handler;
+  final Handler handler;
+  final Map<String, List<String>> parameters;
+  final dynamic object;
 }

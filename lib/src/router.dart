@@ -62,8 +62,10 @@ class Router {
     Future future = completer.future;
 
     if (routeMatch.matchType == RouteMatchType.nonVisual) {
-      
-      completer.complete("Non visual route type.");
+      if (routeMatch.handler.type == HandlerType.future) {
+        future = routeMatch.handler.handlerFunc(context, routeMatch.parameters, routeMatch.object);
+      }
+      completer.complete();
     } else {
       if (route == null && notFoundHandler != null) {
         route = _notFoundRoute(context, path);
@@ -130,10 +132,12 @@ class Router {
     }
 
     if (handler.type == HandlerType.future) {
-      handler.handlerFunc(buildContext, parameters, object);
+      // handler.handlerFunc(buildContext, parameters, object);
       return new RouteMatch(
         matchType: RouteMatchType.nonVisual,
-        handler: handler
+        handler: handler,
+        parameters: parameters,
+        object: object
       );
     }
 
