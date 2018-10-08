@@ -47,7 +47,8 @@ class Router {
 
   ///
   Future navigateTo(BuildContext context, String path,
-      {bool replace = false, bool clearStack = false,
+      {bool replace = false,
+      bool clearStack = false,
       TransitionType transition = TransitionType.native,
       Duration transitionDuration = const Duration(milliseconds: 250),
       RouteTransitionsBuilder transitionBuilder}) {
@@ -66,7 +67,8 @@ class Router {
       }
       if (route != null) {
         if (clearStack) {
-          future = Navigator.pushAndRemoveUntil(context, route, (check) => false);
+          future =
+              Navigator.pushAndRemoveUntil(context, route, (check) => false);
         } else {
           future = replace
               ? Navigator.pushReplacement(context, route)
