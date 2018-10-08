@@ -43,9 +43,11 @@ class Router {
     return _routeTree.matchRoute(path);
   }
 
+  bool pop(BuildContext context) => Navigator.pop(context);
+
   ///
   Future navigateTo(BuildContext context, String path,
-      {bool replace = false,
+      {bool replace = false, bool clearStack = false,
       TransitionType transition = TransitionType.native,
       Duration transitionDuration = const Duration(milliseconds: 250),
       RouteTransitionsBuilder transitionBuilder}) {
@@ -63,9 +65,13 @@ class Router {
         route = _notFoundRoute(context, path);
       }
       if (route != null) {
-        future = replace
-            ? Navigator.pushReplacement(context, route)
-            : Navigator.push(context, route);
+        if (clearStack) {
+          future = Navigator.pushAndRemoveUntil(context, route, (check) => false);
+        } else {
+          future = replace
+              ? Navigator.pushReplacement(context, route)
+              : Navigator.push(context, route);
+        }
         completer.complete();
       } else {
         String error = "No registered route was found to handle '$path'.";
