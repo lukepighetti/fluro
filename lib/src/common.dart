@@ -1,8 +1,9 @@
 /*
  * fluro
- * A Posse Production
- * http://goposse.com
- * Copyright (c) 2018 Posse Productions LLC. All rights reserved.
+ * Created by Yakka
+ * https://theyakka.com
+ * 
+ * Copyright (c) 2018 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 
@@ -51,4 +52,9 @@ class RouteMatch {
   final Route<dynamic> route;
   final RouteMatchType matchType;
   final String errorMessage;
+}
+
+class RouteNotFoundException implements Exception {
+  String message;
+  RouteNotFoundException(this.message);
 }

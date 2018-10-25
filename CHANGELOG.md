@@ -1,3 +1,6 @@
+# 1.3.6
+- Small fix to error return type when no route match was made
+
 # 1.3.5
 - add `pop` convenience
 - add `clearStack` flag so that you can clear the history when pushing a route
