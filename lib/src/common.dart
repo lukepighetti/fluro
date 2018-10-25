@@ -55,6 +55,12 @@ class RouteMatch {
 }
 
 class RouteNotFoundException implements Exception {
-  String message;
-  RouteNotFoundException(this.message);
+  final String message;
+  final String path;
+  RouteNotFoundException(this.message, this.path);
+
+  @override
+  String toString() {
+    return "No registered route was found to handle '$path'";
+  }
 }

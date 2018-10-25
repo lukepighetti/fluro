@@ -1,3 +1,6 @@
+# 1.3.7
+- Add `toString` for custom `RouteNotFoundException` type
+
 # 1.3.6
 - Small fix to error return type when no route match was made
 

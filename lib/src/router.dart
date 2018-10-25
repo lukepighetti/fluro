@@ -79,7 +79,7 @@ class Router {
       } else {
         String error = "No registered route was found to handle '$path'.";
         print(error);
-        completer.completeError(RouteNotFoundException(error));
+        completer.completeError(RouteNotFoundException(error, path));
       }
     }
 
