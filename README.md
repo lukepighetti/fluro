@@ -61,7 +61,7 @@ void defineRoutes(Router router) {
   router.define("/users/:id", handler: usersHandler);
 
   // it is also possible to define the route transition to use
-  // router.defined("users/:id", handler: usersHandler, transitionType: TransitionType.inFromLeft);
+  // router.define("users/:id", handler: usersHandler, transitionType: TransitionType.inFromLeft);
 }
 ```
 
