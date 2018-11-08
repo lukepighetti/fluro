@@ -1,8 +1,9 @@
 /*
  * fluro
- * A Posse Production
- * http://goposse.com
- * Copyright (c) 2018 Posse Productions LLC. All rights reserved.
+ * Created by Yakka
+ * https://theyakka.com
+ * 
+ * Copyright (c) 2018 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 
@@ -37,6 +38,16 @@ class AppRoute {
   AppRoute(this.route, this.handler, {this.transitionType});
 }
 
+enum TransitionType {
+  native,
+  nativeModal,
+  inFromLeft,
+  inFromRight,
+  inFromBottom,
+  fadeIn,
+  custom, // if using custom then you must also provide a transition
+}
+
 enum RouteMatchType {
   visual,
   nonVisual,
@@ -54,12 +65,13 @@ class RouteMatch {
   final String errorMessage;
 }
 
-enum TransitionType {
-  native,
-  nativeModal,
-  inFromLeft,
-  inFromRight,
-  inFromBottom,
-  fadeIn,
-  custom, // if using custom then you must also provide a transition
+class RouteNotFoundException implements Exception {
+  final String message;
+  final String path;
+  RouteNotFoundException(this.message, this.path);
+
+  @override
+  String toString() {
+    return "No registered route was found to handle '$path'";
+  }
 }

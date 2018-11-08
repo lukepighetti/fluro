@@ -1,5 +1,12 @@
+# 1.3.7
+- Add `toString` for custom `RouteNotFoundException` type
+
+# 1.3.6
+- Small fix to error return type when no route match was made
+
 # 1.3.5
-- Added ability to define transition type when defining route
+- add `pop` convenience
+- add `clearStack` flag so that you can clear the history when pushing a route
 
 # 1.3.4
 - Change lower dart version to cater to older flutter versions

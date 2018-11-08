@@ -1,8 +1,9 @@
 /*
  * fluro
- * A Posse Production
- * http://goposse.com
- * Copyright (c) 2018 Posse Productions LLC. All rights reserved.
+ * Created by Yakka
+ * https://theyakka.com
+ * 
+ * Copyright (c) 2018 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 import '../helpers/color_helpers.dart';
@@ -66,7 +67,7 @@ var demoFunctionHandler = new Handler(
 /// Handles deep links into the app
 /// To test on Android:
 ///
-/// `adb shell am start -W -a android.intent.action.VIEW -d "fluro://deeplink?path=/message&mesage=fluro%20rocks%21%21" com.goposse.fluro`
+/// `adb shell am start -W -a android.intent.action.VIEW -d "fluro://deeplink?path=/message&mesage=fluro%20rocks%21%21" com.theyakka.fluro`
 var deepLinkHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   String colorHex = params["color_hex"]?.first;

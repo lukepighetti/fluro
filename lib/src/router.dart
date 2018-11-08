@@ -1,8 +1,9 @@
 /*
  * fluro
- * A Posse Production
- * http://goposse.com
- * Copyright (c) 2018 Posse Productions LLC. All rights reserved.
+ * Created by Yakka
+ * https://theyakka.com
+ * 
+ * Copyright (c) 2018 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 
@@ -34,9 +35,12 @@ class Router {
     return _routeTree.matchRoute(path);
   }
 
+  bool pop(BuildContext context) => Navigator.pop(context);
+
   ///
   Future navigateTo(BuildContext context, String path,
       {bool replace = false,
+      bool clearStack = false,
       TransitionType transition,
       Duration transitionDuration = const Duration(milliseconds: 250),
       RouteTransitionsBuilder transitionBuilder}) {
@@ -54,14 +58,19 @@ class Router {
         route = _notFoundRoute(context, path);
       }
       if (route != null) {
-        future = replace
-            ? Navigator.pushReplacement(context, route)
-            : Navigator.push(context, route);
+        if (clearStack) {
+          future =
+              Navigator.pushAndRemoveUntil(context, route, (check) => false);
+        } else {
+          future = replace
+              ? Navigator.pushReplacement(context, route)
+              : Navigator.push(context, route);
+        }
         completer.complete();
       } else {
         String error = "No registered route was found to handle '$path'.";
         print(error);
-        completer.completeError(error);
+        completer.completeError(RouteNotFoundException(error, path));
       }
     }
 
