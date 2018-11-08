@@ -192,7 +192,7 @@ class HomeComponentState extends State<HomeComponent> {
     } else if (key == "custom") {
       hexCode = "#DFF700";
       message =
-      "This screen should have appeared with a crazy custom transition";
+          "This screen should have appeared with a crazy custom transition";
       var transition = (BuildContext context, Animation<double> animation,
           Animation<double> secondaryAnimation, Widget child) {
         return new ScaleTransition(
@@ -211,7 +211,8 @@ class HomeComponentState extends State<HomeComponent> {
         transitionDuration: const Duration(milliseconds: 600),
       );
     } else if (key == "fixed-trans") {
-      Application.router.navigateTo(context, "/demo/fixedtrans?message=Hello!&color_hex=#f4424b");
+      Application.router.navigateTo(
+          context, "/demo/fixedtrans?message=Hello!&color_hex=#f4424b");
     } else {
       message = "You tapped the function button!";
       Application.router.navigateTo(context, "/demo/func?message=$message");

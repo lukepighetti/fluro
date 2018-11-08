@@ -77,7 +77,8 @@ void main() {
     String path = "/users/1234";
     String route = "/users/:id";
     Router router = new Router();
-    router.define(route, handler: null, transitionType: TransitionType.inFromRight);
+    router.define(route,
+        handler: null, transitionType: TransitionType.inFromRight);
     AppRouteMatch match = router.match(path);
     expect(TransitionType.inFromRight, match.route.transitionType);
   });

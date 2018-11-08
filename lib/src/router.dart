@@ -24,9 +24,9 @@ class Router {
 
   /// Creates a [PageRoute] definition for the passed [RouteHandler]. You can optionally provide a default transition type.
   void define(String routePath,
-      {@required Handler handler,
-      TransitionType transitionType}) {
-    _routeTree.addRoute(new AppRoute(routePath, handler, transitionType: transitionType));
+      {@required Handler handler, TransitionType transitionType}) {
+    _routeTree.addRoute(
+        new AppRoute(routePath, handler, transitionType: transitionType));
   }
 
   /// Finds a defined [AppRoute] for the path value. If no [AppRoute] definition was found
