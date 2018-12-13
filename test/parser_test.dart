@@ -72,4 +72,14 @@ void main() {
           "number": ["7", "10", "13"],
         }));
   });
+  testWidgets("Router correctly matches route and transition type",
+      (WidgetTester tester) async {
+    String path = "/users/1234";
+    String route = "/users/:id";
+    Router router = new Router();
+    router.define(route,
+        handler: null, transitionType: TransitionType.inFromRight);
+    AppRouteMatch match = router.match(path);
+    expect(TransitionType.inFromRight, match.route.transitionType);
+  });
 }

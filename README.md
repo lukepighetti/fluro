@@ -59,6 +59,9 @@ var usersHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynam
 
 void defineRoutes(Router router) {
   router.define("/users/:id", handler: usersHandler);
+
+  // it is also possible to define the route transition to use
+  // router.define("users/:id", handler: usersHandler, transitionType: TransitionType.inFromLeft);
 }
 ```
 

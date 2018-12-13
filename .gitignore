@@ -10,3 +10,4 @@ pubspec.lock
 coverage
 __temp_coverage*
 .dart_tool/
+build/
