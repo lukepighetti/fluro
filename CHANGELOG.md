@@ -1,3 +1,6 @@
+# 1.4.0
+- Added the ability to define a transition at the point of route definition. Route transitions are optional and any transition defined a "push" will override the route definition.
+
 # 1.3.7
 - Add `toString` for custom `RouteNotFoundException` type
 
