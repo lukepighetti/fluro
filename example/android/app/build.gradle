@@ -28,15 +28,15 @@ android {
 }
 
 dependencies {
-	compile fileTree(dir: 'libs', include: ['*.jar'])
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
 	// kotlin
-	compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
 	// google
-	compile "com.android.support:appcompat-v7:${versions.googleSupport}"
-	compile "com.android.support:support-v13:${versions.googleSupport}"
-	compile "com.android.support:support-v4:${versions.googleSupport}"
+	implementation "com.android.support:appcompat-v7:${versions.googleSupport}"
+	implementation "com.android.support:support-v13:${versions.googleSupport}"
+	implementation "com.android.support:support-v4:${versions.googleSupport}"
 	// testing
-	androidTestCompile "com.android.support:support-annotations:${versions.googleSupport}"
-	androidTestCompile 'com.android.support.test:runner:1.0.1'
-	androidTestCompile 'com.android.support.test:rules:1.0.1'
+	androidTestImplementation "com.android.support:support-annotations:${versions.googleSupport}"
+	androidTestImplementation 'com.android.support.test:runner:1.0.1'
+	androidTestImplementation 'com.android.support.test:rules:1.0.1'
 }
