@@ -45,6 +45,7 @@ enum TransitionType {
   inFromRight,
   inFromBottom,
   fadeIn,
+  swipeBack,
   custom, // if using custom then you must also provide a transition
 }
 

@@ -11,6 +11,7 @@ import 'dart:async';
 
 import 'package:fluro/fluro.dart';
 import 'package:fluro/src/common.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Router {
@@ -123,8 +124,18 @@ class Router {
         (RouteSettings routeSettings, Map<String, List<String>> parameters) {
       bool isNativeTransition = (transition == TransitionType.native ||
           transition == TransitionType.nativeModal);
+
+      bool isSwipeBackTransition = transition == TransitionType.swipeBack;
+
       if (isNativeTransition) {
         return new MaterialPageRoute<dynamic>(
+            settings: routeSettings,
+            fullscreenDialog: transition == TransitionType.nativeModal,
+            builder: (BuildContext context) {
+              return handler.handlerFunc(context, parameters);
+            });
+      } else if (isSwipeBackTransition) {
+        return new CupertinoPageRoute<dynamic>(
             settings: routeSettings,
             fullscreenDialog: transition == TransitionType.nativeModal,
             builder: (BuildContext context) {
