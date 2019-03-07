@@ -15,7 +15,7 @@ import 'package:flutter/services.dart';
 
 class HomeComponent extends StatefulWidget {
   @override
-  State createState() => new HomeComponentState();
+  State createState() => HomeComponentState();
 }
 
 class HomeComponentState extends State<HomeComponent> {
@@ -33,17 +33,17 @@ class HomeComponentState extends State<HomeComponent> {
   ];
 
   Widget deepLinkWidget(BuildContext context) {
-    return new Stack(
+    return Stack(
       children: <Widget>[
         // copied widget
-        new AnimatedOpacity(
-          opacity: (_deepLinkOpacity - 1.0).abs(),
-          duration: new Duration(milliseconds: 400),
-          child: new Center(
-            child: new Text(
+        AnimatedOpacity(
+          opacity: (_deepLinkOpacity - 1).abs(),
+          duration: Duration(milliseconds: 400),
+          child: Center(
+            child: Text(
               "Copied to clipboard!",
-              style: new TextStyle(
-                fontSize: 14.0,
+              style: TextStyle(
+                fontSize: 14,
                 color: const Color(0xFFFFFFFF),
                 fontWeight: FontWeight.w500,
               ),
@@ -51,34 +51,34 @@ class HomeComponentState extends State<HomeComponent> {
           ),
         ),
         // button widget
-        new AnimatedOpacity(
+        AnimatedOpacity(
           opacity: _deepLinkOpacity,
-          duration: new Duration(milliseconds: 250),
-          child: new Center(
-            child: new FlatButton(
+          duration: Duration(milliseconds: 250),
+          child: Center(
+            child: FlatButton(
               highlightColor: const Color(0x11FFFFFF),
               splashColor: const Color(0x22FFFFFF),
               onPressed: () {
-                if (_deepLinkOpacity == 1.0) {
-                  new Timer(new Duration(milliseconds: 2000), () {
+                if (_deepLinkOpacity == 1) {
+                  Timer(Duration(milliseconds: 2000), () {
                     setState(() {
-                      _deepLinkOpacity = 1.0;
+                      _deepLinkOpacity = 1;
                     });
                   });
                   setState(() {
-                    _deepLinkOpacity = 0.0;
+                    _deepLinkOpacity = 0;
                   });
-                  final clipboardData = new ClipboardData(text: _deepLinkURL);
+                  final clipboardData = ClipboardData(text: _deepLinkURL);
                   Clipboard.setData(clipboardData);
                 }
               },
-              child: new Padding(
-                padding: new EdgeInsets.all(8.0),
-                child: new Text(
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: Text(
                   "Click here to copy a deep link url to the clipboard",
                   textAlign: TextAlign.center,
-                  style: new TextStyle(
-                    fontSize: 12.0,
+                  style: TextStyle(
+                    fontSize: 12,
                     color: const Color(0xCCFFFFFF),
                   ),
                 ),
@@ -93,11 +93,11 @@ class HomeComponentState extends State<HomeComponent> {
   @override
   Widget build(BuildContext context) {
     var menuWidgets = <Widget>[
-      new Padding(
-        padding: new EdgeInsets.only(bottom: 35.0),
-        child: new Image(
-            image: new AssetImage("assets/images/logo_fluro.png"),
-            width: 200.0),
+      Padding(
+        padding: EdgeInsets.only(bottom: 35),
+        child: Image(
+            image: AssetImage("assets/images/logo_fluro.png"),
+            width: 200),
       ),
       menuButton(context, "Native Animation", "native"),
       menuButton(context, "Preset (Fade In)", "preset-fade"),
@@ -105,20 +105,20 @@ class HomeComponentState extends State<HomeComponent> {
       menuButton(context, "Custom Transition", "custom"),
       menuButton(context, "Navigator Result", "pop-result"),
       menuButton(context, "Function Call", "function-call"),
-      new Padding(
-        padding: new EdgeInsets.only(top: 65.0, left: 60.0, right: 60.0),
-        child: new Center(
-          child: new ConstrainedBox(
-            constraints: new BoxConstraints.tightFor(height: 60.0),
+      Padding(
+        padding: EdgeInsets.only(top: 65, left: 60, right: 60),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints.tightFor(height: 60),
             child: deepLinkWidget(context),
           ),
         ),
       ),
     ];
 
-    return new Material(
+    return Material(
       color: const Color(0xFF00D6F7),
-      child: new Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: menuWidgets,
       ),
@@ -127,16 +127,16 @@ class HomeComponentState extends State<HomeComponent> {
 
   // helpers
   Widget menuButton(BuildContext context, String title, String key) {
-    return new Padding(
-      padding: new EdgeInsets.all(4.0),
-      child: new ConstrainedBox(
-        constraints: new BoxConstraints(minHeight: 42.0),
-        child: new FlatButton(
+    return Padding(
+      padding: EdgeInsets.all(4),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: 42),
+        child: FlatButton(
           highlightColor: const Color(0x11FFFFFF),
           splashColor: const Color(0x22FFFFFF),
-          child: new Text(
+          child: Text(
             title,
-            style: new TextStyle(
+            style: TextStyle(
               color: const Color(0xAA001133),
             ),
           ),
@@ -173,7 +173,7 @@ class HomeComponentState extends State<HomeComponent> {
         hexCode = "#7d41f4";
         message =
             "When you close this screen you should see the current day of the week";
-        result = "Today is ${_daysOfWeek[new DateTime.now().weekday - 1]}!";
+        result = "Today is ${_daysOfWeek[DateTime.now().weekday - 1]}!";
       }
 
       String route = "/demo?message=$message&color_hex=$hexCode";
@@ -195,9 +195,9 @@ class HomeComponentState extends State<HomeComponent> {
           "This screen should have appeared with a crazy custom transition";
       var transition = (BuildContext context, Animation<double> animation,
           Animation<double> secondaryAnimation, Widget child) {
-        return new ScaleTransition(
+        return ScaleTransition(
           scale: animation,
-          child: new RotationTransition(
+          child: RotationTransition(
             turns: animation,
             child: child,
           ),

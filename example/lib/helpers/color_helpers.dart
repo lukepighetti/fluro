@@ -38,20 +38,20 @@ class ColorHelpers {
   /// value is specified, then white or black will be preferred.
   static Color blackOrWhiteContrastColor(Color sourceColor,
       {ContrastPreference prefer = ContrastPreference.none}) {
-    // Will return a value between 0.0 (black) and 1.0 (white)
-    double value = (((sourceColor.red * 299.0) +
-                (sourceColor.green * 587.0) +
-                (sourceColor.blue * 114.0)) /
-            1000.0) /
-        255.0;
+    // Will return a value between 0 (black) and 1 (white)
+    double value = (((sourceColor.red * 299) +
+                (sourceColor.green * 587) +
+                (sourceColor.blue * 114)) /
+            1000) /
+        255;
     if (prefer != ContrastPreference.none) {
       if (value >= _kMinContrastModifierRange &&
           value <= _kMaxContrastModifierRange) {
         return prefer == ContrastPreference.light
-            ? new Color(0xFFFFFFFF)
-            : new Color(0xFF000000);
+            ? Color(0xFFFFFFFF)
+            : Color(0xFF000000);
       }
     }
-    return value > 0.6 ? new Color(0xFF000000) : new Color(0xFFFFFFFF);
+    return value > 0.6 ? Color(0xFF000000) : Color(0xFFFFFFFF);
   }
 }

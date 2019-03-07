@@ -17,12 +17,12 @@ class DemoMessageComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Material(
+    return Material(
       color: this.color,
-      child: new Center(
-          child: new Text(
+      child: Center(
+          child: Text(
         message,
-        style: new TextStyle(
+        style: TextStyle(
           fontFamily: "Lazer84",
         ),
       )),

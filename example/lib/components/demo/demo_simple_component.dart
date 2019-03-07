@@ -24,32 +24,32 @@ class DemoSimpleComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Material(
+    return Material(
       color: color,
-      child: new Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          new Image(
-            image: new AssetImage("assets/images/acc_boom.png"),
+          Image(
+            image: AssetImage("assets/images/acc_boom.png"),
             color: ColorHelpers.blackOrWhiteContrastColor(color),
-            width: 260.0,
+            width: 260,
           ),
-          new Padding(
-            padding: new EdgeInsets.only(left: 50.0, right: 50.0, top: 15.0),
-            child: new Text(
+          Padding(
+            padding: EdgeInsets.only(left: 50, right: 50, top: 15),
+            child: Text(
               message,
               textAlign: TextAlign.center,
-              style: new TextStyle(
+              style: TextStyle(
                 color: ColorHelpers.blackOrWhiteContrastColor(color),
-                height: 2.0,
+                height: 2,
               ),
             ),
           ),
-          new Padding(
-            padding: new EdgeInsets.only(top: 15.0),
-            child: new ConstrainedBox(
-              constraints: new BoxConstraints(minHeight: 42.0),
-              child: new FlatButton(
+          Padding(
+            padding: EdgeInsets.only(top: 15),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: 42),
+              child: FlatButton(
                 highlightColor:
                     ColorHelpers.blackOrWhiteContrastColor(color).withAlpha(17),
                 splashColor:
@@ -61,10 +61,10 @@ class DemoSimpleComponent extends StatelessWidget {
                     Navigator.pop(context, result);
                   }
                 },
-                child: new Text(
+                child: Text(
                   "OK",
-                  style: new TextStyle(
-                    fontSize: 18.0,
+                  style: TextStyle(
+                    fontSize: 18,
                     color: ColorHelpers.blackOrWhiteContrastColor(color),
                   ),
                 ),
