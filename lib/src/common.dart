@@ -2,7 +2,7 @@
  * fluro
  * Created by Yakka
  * https://theyakka.com
- * 
+ *
  * Copyright (c) 2018 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
@@ -27,8 +27,8 @@ typedef Route<T> RouteCreator<T>(
     RouteSettings route, Map<String, List<String>> parameters);
 
 ///
-typedef Widget HandlerFunc(
-    BuildContext context, Map<String, List<String>> parameters);
+typedef Widget HandlerFunc(BuildContext context,
+    Map<String, List<String>> parameters, Object arguments);
 
 ///
 class AppRoute {

@@ -2,7 +2,7 @@
  * fluro
  * Created by Yakka
  * https://theyakka.com
- * 
+ *
  * Copyright (c) 2018 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
@@ -13,13 +13,13 @@ import 'package:flutter/painting.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
-var rootHandler = new Handler(
-    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+var rootHandler = new Handler(handlerFunc:
+    (BuildContext context, Map<String, List<String>> params, Object arguments) {
   return new HomeComponent();
 });
 
-var demoRouteHandler = new Handler(
-    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+var demoRouteHandler = new Handler(handlerFunc:
+    (BuildContext context, Map<String, List<String>> params, Object arguments) {
   String message = params["message"]?.first;
   String colorHex = params["color_hex"]?.first;
   String result = params["result"]?.first;
@@ -28,12 +28,13 @@ var demoRouteHandler = new Handler(
     color = new Color(ColorHelpers.fromHexString(colorHex));
   }
   return new DemoSimpleComponent(
-      message: message, color: color, result: result);
+      message: message, color: color, result: result, include: arguments);
 });
 
 var demoFunctionHandler = new Handler(
     type: HandlerType.function,
-    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    handlerFunc: (BuildContext context, Map<String, List<String>> params,
+        Object arguments) {
       String message = params["message"]?.first;
       showDialog(
         context: context,
@@ -68,8 +69,8 @@ var demoFunctionHandler = new Handler(
 /// To test on Android:
 ///
 /// `adb shell am start -W -a android.intent.action.VIEW -d "fluro://deeplink?path=/message&mesage=fluro%20rocks%21%21" com.theyakka.fluro`
-var deepLinkHandler = new Handler(
-    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+var deepLinkHandler = new Handler(handlerFunc:
+    (BuildContext context, Map<String, List<String>> params, Object arguments) {
   String colorHex = params["color_hex"]?.first;
   String result = params["result"]?.first;
   Color color = new Color(0xFFFFFFFF);

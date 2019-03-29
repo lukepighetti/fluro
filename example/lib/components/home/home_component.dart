@@ -2,7 +2,7 @@
  * fluro
  * Created by Yakka
  * https://theyakka.com
- * 
+ *
  * Copyright (c) 2018 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
@@ -105,6 +105,7 @@ class HomeComponentState extends State<HomeComponent> {
       menuButton(context, "Custom Transition", "custom"),
       menuButton(context, "Navigator Result", "pop-result"),
       menuButton(context, "Function Call", "function-call"),
+      menuButton(context, "[NEW] Route Settings Arguments", "arguments"),
       new Padding(
         padding: new EdgeInsets.only(top: 65.0, left: 60.0, right: 60.0),
         child: new Center(
@@ -155,6 +156,8 @@ class HomeComponentState extends State<HomeComponent> {
     String result;
     TransitionType transitionType = TransitionType.native;
     if (key != "custom" && key != "function-call" && key != "fixed-trans") {
+      Object arg;
+
       if (key == "native") {
         hexCode = "#F76F00";
         message =
@@ -174,6 +177,8 @@ class HomeComponentState extends State<HomeComponent> {
         message =
             "When you close this screen you should see the current day of the week";
         result = "Today is ${_daysOfWeek[new DateTime.now().weekday - 1]}!";
+      } else if (key == "arguments") {
+        arg = Text('This widget was passed as argument.');
       }
 
       String route = "/demo?message=$message&color_hex=$hexCode";
@@ -183,7 +188,8 @@ class HomeComponentState extends State<HomeComponent> {
       }
 
       Application.router
-          .navigateTo(context, route, transition: transitionType)
+          .navigateTo(context, route,
+              transition: transitionType, arguments: arg)
           .then((result) {
         if (key == "pop-result") {
           Application.router.navigateTo(context, "/demo/func?message=$result");

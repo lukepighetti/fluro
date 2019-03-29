@@ -25,7 +25,7 @@ See CHANGELOG for all breaking (and non-breaking) changes.
 You should ensure that you add the router as a dependency in your flutter project.
 ```yaml
 dependencies:
- fluro: "^1.4.0"
+ fluro: "^1.5.0"
 ```
 
 You can also reference the git repo directly if you want:
@@ -53,7 +53,7 @@ you can access the router in other areas in your application.
 
 After instantiating the router, you will need to define your routes and your route handlers:
 ```dart
-var usersHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+var usersHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params, Object arguments) {
   return UsersScreen(params["id"][0]);
 });
 
@@ -83,6 +83,24 @@ You can also manually push to a route yourself. To do so:
 ```dart
 router.navigateTo(context, "/users/1234", transition: TransitionType.fadeIn);
 ```
+
+## Parameters vs. Arguments
+
+The `params` is a convenient way to pass simple data (in a `Map`) just using the route.
+
+In addition (`/* since 1.5.0 */`), you can pass any object instance as argument. This is useful if you need to pass more complex data.
+
+```dart
+// where `User` is defined class
+var userModel = User(id: 1234, name: 'demo');
+
+// using Fluro router
+router.navigateTo(context, "/users/1234?action=edit", arguments: userModel);
+
+// alternatively, you can still use the Navigator
+Navigator.of(context).pushNamed("/users/1234?action=edit", arguments: userModel);
+```
+
 
 <hr/>
 Fluro is a Yakka original.

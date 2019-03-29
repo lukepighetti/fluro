@@ -1,3 +1,7 @@
+# 1.5.0
+- Added the ability to pass and receive arguments in addition to the parameters.
+- **BREAKING CHANGE:** The HandlerFunc now expects a third parameter of type `Object` called `arguments`.
+
 # 1.4.0
 - Added the ability to define a transition at the point of route definition. Route transitions are optional and any transition defined a "push" will override the route definition.
 
@@ -34,8 +38,8 @@
 
 # 1.1.0
 
-**BREAKING**: In order to support function handlers you will need to change all of your route 
-handler definitions to use the new `Handler` class. The `RouteHandler` definition has now been 
+**BREAKING**: In order to support function handlers you will need to change all of your route
+handler definitions to use the new `Handler` class. The `RouteHandler` definition has now been
 removed.
 
 Swapping out the handlers should be as simple as changing:

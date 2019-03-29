@@ -2,7 +2,7 @@
  * fluro
  * Created by Yakka
  * https://theyakka.com
- * 
+ *
  * Copyright (c) 2018 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
@@ -13,7 +13,8 @@ class DemoSimpleComponent extends StatelessWidget {
   DemoSimpleComponent(
       {String message = "Testing",
       Color color = const Color(0xFFFFFFFF),
-      String result})
+      String result,
+      this.include})
       : this.message = message,
         this.color = color,
         this.result = result;
@@ -21,6 +22,7 @@ class DemoSimpleComponent extends StatelessWidget {
   final String message;
   final Color color;
   final String result;
+  final Widget include;
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +38,16 @@ class DemoSimpleComponent extends StatelessWidget {
           ),
           new Padding(
             padding: new EdgeInsets.only(left: 50.0, right: 50.0, top: 15.0),
-            child: new Text(
-              message,
-              textAlign: TextAlign.center,
-              style: new TextStyle(
-                color: ColorHelpers.blackOrWhiteContrastColor(color),
-                height: 2.0,
-              ),
-            ),
+            child: include != null
+                ? include
+                : new Text(
+                    message,
+                    textAlign: TextAlign.center,
+                    style: new TextStyle(
+                      color: ColorHelpers.blackOrWhiteContrastColor(color),
+                      height: 2.0,
+                    ),
+                  ),
           ),
           new Padding(
             padding: new EdgeInsets.only(top: 15.0),
