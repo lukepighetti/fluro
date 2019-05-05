@@ -134,6 +134,8 @@ class Router {
         var routeTransitionsBuilder;
         if (transition == TransitionType.custom) {
           routeTransitionsBuilder = transitionsBuilder;
+        } else if (transition == TransitionType.noTransition) {
+          routeTransitionsBuilder = _noTransitionBuilder(transition);
         } else {
           routeTransitionsBuilder = _standardTransitionsBuilder(transition);
         }
@@ -152,6 +154,13 @@ class Router {
       matchType: RouteMatchType.visual,
       route: creator(settingsToUse, parameters),
     );
+  }
+
+  RouteTransitionsBuilder _noTransitionBuilder(TransitionType transitionType) {
+    return (BuildContext context, Animation<double> animation,
+        Animation<double> secondaryAnimation, Widget child) {
+      return child;
+    };
   }
 
   RouteTransitionsBuilder _standardTransitionsBuilder(

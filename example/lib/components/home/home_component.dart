@@ -103,6 +103,7 @@ class HomeComponentState extends State<HomeComponent> {
       menuButton(context, "Preset (Fade In)", "preset-fade"),
       menuButton(context, "Preset (Global transition)", "fixed-trans"),
       menuButton(context, "Custom Transition", "custom"),
+      menuButton(context, "No Transition", "noTransition"),
       menuButton(context, "Navigator Result", "pop-result"),
       menuButton(context, "Function Call", "function-call"),
       new Padding(
@@ -174,6 +175,10 @@ class HomeComponentState extends State<HomeComponent> {
         message =
             "When you close this screen you should see the current day of the week";
         result = "Today is ${_daysOfWeek[new DateTime.now().weekday - 1]}!";
+      } else if (key == "noTransition") {
+        hexCode = "#9BFF94";
+        message = "This should have appeared without a transition.";
+        transitionType = TransitionType.noTransition;
       }
 
       String route = "/demo?message=$message&color_hex=$hexCode";
