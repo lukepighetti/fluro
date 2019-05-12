@@ -124,10 +124,10 @@ class Router {
         (RouteSettings routeSettings, Map<String, List<String>> parameters) {
       bool isNativeTransition = (transition == TransitionType.native ||
           transition == TransitionType.nativeModal);
-      if (transition == TransitionType.cupertino) {
+      if (transition == TransitionType.cupertino || transition == TransitionType.cupertinoFullScreenDialog) {
         return new CupertinoPageRoute<dynamic>(
             settings: routeSettings,
-            fullscreenDialog: transition == TransitionType.nativeModal,
+            fullscreenDialog: transition == TransitionType.cupertinoFullScreenDialog,
             builder: (BuildContext context) {
               return handler.handlerFunc(context, parameters);
             });
