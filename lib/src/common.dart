@@ -47,6 +47,7 @@ enum TransitionType {
   fadeIn,
   custom, // if using custom then you must also provide a transition
   cupertino,
+  cupertinoFullScreenDialog,
 }
 
 enum RouteMatchType {
