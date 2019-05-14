@@ -24,9 +24,17 @@ class Router {
 
   /// Creates a [PageRoute] definition for the passed [RouteHandler]. You can optionally provide a default transition type.
   void define(String routePath,
-      {@required Handler handler, TransitionType transitionType}) {
-    _routeTree.addRoute(
-        new AppRoute(routePath, handler, transitionType: transitionType));
+      {@required Handler handler,
+      TransitionType transitionType,
+      RouteTransitionsBuilder transitionBuilder,
+      Duration transitionDuration}) {
+    _routeTree.addRoute(new AppRoute(
+      routePath,
+      handler,
+      transitionType: transitionType,
+      transitionBuilder: transitionBuilder,
+      transitionDuration: transitionDuration,
+    ));
   }
 
   /// Finds a defined [AppRoute] for the path value. If no [AppRoute] definition was found
@@ -102,6 +110,11 @@ class Router {
     }
     AppRouteMatch match = _routeTree.matchRoute(path);
     AppRoute route = match?.route;
+
+    if (route.transitionDuration != null) {
+      transitionDuration = route.transitionDuration;
+    }
+
     Handler handler = (route != null ? route.handler : notFoundHandler);
     var transition = transitionType;
     if (transitionType == null) {
@@ -133,7 +146,11 @@ class Router {
       } else {
         var routeTransitionsBuilder;
         if (transition == TransitionType.custom) {
-          routeTransitionsBuilder = transitionsBuilder;
+          if (route.transitionBuilder != null) {
+            routeTransitionsBuilder = route.transitionBuilder;
+          } else {
+            routeTransitionsBuilder = transitionsBuilder;
+          }
         } else if (transition == TransitionType.noTransition) {
           routeTransitionsBuilder = _noTransitionBuilder(transition);
         } else {
