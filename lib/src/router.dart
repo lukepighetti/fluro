@@ -3,11 +3,12 @@
  * Created by Yakka
  * https://theyakka.com
  * 
- * Copyright (c) 2018 Yakka, LLC. All rights reserved.
+ * Copyright (c) 2019 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:fluro/fluro.dart';
 import 'package:fluro/src/common.dart';
@@ -124,20 +125,31 @@ class Router {
         (RouteSettings routeSettings, Map<String, List<String>> parameters) {
       bool isNativeTransition = (transition == TransitionType.native ||
           transition == TransitionType.nativeModal);
-      if (transition == TransitionType.cupertino || transition == TransitionType.cupertinoFullScreenDialog) {
-        return new CupertinoPageRoute<dynamic>(
-            settings: routeSettings,
-            fullscreenDialog: transition == TransitionType.cupertinoFullScreenDialog,
-            builder: (BuildContext context) {
-              return handler.handlerFunc(context, parameters);
-            });
-      } else if (isNativeTransition) {
-        return new MaterialPageRoute<dynamic>(
-            settings: routeSettings,
-            fullscreenDialog: transition == TransitionType.nativeModal,
-            builder: (BuildContext context) {
-              return handler.handlerFunc(context, parameters);
-            });
+      if (isNativeTransition) {
+        if (Platform.isIOS) {
+          return new CupertinoPageRoute<dynamic>(
+              settings: routeSettings,
+              fullscreenDialog: transition == TransitionType.nativeModal,
+              builder: (BuildContext context) {
+                return handler.handlerFunc(context, parameters);
+              });
+        } else if (transition == TransitionType.cupertino ||
+            transition == TransitionType.cupertinoFullScreenDialog) {
+          return new CupertinoPageRoute<dynamic>(
+              settings: routeSettings,
+              fullscreenDialog:
+                  transition == TransitionType.cupertinoFullScreenDialog,
+              builder: (BuildContext context) {
+                return handler.handlerFunc(context, parameters);
+              });
+        } else {
+          return new MaterialPageRoute<dynamic>(
+              settings: routeSettings,
+              fullscreenDialog: transition == TransitionType.nativeModal,
+              builder: (BuildContext context) {
+                return handler.handlerFunc(context, parameters);
+              });
+        }
       } else {
         var routeTransitionsBuilder;
         if (transition == TransitionType.custom) {
