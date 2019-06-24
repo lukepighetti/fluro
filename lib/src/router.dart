@@ -3,15 +3,17 @@
  * Created by Yakka
  * https://theyakka.com
  *
- * Copyright (c) 2018 Yakka, LLC. All rights reserved.
+ * Copyright (c) 2019 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:fluro/fluro.dart';
 import 'package:fluro/src/common.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class Router {
   static final appRouter = new Router();
@@ -127,13 +129,33 @@ class Router {
       bool isNativeTransition = (transition == TransitionType.native ||
           transition == TransitionType.nativeModal);
       if (isNativeTransition) {
-        return new MaterialPageRoute<dynamic>(
-            settings: routeSettings,
-            fullscreenDialog: transition == TransitionType.nativeModal,
-            builder: (BuildContext context) {
-              return handler.handlerFunc(
-                  context, parameters, routeSettings.arguments);
-            });
+        if (Platform.isIOS) {
+          return new CupertinoPageRoute<dynamic>(
+              settings: routeSettings,
+              fullscreenDialog: transition == TransitionType.nativeModal,
+              builder: (BuildContext context) {
+                return handler.handlerFunc(
+                    context, parameters, routeSettings.arguments);
+              });
+        } else if (transition == TransitionType.cupertino ||
+            transition == TransitionType.cupertinoFullScreenDialog) {
+          return new CupertinoPageRoute<dynamic>(
+              settings: routeSettings,
+              fullscreenDialog:
+                  transition == TransitionType.cupertinoFullScreenDialog,
+              builder: (BuildContext context) {
+                return handler.handlerFunc(
+                    context, parameters, routeSettings.arguments);
+              });
+        } else {
+          return new MaterialPageRoute<dynamic>(
+              settings: routeSettings,
+              fullscreenDialog: transition == TransitionType.nativeModal,
+              builder: (BuildContext context) {
+                return handler.handlerFunc(
+                    context, parameters, routeSettings.arguments);
+              });
+        }
       } else {
         var routeTransitionsBuilder;
         if (transition == TransitionType.custom) {

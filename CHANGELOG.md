@@ -1,6 +1,11 @@
-# 1.5.0
+# 1.6.0
 - Added the ability to pass and receive arguments in addition to the parameters.
 - **BREAKING CHANGE:** The HandlerFunc now expects a third parameter of type `Object` called `arguments`.
+
+# 1.5.0
+- Native transitions will now use the Cupertino page route on iOS and Material page route on android. This will enable swipe gestures on iOS.
+- Added cupertino specific transition types.
+- **You should not be using Cupertino types on non-iOS platforms. It's up to you, but it's bad design**.
 
 # 1.4.0
 - Added the ability to define a transition at the point of route definition. Route transitions are optional and any transition defined a "push" will override the route definition.
