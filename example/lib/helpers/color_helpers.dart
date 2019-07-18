@@ -48,10 +48,10 @@ class ColorHelpers {
       if (value >= _kMinContrastModifierRange &&
           value <= _kMaxContrastModifierRange) {
         return prefer == ContrastPreference.light
-            ? new Color(0xFFFFFFFF)
-            : new Color(0xFF000000);
+            ? Color(0xFFFFFFFF)
+            : Color(0xFF000000);
       }
     }
-    return value > 0.6 ? new Color(0xFF000000) : new Color(0xFFFFFFFF);
+    return value > 0.6 ? Color(0xFF000000) : Color(0xFFFFFFFF);
   }
 }

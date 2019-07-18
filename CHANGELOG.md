@@ -1,3 +1,10 @@
+# 1.5.1
+- Add explicit material and full screen material transition types
+- Fix issue in transition logic
+- Remove redundant `new`, `const`, etc qualifiers
+- Tidy example
+- Add font license info
+
 # 1.5.0
 - Native transitions will now use the Cupertino page route on iOS and Material page route on android. This will enable swipe gestures on iOS.
 - Added cupertino specific transition types. 

@@ -46,6 +46,8 @@ enum TransitionType {
   inFromBottom,
   fadeIn,
   custom, // if using custom then you must also provide a transition
+  material,
+  materialFullScreenDialog,
   cupertino,
   cupertinoFullScreenDialog,
 }
