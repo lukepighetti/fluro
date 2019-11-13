@@ -46,6 +46,7 @@ class Router {
       bool clearStack = false,
       bool rootNavigator = false,
       bool nullOk = false,
+      NavigatorState customNavigator,
       TransitionType transition,
       Duration transitionDuration = const Duration(milliseconds: 250),
       RouteTransitionsBuilder transitionBuilder}) {
@@ -64,10 +65,12 @@ class Router {
         route = _notFoundRoute(context, path);
       }
       if (route != null) {
-        final NavigatorState navigator = rootNavigator
-            ? context
-                .rootAncestorStateOfType(const TypeMatcher<NavigatorState>())
-            : context.ancestorStateOfType(const TypeMatcher<NavigatorState>());
+        final NavigatorState navigator = customNavigator ??
+            (rootNavigator
+                ? context.rootAncestorStateOfType(
+                    const TypeMatcher<NavigatorState>())
+                : context
+                    .ancestorStateOfType(const TypeMatcher<NavigatorState>()));
         assert(() {
           if (navigator == null && !nullOk) {
             throw FlutterError(
