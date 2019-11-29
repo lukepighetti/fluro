@@ -13,6 +13,7 @@ import 'dart:io';
 import 'package:fluro/fluro.dart';
 import 'package:fluro/src/common.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Router {
@@ -126,7 +127,7 @@ class Router {
         (RouteSettings routeSettings, Map<String, List<String>> parameters) {
       bool isNativeTransition = (transition == TransitionType.native ||
           transition == TransitionType.nativeModal);
-      if (isNativeTransition) {
+      if (!kIsWeb && isNativeTransition) {
         if (Platform.isIOS) {
           return CupertinoPageRoute<dynamic>(
               settings: routeSettings,
