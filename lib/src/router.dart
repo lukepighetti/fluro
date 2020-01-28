@@ -12,6 +12,7 @@ import 'dart:io';
 
 import 'package:fluro/fluro.dart';
 import 'package:fluro/src/common.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -127,7 +128,7 @@ class Router {
       bool isNativeTransition = (transition == TransitionType.native ||
           transition == TransitionType.nativeModal);
       if (isNativeTransition) {
-        if (Platform.isIOS) {
+        if (!kIsWeb && Platform.isIOS) {
           return CupertinoPageRoute<dynamic>(
               settings: routeSettings,
               fullscreenDialog: transition == TransitionType.nativeModal,
