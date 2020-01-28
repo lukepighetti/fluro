@@ -127,7 +127,7 @@ class Router {
       bool isNativeTransition = (transition == TransitionType.native ||
           transition == TransitionType.nativeModal);
       if (isNativeTransition) {
-        if (Platform.isIOS) {
+        if (!kIsWeb && Platform.isIOS) {
           return CupertinoPageRoute<dynamic>(
               settings: routeSettings,
               fullscreenDialog: transition == TransitionType.nativeModal,
