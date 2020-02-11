@@ -1,3 +1,7 @@
+# 1.6.0
+- Flutter `>= 1.13.0` is required due to Flutter compatibility issues
+- Dart `>= 2.6.0` is required
+
 # 1.5.2
 - Remove dependency on `dart:io`
 - 1.5.x and lower now only supports Flutter versions `< 1.13.0` 
