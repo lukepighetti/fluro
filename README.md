@@ -3,7 +3,7 @@
 
 The brightest, hippest, coolest router for Flutter.
 
-[![Version](https://img.shields.io/badge/version-1.5.1-blue.svg)](https://pub.dartlang.org/packages/fluro)
+[![Version](https://img.shields.io/badge/version-1.5.2-blue.svg)](https://pub.dartlang.org/packages/fluro)
 [![Build Status](https://travis-ci.org/theyakka/fluro.svg?branch=master)](https://travis-ci.org/theyakka/fluro)
 [![Coverage](https://codecov.io/gh/theyakka/fluro/branch/master/graph/badge.svg)](https://codecov.io/gh/theyakka/fluro)
 
@@ -25,7 +25,7 @@ See CHANGELOG for all breaking (and non-breaking) changes.
 You should ensure that you add the router as a dependency in your flutter project.
 ```yaml
 dependencies:
- fluro: "^1.5.1"
+ fluro: "^1.5.2"
 ```
 
 You can also reference the git repo directly if you want:
