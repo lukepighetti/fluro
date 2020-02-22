@@ -3,7 +3,7 @@
  * Created by Yakka
  * https://theyakka.com
  * 
- * Copyright (c) 2018 Yakka, LLC. All rights reserved.
+ * Copyright (c) 2019 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 
@@ -54,6 +54,10 @@ enum TransitionType {
   fadeIn,
   noTransition,
   custom, // if using custom then you must also provide a transition
+  material,
+  materialFullScreenDialog,
+  cupertino,
+  cupertinoFullScreenDialog,
 }
 
 enum RouteMatchType {

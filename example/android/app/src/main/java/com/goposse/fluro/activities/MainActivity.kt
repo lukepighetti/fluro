@@ -9,7 +9,7 @@ import io.flutter.plugins.GeneratedPluginRegistrant
 
 class MainActivity : FlutterActivity() {
 
-	private val LOG_TAG = "A:Main"
+	private val logTag = "A:Main"
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -17,16 +17,13 @@ class MainActivity : FlutterActivity() {
 		checkForLinkEvent(intent)
 	}
 
-	override fun onResume() {
-		super.onResume()
-	}
-
 	private fun checkForLinkEvent(intent: Intent) {
-		if (intent.action == Intent.ACTION_VIEW && intent.data != null) {
-			val path = intent.data.getQueryParameter("path")
-			val text = intent.data.getQueryParameter("message") ?: "Why you don't enter text?"
+		val data = intent.data
+		if (intent.action == Intent.ACTION_VIEW && data != null) {
+			val path = data.getQueryParameter("path")
+			val text = data.getQueryParameter("message") ?: "Why you don't enter text?"
 			if (path != null) {
-				Log.d(LOG_TAG, "Setting initial route to: $path?message=$text")
+				Log.d(logTag, "Setting initial route to: $path?message=$text")
 				flutterView.setInitialRoute("$path?message=$text")
 			}
 		}

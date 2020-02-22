@@ -3,7 +3,7 @@
  * Created by Yakka
  * https://theyakka.com
  * 
- * Copyright (c) 2018 Yakka, LLC. All rights reserved.
+ * Copyright (c) 2019 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 
@@ -71,7 +71,7 @@ class RouteTree {
         // could be affected
         throw ("Default route was already defined");
       }
-      var node = new RouteTreeNode(path, RouteTreeNodeType.component);
+      var node = RouteTreeNode(path, RouteTreeNodeType.component);
       node.routes = [route];
       _nodes.add(node);
       _hasDefaultRoute = true;
@@ -87,7 +87,7 @@ class RouteTree {
       RouteTreeNode node = _nodeForComponent(component, parent);
       if (node == null) {
         RouteTreeNodeType type = _typeForComponent(component);
-        node = new RouteTreeNode(component, type);
+        node = RouteTreeNode(component, type);
         node.parent = parent;
         if (parent == null) {
           _nodes.add(node);
@@ -135,7 +135,7 @@ class RouteTree {
         if (isMatch) {
           RouteTreeNodeMatch parentMatch = nodeMatches[node.parent];
           RouteTreeNodeMatch match =
-              new RouteTreeNodeMatch.fromMatch(parentMatch, node);
+              RouteTreeNodeMatch.fromMatch(parentMatch, node);
           if (node.isParameter()) {
             String paramKey = node.part.substring(1);
             match.parameters[paramKey] = [pathPart];
@@ -165,7 +165,7 @@ class RouteTree {
           nodeToUse.routes != null &&
           nodeToUse.routes.length > 0) {
         List<AppRoute> routes = nodeToUse.routes;
-        AppRouteMatch routeMatch = new AppRouteMatch(routes[0]);
+        AppRouteMatch routeMatch = AppRouteMatch(routes[0]);
         routeMatch.parameters = match.parameters;
         return routeMatch;
       }
@@ -219,8 +219,8 @@ class RouteTree {
   }
 
   Map<String, List<String>> parseQueryString(String query) {
-    var search = new RegExp('([^&=]+)=?([^&]*)');
-    var params = new Map<String, List<String>>();
+    var search = RegExp('([^&=]+)=?([^&]*)');
+    var params = Map<String, List<String>>();
     if (query.startsWith('?')) query = query.substring(1);
     decode(String s) => Uri.decodeComponent(s.replaceAll('+', ' '));
     for (Match match in search.allMatches(query)) {

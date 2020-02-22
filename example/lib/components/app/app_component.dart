@@ -3,39 +3,40 @@
  * Created by Yakka
  * https://theyakka.com
  * 
- * Copyright (c) 2018 Yakka, LLC. All rights reserved.
+ * Copyright (c) 2019 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
-import '../../config/application.dart';
-import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
+
+import '../../config/application.dart';
 import '../../config/routes.dart';
 
 class AppComponent extends StatefulWidget {
   @override
   State createState() {
-    return new AppComponentState();
+    return AppComponentState();
   }
 }
 
 class AppComponentState extends State<AppComponent> {
   AppComponentState() {
-    final router = new Router();
+    final router = Router();
     Routes.configureRoutes(router);
     Application.router = router;
   }
 
   @override
   Widget build(BuildContext context) {
-    final app = new MaterialApp(
+    final app = MaterialApp(
       title: 'Fluro',
       debugShowCheckedModeBanner: false,
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       onGenerateRoute: Application.router.generator,
     );
-    print("initial route = ${app.initialRoute}");
+//    print("initial route = ${app.initialRoute}");
     return app;
   }
 }

@@ -1,3 +1,19 @@
+# 1.5.2
+- Remove dependency on `dart:io`
+- 1.5.x and lower now only supports Flutter versions `< 1.13.0` 
+
+# 1.5.1
+- Add explicit material and full screen material transition types
+- Fix issue in transition logic
+- Remove redundant `new`, `const`, etc qualifiers
+- Tidy example
+- Add font license info
+
+# 1.5.0
+- Native transitions will now use the Cupertino page route on iOS and Material page route on android. This will enable swipe gestures on iOS.
+- Added cupertino specific transition types. 
+- **You should not be using Cupertino types on non-iOS platforms. It's up to you, but it's bad design**.
+
 # 1.4.0
 - Added the ability to define a transition at the point of route definition. Route transitions are optional and any transition defined a "push" will override the route definition.
 
