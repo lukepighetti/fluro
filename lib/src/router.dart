@@ -40,7 +40,9 @@ class Router {
 
   bool pop(BuildContext context) => Navigator.pop(context);
 
-  ///
+  /// Navigates using a context that has a [Navigator] attached to it
+  /// (example, the first screen of a [MaterialApp] will create a [BuildContext]
+  /// with a [Navigator]
   Future navigateTo(BuildContext context, String path,
       {bool replace = false,
       bool clearStack = false,
@@ -68,6 +70,48 @@ class Router {
           future = replace
               ? Navigator.pushReplacement(context, route)
               : Navigator.push(context, route);
+        }
+        completer.complete();
+      } else {
+        String error = "No registered route was found to handle '$path'.";
+        print(error);
+        completer.completeError(RouteNotFoundException(error, path));
+      }
+    }
+
+    return future;
+  }
+
+  /// Navigates using [NavigatorState] that can be easily stored statically
+  /// in a [GlobalKey] at the beginning of the [MaterialApp]
+  Future navigateWithNavigatorState(NavigatorState navigatorState, String path,
+                    {bool replace = false,
+                      bool clearStack = false,
+                      TransitionType transition,
+                      Duration transitionDuration = const Duration(milliseconds: 250),
+                      RouteTransitionsBuilder transitionBuilder}) {
+    BuildContext context = navigatorState.context;
+    RouteMatch routeMatch = matchRoute(context, path,
+            transitionType: transition,
+            transitionsBuilder: transitionBuilder,
+            transitionDuration: transitionDuration);
+    Route<dynamic> route = routeMatch.route;
+    Completer completer = Completer();
+    Future future = completer.future;
+    if (routeMatch.matchType == RouteMatchType.nonVisual) {
+      completer.complete("Non visual route type.");
+    } else {
+      if (route == null && notFoundHandler != null) {
+        route = _notFoundRoute(context, path);
+      }
+      if (route != null) {
+        if (clearStack) {
+          future =
+                  navigatorState.pushAndRemoveUntil(route, (check) => false);
+        } else {
+          future = replace
+                  ? navigatorState.pushReplacement(route)
+                  : navigatorState.push(route);
         }
         completer.complete();
       } else {
