@@ -39,7 +39,7 @@ class Router {
     return _routeTree.matchRoute(path);
   }
 
-  bool pop(BuildContext context) => Navigator.pop(context);
+  void pop(BuildContext context)  => Navigator.of(context).pop();
 
   ///
   Future navigateTo(BuildContext context, String path,
