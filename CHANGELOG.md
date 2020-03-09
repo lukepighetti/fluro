@@ -1,4 +1,5 @@
 # 1.6.0
+- No changes other than fixes for non-backwards compatible Flutter changes 
 - Flutter `>= 1.13.0` is required due to Flutter compatibility issues
 - Dart `>= 2.6.0` is required
 
