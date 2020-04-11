@@ -43,6 +43,10 @@ class Router {
     return _routeTree.matchRoute(path);
   }
 
+  bool canPop(BuildContext context) => navigatorKey == null
+      ? Navigator.canPop(context)
+      : navigatorKey.currentState.canPop();
+
   void pop(BuildContext context) => navigatorKey == null
       ? Navigator.pop(context)
       : navigatorKey.currentState.pop();
