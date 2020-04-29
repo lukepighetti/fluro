@@ -27,14 +27,14 @@ See CHANGELOG for all breaking (and non-breaking) changes.
 You should ensure that you add the router as a dependency in your flutter project.
 ```yaml
 dependencies:
- fluro: "^1.6.3"
+ fluro_fork: "^0.0.1"
 ```
 
 You can also reference the git repo directly if you want:
 ```yaml
 dependencies:
- fluro:
-   git: git://github.com/theyakka/fluro.git
+ fluro_fork:
+   git: git://github.com/brianschardt/fluro.git
 ```
 
 

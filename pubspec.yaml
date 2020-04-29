@@ -1,9 +1,9 @@
-name: fluro
+name: fluro_fork
 description: >
-  Fluro is a Flutter routing library that adds flexible routing options like wildcards, named
-  parameters and clear route definitions.
-version: 1.6.3
-homepage: https://github.com/theyakka/fluro
+  This is a fork of Fluro. Fluro is a Flutter routing library that adds flexible routing options like wildcards, named
+  parameters and clear route definitions. 
+version: 0.0.1
+homepage: https://github.com/brianschardt/fluro
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
