@@ -8,6 +8,7 @@
  */
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:fluro/fluro.dart';
 import 'package:fluro/src/common.dart';
@@ -127,7 +128,7 @@ class Router {
       bool isNativeTransition = (transition == TransitionType.native ||
           transition == TransitionType.nativeModal);
       if (isNativeTransition) {
-        if (Theme.of(buildContext).platform == TargetPlatform.iOS) {
+        if (Platform.isIOS) {
           return CupertinoPageRoute<dynamic>(
               settings: routeSettings,
               fullscreenDialog: transition == TransitionType.nativeModal,
