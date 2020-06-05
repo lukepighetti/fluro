@@ -9,7 +9,7 @@
 
 import 'dart:async';
 
-import '../fluro_fork.dart';
+import '../fluro.dart';
 import './common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
