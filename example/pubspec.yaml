@@ -4,7 +4,7 @@ description: An example project for the flutter router.
 dependencies:
   flutter:
     sdk: flutter
-  fluro:
+  fluro_fork:
     path: ../
 flutter:
   uses-material-design: false

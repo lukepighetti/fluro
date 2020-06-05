@@ -1,6 +1,10 @@
+# 1.6.3+2
+- Fixed issue for Flutter for web where buildContext is null. I.e. Error: 'dependOnInheritedWidgetOfExactType' was called on null is now fixed
+
 # 1.6.3+1
 - Added the ability to pass and receive arguments in addition to the parameters.
 - **BREAKING CHANGE:** The HandlerFunc now expects a third parameter of type `Object` called `arguments`.
+
 # 1.6.3
 - Remove upper bounds on Flutter SDK checks because Flutter releases are a ridiculous mess
 

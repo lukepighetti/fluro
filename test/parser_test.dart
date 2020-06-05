@@ -8,7 +8,7 @@
  */
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fluro/fluro.dart';
+import 'package:fluro_fork/fluro_fork.dart';
 
 void main() {
   testWidgets("Router correctly parses named parameters",
