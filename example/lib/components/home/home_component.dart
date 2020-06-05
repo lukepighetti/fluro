@@ -8,7 +8,7 @@
  */
 import 'dart:async';
 
-import 'package:fluro/fluro.dart';
+import 'package:fluro_fork/fluro_fork.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
