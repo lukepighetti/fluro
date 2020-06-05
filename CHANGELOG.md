@@ -1,6 +1,30 @@
-# 1.6.0
+# 1.6.3+1
 - Added the ability to pass and receive arguments in addition to the parameters.
 - **BREAKING CHANGE:** The HandlerFunc now expects a third parameter of type `Object` called `arguments`.
+# 1.6.3
+- Remove upper bounds on Flutter SDK checks because Flutter releases are a ridiculous mess
+
+# 1.6.2
+- Support for Flutter `>=1.12 <=1.17`
+
+# 1.6.1
+- Support for Flutter `1.12+`
+
+# 1.6.0
+- No changes other than fixes for non-backwards compatible Flutter changes
+- Flutter `>= 1.12.0` is required due to Flutter compatibility issues
+- Dart `>= 2.6.0` is required
+
+# 1.5.2
+- Remove dependency on `dart:io`
+- 1.5.x and lower now only supports Flutter versions `< 1.13.0`
+
+# 1.5.1
+- Add explicit material and full screen material transition types
+- Fix issue in transition logic
+- Remove redundant `new`, `const`, etc qualifiers
+- Tidy example
+- Add font license info
 
 # 1.5.0
 - Native transitions will now use the Cupertino page route on iOS and Material page route on android. This will enable swipe gestures on iOS.

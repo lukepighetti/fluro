@@ -8,18 +8,18 @@
  */
 
 import 'dart:async';
-import 'dart:io';
 
 import 'package:fluro/fluro.dart';
 import 'package:fluro/src/common.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class Router {
-  static final appRouter = new Router();
+  static final appRouter = Router();
 
   /// The tree structure that stores the defined routes
-  final RouteTree _routeTree = new RouteTree();
+  final RouteTree _routeTree = RouteTree();
 
   /// Generic handler for when a route has not been defined
   Handler notFoundHandler;
@@ -28,7 +28,8 @@ class Router {
   void define(String routePath,
       {@required Handler handler, TransitionType transitionType}) {
     _routeTree.addRoute(
-        new AppRoute(routePath, handler, transitionType: transitionType));
+      AppRoute(routePath, handler, transitionType: transitionType),
+    );
   }
 
   /// Finds a defined [AppRoute] for the path value. If no [AppRoute] definition was found
@@ -37,7 +38,7 @@ class Router {
     return _routeTree.matchRoute(path);
   }
 
-  bool pop(BuildContext context) => Navigator.pop(context);
+  void pop(BuildContext context) => Navigator.pop(context);
 
   ///
   Future navigateTo(BuildContext context, String path,
@@ -53,7 +54,7 @@ class Router {
         transitionDuration: transitionDuration,
         routeSettings: RouteSettings(arguments: arguments));
     Route<dynamic> route = routeMatch.route;
-    Completer completer = new Completer();
+    Completer completer = Completer();
     Future future = completer.future;
     if (routeMatch.matchType == RouteMatchType.nonVisual) {
       completer.complete("Non visual route type.");
@@ -85,14 +86,14 @@ class Router {
   Route<Null> _notFoundRoute(BuildContext context, String path) {
     RouteCreator<Null> creator =
         (RouteSettings routeSettings, Map<String, List<String>> parameters) {
-      return new MaterialPageRoute<Null>(
+      return MaterialPageRoute<Null>(
           settings: routeSettings,
           builder: (BuildContext context) {
             return notFoundHandler.handlerFunc(
                 context, parameters, routeSettings.arguments);
           });
     };
-    return creator(new RouteSettings(name: path), null);
+    return creator(RouteSettings(name: path), null);
   }
 
   ///
@@ -103,7 +104,7 @@ class Router {
       RouteTransitionsBuilder transitionsBuilder}) {
     RouteSettings settingsToUse = routeSettings;
     if (routeSettings == null) {
-      settingsToUse = new RouteSettings(name: path);
+      settingsToUse = RouteSettings(name: path);
     }
     AppRouteMatch match = _routeTree.matchRoute(path);
     AppRoute route = match?.route;
@@ -113,7 +114,7 @@ class Router {
       transition = route != null ? route.transitionType : TransitionType.native;
     }
     if (route == null && notFoundHandler == null) {
-      return new RouteMatch(
+      return RouteMatch(
           matchType: RouteMatchType.noMatch,
           errorMessage: "No matching route was found");
     }
@@ -121,7 +122,7 @@ class Router {
         match?.parameters ?? <String, List<String>>{};
     if (handler.type == HandlerType.function) {
       handler.handlerFunc(buildContext, parameters, routeSettings.arguments);
-      return new RouteMatch(matchType: RouteMatchType.nonVisual);
+      return RouteMatch(matchType: RouteMatchType.nonVisual);
     }
 
     RouteCreator creator =
@@ -129,26 +130,16 @@ class Router {
       bool isNativeTransition = (transition == TransitionType.native ||
           transition == TransitionType.nativeModal);
       if (isNativeTransition) {
-        if (Platform.isIOS) {
-          return new CupertinoPageRoute<dynamic>(
+        if (Theme.of(buildContext).platform == TargetPlatform.iOS) {
+          return CupertinoPageRoute<dynamic>(
               settings: routeSettings,
               fullscreenDialog: transition == TransitionType.nativeModal,
               builder: (BuildContext context) {
                 return handler.handlerFunc(
                     context, parameters, routeSettings.arguments);
               });
-        } else if (transition == TransitionType.cupertino ||
-            transition == TransitionType.cupertinoFullScreenDialog) {
-          return new CupertinoPageRoute<dynamic>(
-              settings: routeSettings,
-              fullscreenDialog:
-                  transition == TransitionType.cupertinoFullScreenDialog,
-              builder: (BuildContext context) {
-                return handler.handlerFunc(
-                    context, parameters, routeSettings.arguments);
-              });
         } else {
-          return new MaterialPageRoute<dynamic>(
+          return MaterialPageRoute<dynamic>(
               settings: routeSettings,
               fullscreenDialog: transition == TransitionType.nativeModal,
               builder: (BuildContext context) {
@@ -156,6 +147,26 @@ class Router {
                     context, parameters, routeSettings.arguments);
               });
         }
+      } else if (transition == TransitionType.material ||
+          transition == TransitionType.materialFullScreenDialog) {
+        return MaterialPageRoute<dynamic>(
+            settings: routeSettings,
+            fullscreenDialog:
+                transition == TransitionType.materialFullScreenDialog,
+            builder: (BuildContext context) {
+              return handler.handlerFunc(
+                  context, parameters, routeSettings.arguments);
+            });
+      } else if (transition == TransitionType.cupertino ||
+          transition == TransitionType.cupertinoFullScreenDialog) {
+        return CupertinoPageRoute<dynamic>(
+            settings: routeSettings,
+            fullscreenDialog:
+                transition == TransitionType.cupertinoFullScreenDialog,
+            builder: (BuildContext context) {
+              return handler.handlerFunc(
+                  context, parameters, routeSettings.arguments);
+            });
       } else {
         var routeTransitionsBuilder;
         if (transition == TransitionType.custom) {
@@ -163,7 +174,7 @@ class Router {
         } else {
           routeTransitionsBuilder = _standardTransitionsBuilder(transition);
         }
-        return new PageRouteBuilder<dynamic>(
+        return PageRouteBuilder<dynamic>(
           settings: routeSettings,
           pageBuilder: (BuildContext context, Animation<double> animation,
               Animation<double> secondaryAnimation) {
@@ -175,7 +186,7 @@ class Router {
         );
       }
     };
-    return new RouteMatch(
+    return RouteMatch(
       matchType: RouteMatchType.visual,
       route: creator(settingsToUse, parameters),
     );
@@ -186,7 +197,7 @@ class Router {
     return (BuildContext context, Animation<double> animation,
         Animation<double> secondaryAnimation, Widget child) {
       if (transitionType == TransitionType.fadeIn) {
-        return new FadeTransition(opacity: animation, child: child);
+        return FadeTransition(opacity: animation, child: child);
       } else {
         const Offset topLeft = const Offset(0.0, 0.0);
         const Offset topRight = const Offset(1.0, 0.0);
@@ -201,8 +212,8 @@ class Router {
           endOffset = topLeft;
         }
 
-        return new SlideTransition(
-          position: new Tween<Offset>(
+        return SlideTransition(
+          position: Tween<Offset>(
             begin: startOffset,
             end: endOffset,
           ).animate(animation),

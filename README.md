@@ -3,9 +3,11 @@
 
 The brightest, hippest, coolest router for Flutter.
 
-[![Version](https://img.shields.io/badge/version-1.5.0-blue.svg)](https://pub.dartlang.org/packages/fluro)
+[![Version](https://img.shields.io/badge/version-1.6.3-blue.svg)](https://pub.dartlang.org/packages/fluro)
 [![Build Status](https://travis-ci.org/theyakka/fluro.svg?branch=master)](https://travis-ci.org/theyakka/fluro)
 [![Coverage](https://codecov.io/gh/theyakka/fluro/branch/master/graph/badge.svg)](https://codecov.io/gh/theyakka/fluro)
+
+Version `1.6.0` (and higher) requires Flutter `>= 1.12.0` and Dart `>= 2.6.0`. If you're running an older version of Flutter, use a version `< 1.6.0`.
 
 ## Features
 
@@ -25,7 +27,7 @@ See CHANGELOG for all breaking (and non-breaking) changes.
 You should ensure that you add the router as a dependency in your flutter project.
 ```yaml
 dependencies:
- fluro: "^1.5.0"
+ fluro: "^1.6.3"
 ```
 
 You can also reference the git repo directly if you want:
