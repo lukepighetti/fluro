@@ -43,6 +43,7 @@ enum TransitionType {
   nativeModal,
   inFromLeft,
   inFromRight,
+  inFromTop,
   inFromBottom,
   fadeIn,
   custom, // if using custom then you must also provide a transition

@@ -202,8 +202,10 @@ class Router {
         } else if (transitionType == TransitionType.inFromRight) {
           startOffset = topRight;
           endOffset = topLeft;
+        } else  if (transitionType == TransitionType.inFromTop){
+          startOffset = const Offset(0.0, -1.0);
+          endOffset = const Offset(0.0, 1.0);
         }
-
         return SlideTransition(
           position: Tween<Offset>(
             begin: startOffset,

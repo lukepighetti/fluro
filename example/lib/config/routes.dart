@@ -25,7 +25,7 @@ class Routes {
     router.define(root, handler: rootHandler);
     router.define(demoSimple, handler: demoRouteHandler);
     router.define(demoSimpleFixedTrans,
-        handler: demoRouteHandler, transitionType: TransitionType.inFromLeft);
+        handler: demoRouteHandler, transitionType: TransitionType.inFromRight);
     router.define(demoFunc, handler: demoFunctionHandler);
     router.define(deepLink, handler: deepLinkHandler);
   }

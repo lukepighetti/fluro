@@ -255,7 +255,7 @@ class HomeComponentState extends State<HomeComponent> {
       Application.router.navigateTo(
         context,
         "/demo?message=$message&color_hex=$hexCode",
-        transition: TransitionType.custom,
+        transition: TransitionType.inFromTop,
         transitionBuilder: transition,
         transitionDuration: const Duration(milliseconds: 600),
       );
