@@ -28,7 +28,7 @@ typedef Route<T> RouteCreator<T>(
 
 ///
 typedef Widget HandlerFunc(
-    BuildContext context, Map<String, List<String>> parameters);
+    BuildContext context, Map<String, List<String>> parameters, RouteSettings settings);
 
 ///
 class AppRoute {

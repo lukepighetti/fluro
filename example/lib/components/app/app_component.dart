@@ -6,7 +6,7 @@
  * Copyright (c) 2019 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
-import 'package:fluro/fluro.dart';
+import 'package:fluro/fluro.dart' as fluro;
 import 'package:flutter/material.dart';
 
 import '../../config/application.dart';
@@ -21,7 +21,7 @@ class AppComponent extends StatefulWidget {
 
 class AppComponentState extends State<AppComponent> {
   AppComponentState() {
-    final router = Router();
+    final router = fluro.Router();
     Routes.configureRoutes(router);
     Application.router = router;
   }
