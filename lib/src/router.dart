@@ -2,7 +2,7 @@
  * fluro
  * Created by Yakka
  * https://theyakka.com
- * 
+ *
  * Copyright (c) 2019 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
@@ -15,8 +15,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Router {
-  static final appRouter = Router();
+class FluroRouter {
+  static final appRouter = FluroRouter();
 
   /// The tree structure that stores the defined routes
   final RouteTree _routeTree = RouteTree();
