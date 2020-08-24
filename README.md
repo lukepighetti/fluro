@@ -7,7 +7,7 @@ The brightest, hippest, coolest router for Flutter.
 [![Build Status](https://travis-ci.org/theyakka/fluro.svg?branch=master)](https://travis-ci.org/theyakka/fluro)
 [![Coverage](https://codecov.io/gh/theyakka/fluro/branch/master/graph/badge.svg)](https://codecov.io/gh/theyakka/fluro)
 
-Version `1.6.0` (and higher) requires Flutter `>= 1.12.0` and Dart `>= 2.6.0`. If you're running an older version of Flutter, use a version `< 1.6.0`.
+Version `1.6.0` (and higher) requires Flutter `>= 1.12.0` and Dart `>= 2.6.0`. If you're running an older version of Flutter, use a version `> 1.6.0`.
 
 ## Features
 
