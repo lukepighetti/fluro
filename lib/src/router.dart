@@ -15,8 +15,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Router {
-  static final appRouter = Router();
+class FluroRouter {
+  static final appRouter = FluroRouter();
 
   /// The tree structure that stores the defined routes
   final RouteTree _routeTree = RouteTree();
