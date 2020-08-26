@@ -3,7 +3,7 @@
  * Created by Yakka
  * https://theyakka.com
  * 
- * Copyright (c) 2018 Yakka, LLC. All rights reserved.
+ * Copyright (c) 2019 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 import 'package:flutter/material.dart';
@@ -48,10 +48,10 @@ class ColorHelpers {
       if (value >= _kMinContrastModifierRange &&
           value <= _kMaxContrastModifierRange) {
         return prefer == ContrastPreference.light
-            ? new Color(0xFFFFFFFF)
-            : new Color(0xFF000000);
+            ? Color(0xFFFFFFFF)
+            : Color(0xFF000000);
       }
     }
-    return value > 0.6 ? new Color(0xFF000000) : new Color(0xFFFFFFFF);
+    return value > 0.6 ? Color(0xFF000000) : Color(0xFFFFFFFF);
   }
 }

@@ -3,7 +3,7 @@
  * Created by Yakka
  * https://theyakka.com
  * 
- * Copyright (c) 2018 Yakka, LLC. All rights reserved.
+ * Copyright (c) 2019 Yakka, LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 
@@ -15,7 +15,7 @@ void main() {
       (WidgetTester tester) async {
     String path = "/users/1234";
     String route = "/users/:id";
-    Router router = new Router();
+    Router router = Router();
     router.define(route, handler: null);
     AppRouteMatch match = router.match(path);
     expect(
@@ -29,7 +29,7 @@ void main() {
       (WidgetTester tester) async {
     String path = "/users/1234?name=luke";
     String route = "/users/:id";
-    Router router = new Router();
+    Router router = Router();
     router.define(route, handler: null);
     AppRouteMatch match = router.match(path);
     expect(
@@ -44,7 +44,7 @@ void main() {
       (WidgetTester tester) async {
     String path = "/users/create?name=luke&phrase=hello%20world&number=7";
     String route = "/users/create";
-    Router router = new Router();
+    Router router = Router();
     router.define(route, handler: null);
     AppRouteMatch match = router.match(path);
     expect(
@@ -61,7 +61,7 @@ void main() {
     String path =
         "/users/create?name=luke&phrase=hello%20world&number=7&number=10&number=13";
     String route = "/users/create";
-    Router router = new Router();
+    Router router = Router();
     router.define(route, handler: null);
     AppRouteMatch match = router.match(path);
     expect(
@@ -76,7 +76,7 @@ void main() {
       (WidgetTester tester) async {
     String path = "/users/1234";
     String route = "/users/:id";
-    Router router = new Router();
+    Router router = Router();
     router.define(route,
         handler: null, transitionType: TransitionType.inFromRight);
     AppRouteMatch match = router.match(path);

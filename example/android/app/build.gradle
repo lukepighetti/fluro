@@ -1,19 +1,18 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply from: "../config.gradle"
 apply from: "../flutter.gradle"
 
 android {
-	compileSdkVersion versions.targetSDK
-	buildToolsVersion "${versions.buildTools}"
+	compileSdkVersion 29
+	buildToolsVersion "29.0.3"
 
 	defaultConfig {
-		minSdkVersion versions.minSDK
-		targetSdkVersion versions.targetSDK
-		applicationId "$appInfo.applicationID"
-		versionCode appInfo.build
-		versionName "${appInfo.version}"
-		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+		minSdkVersion 24
+		targetSdkVersion 29
+		applicationId "app.yakka.fluroexample"
+		versionCode 1
+		versionName "1.6.0"
+		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 	}
 	lintOptions {
 		disable 'InvalidPackage'
@@ -30,13 +29,13 @@ android {
 dependencies {
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
 	// kotlin
-	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61"
 	// google
-	implementation "com.android.support:appcompat-v7:${versions.googleSupport}"
-	implementation "com.android.support:support-v13:${versions.googleSupport}"
-	implementation "com.android.support:support-v4:${versions.googleSupport}"
+	implementation 'androidx.appcompat:appcompat:1.1.0'
+	implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+	implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 	// testing
-	androidTestImplementation "com.android.support:support-annotations:${versions.googleSupport}"
-	androidTestImplementation 'com.android.support.test:runner:1.0.1'
-	androidTestImplementation 'com.android.support.test:rules:1.0.1'
+	androidTestImplementation 'androidx.annotation:annotation:1.1.0'
+	androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+	androidTestImplementation 'androidx.test:rules:1.2.0'
 }
