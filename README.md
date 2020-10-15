@@ -85,10 +85,3 @@ You can also manually push to a route yourself. To do so:
 ```dart
 router.navigateTo(context, "/users/1234", transition: TransitionType.fadeIn);
 ```
-
-<hr/>
-Fluro is a Yakka original.
-<br/>
-<a href="https://theyakka.com" target="_yakka">
-<img src="https://storage.googleapis.com/yakka-logos/logo_wordmark.png"
-  width="60"></a>
