@@ -1,4 +1,4 @@
-name: Flutter
+name: build
 
 on:
   push:
@@ -17,6 +17,6 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'stable'
+          channel: stable
       - run: flutter pub get
       - run: flutter test
