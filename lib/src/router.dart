@@ -46,7 +46,7 @@ class Router {
   }
 
   void pop<T>(BuildContext context, [T result]) =>
-      Navigator.pop(context, result);
+      Navigator.of(context).pop(result);
 
   ///
   Future navigateTo(BuildContext context, String path,
@@ -71,11 +71,11 @@ class Router {
       if (route != null) {
         if (clearStack) {
           future =
-              Navigator.pushAndRemoveUntil(context, route, (check) => false);
+              Navigator.of(context).pushAndRemoveUntil(route, (check) => false);
         } else {
           future = replace
-              ? Navigator.pushReplacement(context, route)
-              : Navigator.push(context, route);
+              ? Navigator.of(context).pushReplacement(route)
+              : Navigator.of(context).push(route);
         }
         completer.complete();
       } else {
