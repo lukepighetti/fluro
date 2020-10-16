@@ -179,8 +179,15 @@ class FluroRouter {
               Animation<double> secondaryAnimation) {
             return handler.handlerFunc(context, parameters);
           },
-          transitionDuration: transitionDuration,
-          transitionsBuilder: routeTransitionsBuilder,
+          transitionDuration: transition == TransitionType.none
+              ? Duration.zero
+              : transitionDuration,
+          reverseTransitionDuration: transition == TransitionType.none
+              ? Duration.zero
+              : transitionDuration,
+          transitionsBuilder: transition == TransitionType.none
+              ? (_, __, ___, child) => child
+              : routeTransitionsBuilder,
         );
       }
     };

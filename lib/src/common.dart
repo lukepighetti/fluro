@@ -51,6 +51,7 @@ enum TransitionType {
   materialFullScreenDialog,
   cupertino,
   cupertinoFullScreenDialog,
+  none,
 }
 
 enum RouteMatchType {
