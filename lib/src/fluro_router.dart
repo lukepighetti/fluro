@@ -200,6 +200,7 @@ class FluroRouter {
         const Offset topLeft = const Offset(0.0, 0.0);
         const Offset topRight = const Offset(1.0, 0.0);
         const Offset bottomLeft = const Offset(0.0, 1.0);
+
         Offset startOffset = bottomLeft;
         Offset endOffset = topLeft;
         if (transitionType == TransitionType.inFromLeft) {
@@ -207,6 +208,12 @@ class FluroRouter {
           endOffset = topLeft;
         } else if (transitionType == TransitionType.inFromRight) {
           startOffset = topRight;
+          endOffset = topLeft;
+        } else if (transitionType == TransitionType.inFromBottom) {
+          startOffset = bottomLeft;
+          endOffset = topLeft;
+        } else if (transitionType == TransitionType.inFromTop) {
+          startOffset = Offset(0.0, -1.0);
           endOffset = topLeft;
         }
 

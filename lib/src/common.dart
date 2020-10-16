@@ -44,6 +44,7 @@ enum TransitionType {
   inFromLeft,
   inFromRight,
   inFromBottom,
+  inFromTop,
   fadeIn,
   custom, // if using custom then you must also provide a transition
   material,
