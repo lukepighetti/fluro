@@ -19,6 +19,8 @@ import 'package:flutter/material.dart' as material;
 /// Flutter's new [material.Router] class from the Pages / Navigator 2.0 API.
 ///
 /// [FluroRouter] is identical to [Router].
+///
+/// This will no longer be updated after version `1.6.4`.
 @Deprecated('Use FluroRouter instead')
 class Router {
   static final appRouter = Router();
@@ -43,7 +45,8 @@ class Router {
     return _routeTree.matchRoute(path);
   }
 
-  void pop(BuildContext context) => Navigator.pop(context);
+  void pop<T>(BuildContext context, [T result]) =>
+      Navigator.pop(context, result);
 
   ///
   Future navigateTo(BuildContext context, String path,

@@ -8,6 +8,7 @@
  */
 import '../../helpers/color_helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:fluro/fluro.dart';
 
 class DemoSimpleComponent extends StatelessWidget {
   DemoSimpleComponent(
@@ -56,9 +57,11 @@ class DemoSimpleComponent extends StatelessWidget {
                     ColorHelpers.blackOrWhiteContrastColor(color).withAlpha(34),
                 onPressed: () {
                   if (result == null) {
+                    /// You can use [Navigator.pop]
                     Navigator.pop(context);
                   } else {
-                    Navigator.pop(context, result);
+                    /// Or [FluroRouter.pop]
+                    FluroRouter.appRouter.pop(context, result);
                   }
                 },
                 child: Text(
