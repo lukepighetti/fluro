@@ -49,6 +49,7 @@ class FluroRouter {
   Future navigateTo(BuildContext context, String path,
       {bool replace = false,
       bool clearStack = false,
+      bool maintainState = true,
       TransitionType transition,
       Duration transitionDuration,
       RouteTransitionsBuilder transitionBuilder,
@@ -57,6 +58,7 @@ class FluroRouter {
         transitionType: transition,
         transitionsBuilder: transitionBuilder,
         transitionDuration: transitionDuration,
+        maintainState: maintainState,
         routeSettings: routeSettings);
     Route<dynamic> route = routeMatch.route;
     Completer completer = Completer();
@@ -65,7 +67,7 @@ class FluroRouter {
       completer.complete("Non visual route type.");
     } else {
       if (route == null && notFoundHandler != null) {
-        route = _notFoundRoute(context, path);
+        route = _notFoundRoute(context, path, maintainState: maintainState);
       }
       if (route != null) {
         if (clearStack) {
@@ -88,11 +90,13 @@ class FluroRouter {
   }
 
   ///
-  Route<Null> _notFoundRoute(BuildContext context, String path) {
+  Route<Null> _notFoundRoute(BuildContext context, String path,
+      {bool maintainState}) {
     RouteCreator<Null> creator =
         (RouteSettings routeSettings, Map<String, List<String>> parameters) {
       return MaterialPageRoute<Null>(
           settings: routeSettings,
+          maintainState: maintainState,
           builder: (BuildContext context) {
             return notFoundHandler.handlerFunc(context, parameters);
           });
@@ -105,7 +109,8 @@ class FluroRouter {
       {RouteSettings routeSettings,
       TransitionType transitionType,
       Duration transitionDuration,
-      RouteTransitionsBuilder transitionsBuilder}) {
+      RouteTransitionsBuilder transitionsBuilder,
+      bool maintainState = true}) {
     RouteSettings settingsToUse = routeSettings;
     if (routeSettings == null) {
       settingsToUse = RouteSettings(name: path);
@@ -141,6 +146,7 @@ class FluroRouter {
           return CupertinoPageRoute<dynamic>(
               settings: routeSettings,
               fullscreenDialog: transition == TransitionType.nativeModal,
+              maintainState: maintainState,
               builder: (BuildContext context) {
                 return handler.handlerFunc(context, parameters);
               });
@@ -148,6 +154,7 @@ class FluroRouter {
           return MaterialPageRoute<dynamic>(
               settings: routeSettings,
               fullscreenDialog: transition == TransitionType.nativeModal,
+              maintainState: maintainState,
               builder: (BuildContext context) {
                 return handler.handlerFunc(context, parameters);
               });
@@ -158,6 +165,7 @@ class FluroRouter {
             settings: routeSettings,
             fullscreenDialog:
                 transition == TransitionType.materialFullScreenDialog,
+            maintainState: maintainState,
             builder: (BuildContext context) {
               return handler.handlerFunc(context, parameters);
             });
@@ -167,6 +175,7 @@ class FluroRouter {
             settings: routeSettings,
             fullscreenDialog:
                 transition == TransitionType.cupertinoFullScreenDialog,
+            maintainState: maintainState,
             builder: (BuildContext context) {
               return handler.handlerFunc(context, parameters);
             });
@@ -179,6 +188,7 @@ class FluroRouter {
         }
         return PageRouteBuilder<dynamic>(
           settings: routeSettings,
+          maintainState: maintainState,
           pageBuilder: (BuildContext context, Animation<double> animation,
               Animation<double> secondaryAnimation) {
             return handler.handlerFunc(context, parameters);
