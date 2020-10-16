@@ -7,8 +7,6 @@ The brightest, hippest, coolest router for Flutter.
 [![Build Status](https://travis-ci.org/theyakka/fluro.svg?branch=master)](https://travis-ci.org/theyakka/fluro)
 [![Coverage](https://codecov.io/gh/theyakka/fluro/branch/master/graph/badge.svg)](https://codecov.io/gh/theyakka/fluro)
 
-Version `1.6.0` (and higher) requires Flutter `>= 1.12.0` and Dart `>= 2.6.0`. If you're running an older version of Flutter, use a version `< 1.6.0`.
-
 ## Features
 
 - Simple route navigation
@@ -22,30 +20,11 @@ Version `1.6.0` (and higher) requires Flutter `>= 1.12.0` and Dart `>= 2.6.0`. I
 
 See CHANGELOG for all breaking (and non-breaking) changes.
 
-## Getting started
-
-You should ensure that you add the router as a dependency in your flutter project.
-
-```yaml
-dependencies:
-  fluro: "^1.6.4"
-```
-
-You can also reference the git repo directly if you want:
-
-```yaml
-dependencies:
-  fluro:
-    git: git://github.com/theyakka/fluro.git
-```
-
-You should then run `flutter packages upgrade` or update your packages in IntelliJ.
-
 ## Example Project
 
 There is a pretty sweet example project in the `example` folder. Check it out. Otherwise, keep reading to get up and running.
 
-## Setting up
+## Getting started
 
 First, you should define a new `FluroRouter` object by initializing it as such:
 
