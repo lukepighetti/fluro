@@ -3,7 +3,7 @@
 
 The brightest, hippest, coolest router for Flutter.
 
-[![Version](https://img.shields.io/github/v/release/lukepighetti/fluro?label=version)](https://pub.dartlang.org/packages/fluro)
+[![Version](https://img.shields.io/github/v/release/lukepighetti/fluro?label=version)](https://pub.dev/packages/fluro)
 [![Build Status](https://github.com/lukepighetti/fluro/workflows/build/badge.svg)](https://github.com/lukepighetti/fluro/actions)
 
 ## Features
