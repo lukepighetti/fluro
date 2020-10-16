@@ -17,6 +17,6 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: '1.9.1+hotfix.6'
+          channel: 'stable'
       - run: flutter pub get
       - run: flutter test
