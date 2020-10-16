@@ -28,11 +28,13 @@ class FluroRouter {
   void define(String routePath,
       {@required Handler handler,
       TransitionType transitionType,
-      Duration transitionDuration = const Duration(milliseconds: 250)}) {
+      Duration transitionDuration = const Duration(milliseconds: 250),
+      RouteTransitionsBuilder transitionBuilder}) {
     _routeTree.addRoute(
       AppRoute(routePath, handler,
           transitionType: transitionType,
-          transitionDuration: transitionDuration),
+          transitionDuration: transitionDuration,
+          transitionBuilder: transitionBuilder),
     );
   }
 
@@ -120,6 +122,11 @@ class FluroRouter {
     }
     AppRouteMatch match = _routeTree.matchRoute(path);
     AppRoute route = match?.route;
+
+    if (route.transitionDuration != null) {
+      transitionDuration = route.transitionDuration;
+    }
+
     Handler handler = (route != null ? route.handler : notFoundHandler);
     var transition = transitionType;
     if (transitionType == null) {
@@ -181,11 +188,14 @@ class FluroRouter {
             });
       } else {
         var routeTransitionsBuilder;
+
         if (transition == TransitionType.custom) {
-          routeTransitionsBuilder = transitionsBuilder;
+          routeTransitionsBuilder =
+              transitionsBuilder ?? route.transitionBuilder;
         } else {
           routeTransitionsBuilder = _standardTransitionsBuilder(transition);
         }
+
         return PageRouteBuilder<dynamic>(
           settings: routeSettings,
           maintainState: maintainState,
