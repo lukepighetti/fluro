@@ -15,10 +15,6 @@ The brightest, hippest, coolest router for Flutter.
 - Common transitions built-in
 - Simple custom transition creation
 
-## Version compatability
-
-See CHANGELOG for all breaking (and non-breaking) changes.
-
 ## Example Project
 
 There is a pretty sweet example project in the `example` folder. Check it out. Otherwise, keep reading to get up and running.
