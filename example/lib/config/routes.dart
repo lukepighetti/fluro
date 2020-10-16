@@ -17,7 +17,7 @@ class Routes {
   static String demoFunc = "/demo/func";
   static String deepLink = "/message";
 
-  static void configureRoutes(Router router) {
+  static void configureRoutes(FluroRouter router) {
     router.notFoundHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
       print("ROUTE WAS NOT FOUND !!!");

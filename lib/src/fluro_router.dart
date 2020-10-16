@@ -11,17 +11,12 @@ import 'dart:async';
 
 import 'package:fluro/fluro.dart';
 import 'package:fluro/src/common.dart';
-import 'package:flutter/cupertino.dart' hide Router;
-import 'package:flutter/material.dart' hide Router;
-import 'package:flutter/material.dart' as material;
+import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-/// Router has been renamed to [FluroRouter] to avoid namespace collisions with
-/// Flutter's new [material.Router] class from the Pages / Navigator 2.0 API.
-///
-/// [FluroRouter] is identical to [Router].
-@Deprecated('Use FluroRouter instead')
-class Router {
-  static final appRouter = Router();
+class FluroRouter {
+  static final appRouter = FluroRouter();
 
   /// The tree structure that stores the defined routes
   final RouteTree _routeTree = RouteTree();

@@ -25,18 +25,19 @@ See CHANGELOG for all breaking (and non-breaking) changes.
 ## Getting started
 
 You should ensure that you add the router as a dependency in your flutter project.
+
 ```yaml
 dependencies:
- fluro: "^1.6.3"
+  fluro: "^1.6.4"
 ```
 
 You can also reference the git repo directly if you want:
+
 ```yaml
 dependencies:
- fluro:
-   git: git://github.com/theyakka/fluro.git
+  fluro:
+    git: git://github.com/theyakka/fluro.git
 ```
-
 
 You should then run `flutter packages upgrade` or update your packages in IntelliJ.
 
@@ -46,20 +47,23 @@ There is a pretty sweet example project in the `example` folder. Check it out. O
 
 ## Setting up
 
-First, you should define a new `Router` object by initializing it as such:
+First, you should define a new `FluroRouter` object by initializing it as such:
+
 ```dart
-final router = Router();
+final router = FluroRouter();
 ```
+
 It may be convenient for you to store the router globally/statically so that
 you can access the router in other areas in your application.
 
 After instantiating the router, you will need to define your routes and your route handlers:
+
 ```dart
 var usersHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   return UsersScreen(params["id"][0]);
 });
 
-void defineRoutes(Router router) {
+void defineRoutes(FluroRouter router) {
   router.define("/users/:id", handler: usersHandler);
 
   // it is also possible to define the route transition to use
@@ -73,8 +77,8 @@ the value `1234` as a parameter to that screen.
 
 ## Navigating
 
-You can use the `Router` with the `MaterialApp.onGenerateRoute` parameter
-via the `Router.generator` function. To do so, pass the function reference to
+You can use `FluroRouter` with the `MaterialApp.onGenerateRoute` parameter
+via `FluroRouter.generator`. To do so, pass the function reference to
 the `onGenerate` parameter like: `onGenerateRoute: router.generator`.
 
 You can then use `Navigator.push` and the flutter routing mechanism will match the routes
