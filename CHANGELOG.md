@@ -1,3 +1,13 @@
+# 1.7.2
+
+- Change to MIT license
+- Setup GitHub Actions
+- Update README text & badges
+
+# 1.7.1
+
+- No changes, publish error.
+
 # 1.7.0
 
 - Regenerated package & example
