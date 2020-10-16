@@ -11,11 +11,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fluro/fluro.dart';
 
 void main() {
-  testWidgets("Router correctly parses named parameters",
+  testWidgets("FluroRouter correctly parses named parameters",
       (WidgetTester tester) async {
     String path = "/users/1234";
     String route = "/users/:id";
-    Router router = Router();
+    FluroRouter router = FluroRouter();
     router.define(route, handler: null);
     AppRouteMatch match = router.match(path);
     expect(
@@ -25,11 +25,11 @@ void main() {
         }));
   });
 
-  testWidgets("Router correctly parses named parameters with query",
+  testWidgets("FluroRouter correctly parses named parameters with query",
       (WidgetTester tester) async {
     String path = "/users/1234?name=luke";
     String route = "/users/:id";
-    Router router = Router();
+    FluroRouter router = FluroRouter();
     router.define(route, handler: null);
     AppRouteMatch match = router.match(path);
     expect(
@@ -40,11 +40,11 @@ void main() {
         }));
   });
 
-  testWidgets("Router correctly parses query parameters",
+  testWidgets("FluroRouter correctly parses query parameters",
       (WidgetTester tester) async {
     String path = "/users/create?name=luke&phrase=hello%20world&number=7";
     String route = "/users/create";
-    Router router = Router();
+    FluroRouter router = FluroRouter();
     router.define(route, handler: null);
     AppRouteMatch match = router.match(path);
     expect(
@@ -56,12 +56,12 @@ void main() {
         }));
   });
 
-  testWidgets("Router correctly parses array parameters",
+  testWidgets("FluroRouter correctly parses array parameters",
       (WidgetTester tester) async {
     String path =
         "/users/create?name=luke&phrase=hello%20world&number=7&number=10&number=13";
     String route = "/users/create";
-    Router router = Router();
+    FluroRouter router = FluroRouter();
     router.define(route, handler: null);
     AppRouteMatch match = router.match(path);
     expect(
@@ -72,11 +72,11 @@ void main() {
           "number": ["7", "10", "13"],
         }));
   });
-  testWidgets("Router correctly matches route and transition type",
+  testWidgets("FluroRouter correctly matches route and transition type",
       (WidgetTester tester) async {
     String path = "/users/1234";
     String route = "/users/:id";
-    Router router = Router();
+    FluroRouter router = FluroRouter();
     router.define(route,
         handler: null, transitionType: TransitionType.inFromRight);
     AppRouteMatch match = router.match(path);

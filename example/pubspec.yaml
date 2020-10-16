@@ -1,13 +1,27 @@
-name: router_example
-description: An example project for the flutter router.
+name: fluro_example
+description: An example project showcasing Fluro.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+
+  cupertino_icons: ^1.0.0
+
   fluro:
     path: ../
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
 flutter:
-  uses-material-design: false
+  uses-material-design: true
+
   assets:
     - assets/images/logo_fluro.png
     - assets/images/acc_boom.png
@@ -18,6 +32,7 @@ flutter:
     - assets/images/ic_transform_fade_out_hz.png
     - assets/images/ic_transform_global_hz.png
     - assets/images/ic_transform_native_hz.png
+
   fonts:
     - family: Lazer84
       fonts:
