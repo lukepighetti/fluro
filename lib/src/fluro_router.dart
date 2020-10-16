@@ -26,9 +26,13 @@ class FluroRouter {
 
   /// Creates a [PageRoute] definition for the passed [RouteHandler]. You can optionally provide a default transition type.
   void define(String routePath,
-      {@required Handler handler, TransitionType transitionType}) {
+      {@required Handler handler,
+      TransitionType transitionType,
+      Duration transitionDuration = const Duration(milliseconds: 250)}) {
     _routeTree.addRoute(
-      AppRoute(routePath, handler, transitionType: transitionType),
+      AppRoute(routePath, handler,
+          transitionType: transitionType,
+          transitionDuration: transitionDuration),
     );
   }
 
@@ -46,7 +50,7 @@ class FluroRouter {
       {bool replace = false,
       bool clearStack = false,
       TransitionType transition,
-      Duration transitionDuration = const Duration(milliseconds: 250),
+      Duration transitionDuration,
       RouteTransitionsBuilder transitionBuilder,
       RouteSettings routeSettings}) {
     RouteMatch routeMatch = matchRoute(context, path,
@@ -100,7 +104,7 @@ class FluroRouter {
   RouteMatch matchRoute(BuildContext buildContext, String path,
       {RouteSettings routeSettings,
       TransitionType transitionType,
-      Duration transitionDuration = const Duration(milliseconds: 250),
+      Duration transitionDuration,
       RouteTransitionsBuilder transitionsBuilder}) {
     RouteSettings settingsToUse = routeSettings;
     if (routeSettings == null) {
@@ -181,10 +185,10 @@ class FluroRouter {
           },
           transitionDuration: transition == TransitionType.none
               ? Duration.zero
-              : transitionDuration,
+              : transitionDuration ?? route.transitionDuration,
           reverseTransitionDuration: transition == TransitionType.none
               ? Duration.zero
-              : transitionDuration,
+              : transitionDuration ?? route.transitionDuration,
           transitionsBuilder: transition == TransitionType.none
               ? (_, __, ___, child) => child
               : routeTransitionsBuilder,

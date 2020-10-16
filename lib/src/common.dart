@@ -35,7 +35,9 @@ class AppRoute {
   String route;
   dynamic handler;
   TransitionType transitionType;
-  AppRoute(this.route, this.handler, {this.transitionType});
+  Duration transitionDuration;
+  AppRoute(this.route, this.handler,
+      {this.transitionType, this.transitionDuration});
 }
 
 enum TransitionType {
