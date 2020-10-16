@@ -47,11 +47,13 @@ class FluroRouter {
       bool clearStack = false,
       TransitionType transition,
       Duration transitionDuration = const Duration(milliseconds: 250),
-      RouteTransitionsBuilder transitionBuilder}) {
+      RouteTransitionsBuilder transitionBuilder,
+      RouteSettings routeSettings}) {
     RouteMatch routeMatch = matchRoute(context, path,
         transitionType: transition,
         transitionsBuilder: transitionBuilder,
-        transitionDuration: transitionDuration);
+        transitionDuration: transitionDuration,
+        routeSettings: routeSettings);
     Route<dynamic> route = routeMatch.route;
     Completer completer = Completer();
     Future future = completer.future;
@@ -103,6 +105,9 @@ class FluroRouter {
     RouteSettings settingsToUse = routeSettings;
     if (routeSettings == null) {
       settingsToUse = RouteSettings(name: path);
+    }
+    if (routeSettings.name == null) {
+      settingsToUse = settingsToUse.copyWith(name: path);
     }
     AppRouteMatch match = _routeTree.matchRoute(path);
     AppRoute route = match?.route;
