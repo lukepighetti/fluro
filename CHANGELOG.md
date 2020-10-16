@@ -1,3 +1,15 @@
+# 1.7.0
+
+- Regenerated package & example
+- remove Router class
+- add maintainState to FluroRouter.navigateTo
+- add transitionDuration to FluroRouter.define
+- add TransitionType.none
+- add TransitionType.inFromTop
+- Pass custom RouteSettings with FluroRouter.navigateTo
+- basic flutter web support
+- add FluroRouter.pop result
+
 # 1.6.4
 
 - Rename Router to FluroRouter to avoid namespace collisions with the Router class from the new Pages / Navigator 2.0 API.
