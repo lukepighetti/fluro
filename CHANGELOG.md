@@ -1,3 +1,9 @@
+# 1.7.3
+
+- add FluroRouter.navigateTo(.rootNavigator, .nullOk)
+- add custom transitions in define
+- add BuildContext.settings and BuildContext.arguments extensions
+
 # 1.7.2
 
 - Change to MIT license

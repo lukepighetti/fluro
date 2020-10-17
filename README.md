@@ -63,3 +63,29 @@ You can also manually push to a route yourself. To do so:
 ```dart
 router.navigateTo(context, "/users/1234", transition: TransitionType.fadeIn);
 ```
+
+## Class arguments
+
+Don't want to use strings for params? No worries.
+
+After pushing a route with a custom `RouteSettings` you can use the `BuildContext.settings` extension to extract the settings. Typically this would be done in `Handler.handlerFunc` so you can pass `RouteSettings.arguments` to your screen widgets.
+
+```dart
+/// Push a route with custom RouteSettings if you don't want to use path params
+FluroRouter.appRouter.navigateTo(
+  context,
+  'home',
+  routeSettings: RouteSettings(
+    arguments: MyArgumentsDataClass('foo!'),
+  ),
+);
+
+/// Extract the arguments using [BuildContext.settings.arguments] or [BuildContext.arguments] for short
+var homeHandler = Handler(
+  handlerFunc: (context, params) {
+    final args = context.settings.arguments as MyArgumentsDataClass;
+
+    return HomeComponent(args);
+  },
+);
+```
