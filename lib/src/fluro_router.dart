@@ -52,6 +52,8 @@ class FluroRouter {
       {bool replace = false,
       bool clearStack = false,
       bool maintainState = true,
+      bool rootNavigator = false,
+      bool nullOk = false,
       TransitionType transition,
       Duration transitionDuration,
       RouteTransitionsBuilder transitionBuilder,
@@ -72,13 +74,14 @@ class FluroRouter {
         route = _notFoundRoute(context, path, maintainState: maintainState);
       }
       if (route != null) {
+        final navigator =
+            Navigator.of(context, rootNavigator: rootNavigator, nullOk: nullOk);
         if (clearStack) {
-          future =
-              Navigator.of(context).pushAndRemoveUntil(route, (check) => false);
+          future = navigator.pushAndRemoveUntil(route, (check) => false);
         } else {
           future = replace
-              ? Navigator.of(context).pushReplacement(route)
-              : Navigator.of(context).push(route);
+              ? navigator.pushReplacement(route)
+              : navigator.push(route);
         }
         completer.complete();
       } else {
