@@ -10,11 +10,13 @@
 import 'package:fluro/src/common.dart';
 import 'package:flutter/widgets.dart';
 
+/// A [RouteTreeNote] type
 enum RouteTreeNodeType {
   component,
   parameter,
 }
 
+/// A matched [AppRoute]
 class AppRouteMatch {
   // constructors
   AppRouteMatch(this.route);
@@ -24,6 +26,7 @@ class AppRouteMatch {
   Map<String, List<String>> parameters = <String, List<String>>{};
 }
 
+/// A matched [RouteTreeNode]
 class RouteTreeNodeMatch {
   // constructors
   RouteTreeNodeMatch(this.node);
@@ -40,6 +43,7 @@ class RouteTreeNodeMatch {
   Map<String, List<String>> parameters = <String, List<String>>{};
 }
 
+/// A node on [RouteTree]
 class RouteTreeNode {
   // constructors
   RouteTreeNode(this.part, this.type);
@@ -56,6 +60,7 @@ class RouteTreeNode {
   }
 }
 
+/// A [RouteTree]
 class RouteTree {
   // private
   final List<RouteTreeNode> _nodes = <RouteTreeNode>[];

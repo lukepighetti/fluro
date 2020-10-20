@@ -9,28 +9,31 @@
 
 import 'package:flutter/widgets.dart';
 
-///
+/// The type of the handler, whether it's a buildable route or
+/// a function that is called when routed.
 enum HandlerType {
   route,
   function,
 }
 
-///
+/// The handler to register with [FluroRouter.define]
 class Handler {
   Handler({this.type = HandlerType.route, this.handlerFunc});
   final HandlerType type;
   final HandlerFunc handlerFunc;
 }
 
-///
+/// A function that creates new routes.
 typedef Route<T> RouteCreator<T>(
     RouteSettings route, Map<String, List<String>> parameters);
 
+/// Builds out a screen based on string path [parameters] and context.
 ///
+/// Note: you can access [RouteSettings] with the [context.settings] extension
 typedef Widget HandlerFunc(
     BuildContext context, Map<String, List<String>> parameters);
 
-///
+/// A route that is added to the router tree.
 class AppRoute {
   String route;
   dynamic handler;
@@ -41,6 +44,9 @@ class AppRoute {
       {this.transitionType, this.transitionDuration, this.transitionBuilder});
 }
 
+/// The type of transition to use when pushing/popping a route.
+///
+/// [TransitionType.custom] must also provide a transition when used.
 enum TransitionType {
   native,
   nativeModal,
@@ -49,7 +55,7 @@ enum TransitionType {
   inFromRight,
   inFromBottom,
   fadeIn,
-  custom, // if using custom then you must also provide a transition
+  custom,
   material,
   materialFullScreenDialog,
   cupertino,
@@ -57,13 +63,14 @@ enum TransitionType {
   none,
 }
 
+/// The match type of the route.
 enum RouteMatchType {
   visual,
   nonVisual,
   noMatch,
 }
 
-///
+/// The route that was matched.
 class RouteMatch {
   RouteMatch(
       {this.matchType = RouteMatchType.noMatch,
@@ -74,6 +81,7 @@ class RouteMatch {
   final String errorMessage;
 }
 
+/// When the route is not found.
 class RouteNotFoundException implements Exception {
   final String message;
   final String path;

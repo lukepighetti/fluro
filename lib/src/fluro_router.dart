@@ -15,7 +15,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/// {@template fluro_router}
+/// Attach [FluroRouter] to [MaterialApp] by connnecting [FluroRouter.generator] to [MaterialApp.onGenerateRoute].
+///
+/// Define routes with [FluroRouter.define], optionally specifying transition types and connecting string path params to
+/// your screen widget's constructor.
+///
+/// Push new route paths with [FluroRouter.appRouter.navigateTo] or continue to use [Navigator.of(context).push] if you prefer.
+/// {@endtemplate}
 class FluroRouter {
+  /// The static / singleton instance of [FluroRouter]
+  ///
+  /// {@macro fluro_router}
   static final appRouter = FluroRouter();
 
   /// The tree structure that stores the defined routes
@@ -44,10 +55,11 @@ class FluroRouter {
     return _routeTree.matchRoute(path);
   }
 
+  /// Similar to [Navigator.pop]
   void pop<T>(BuildContext context, [T result]) =>
       Navigator.of(context).pop(result);
 
-  ///
+  /// Similar to [Navigator.push] but with a few extra features.
   Future navigateTo(BuildContext context, String path,
       {bool replace = false,
       bool clearStack = false,
@@ -94,7 +106,6 @@ class FluroRouter {
     return future;
   }
 
-  ///
   Route<Null> _notFoundRoute(BuildContext context, String path,
       {bool maintainState}) {
     RouteCreator<Null> creator =
@@ -109,7 +120,7 @@ class FluroRouter {
     return creator(RouteSettings(name: path), null);
   }
 
-  ///
+  /// Attempt to match a route to the provided [path].
   RouteMatch matchRoute(BuildContext buildContext, String path,
       {RouteSettings routeSettings,
       TransitionType transitionType,
