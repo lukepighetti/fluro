@@ -1,3 +1,7 @@
+# 1.7.4
+
+- add documentation to public members
+
 # 1.7.3
 
 - add FluroRouter.navigateTo(.rootNavigator, .nullOk)
