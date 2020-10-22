@@ -138,13 +138,14 @@ class FluroRouter {
     AppRoute route = match?.route;
 
     if (route?.transitionDuration != null) {
-      transitionDuration = route.transitionDuration;
+      transitionDuration = route?.transitionDuration;
     }
 
-    Handler handler = (route != null ? route.handler : notFoundHandler);
+    Handler handler = (route != null ? route?.handler : notFoundHandler);
     var transition = transitionType;
     if (transitionType == null) {
-      transition = route != null ? route.transitionType : TransitionType.native;
+      transition =
+          route != null ? route?.transitionType : TransitionType.native;
     }
     if (route == null && notFoundHandler == null) {
       return RouteMatch(
@@ -205,7 +206,7 @@ class FluroRouter {
 
         if (transition == TransitionType.custom) {
           routeTransitionsBuilder =
-              transitionsBuilder ?? route.transitionBuilder;
+              transitionsBuilder ?? route?.transitionBuilder;
         } else {
           routeTransitionsBuilder = _standardTransitionsBuilder(transition);
         }
@@ -219,10 +220,10 @@ class FluroRouter {
           },
           transitionDuration: transition == TransitionType.none
               ? Duration.zero
-              : transitionDuration ?? route.transitionDuration,
+              : transitionDuration ?? route?.transitionDuration,
           reverseTransitionDuration: transition == TransitionType.none
               ? Duration.zero
-              : transitionDuration ?? route.transitionDuration,
+              : transitionDuration ?? route?.transitionDuration,
           transitionsBuilder: transition == TransitionType.none
               ? (_, __, ___, child) => child
               : routeTransitionsBuilder,
