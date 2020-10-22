@@ -1,3 +1,7 @@
+# 1.7.5
+
+- fix route.transitionDuration null coalesce
+
 # 1.7.4
 
 - add documentation to public members

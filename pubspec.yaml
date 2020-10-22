@@ -1,6 +1,6 @@
 name: fluro
 description: Fluro is a Flutter routing library that adds flexible routing options like wildcards, named parameters and clear route definitions.
-version: 1.7.4
+version: 1.7.5
 homepage: https://github.com/lukepighetti/fluro
 
 environment:
