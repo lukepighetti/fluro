@@ -1,3 +1,7 @@
+# 1.7.6
+
+- more null coalesce guards
+
 # 1.7.5
 
 - fix route.transitionDuration null coalesce
