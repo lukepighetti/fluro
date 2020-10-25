@@ -161,6 +161,8 @@ class FluroRouter {
 
     RouteCreator creator =
         (RouteSettings routeSettings, Map<String, List<String>> parameters) {
+      /// Use `TransitionType.none` on first build.
+      if (buildContext == null) transition = TransitionType.none;
       bool isNativeTransition = (transition == TransitionType.native ||
           transition == TransitionType.nativeModal);
       if (isNativeTransition) {
