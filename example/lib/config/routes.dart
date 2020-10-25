@@ -22,8 +22,7 @@ class Routes {
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
       print("ROUTE WAS NOT FOUND !!!");
     });
-    router.define(root,
-        handler: rootHandler, transitionType: TransitionType.native);
+    router.define(root, handler: rootHandler);
     router.define(demoSimple, handler: demoRouteHandler);
     router.define(demoSimpleFixedTrans,
         handler: demoRouteHandler, transitionType: TransitionType.inFromLeft);
