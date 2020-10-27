@@ -1,3 +1,7 @@
+# 1.7.7
+
+- fix unecessary platform check that caused `'dependOnInheritedWidgetOfExactType' was called on null` error
+
 # 1.7.6
 
 - more null coalesce guards
