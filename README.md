@@ -16,6 +16,7 @@ The brightest, hippest, coolest router for Flutter.
 - Querystring parameter parsing
 - Common transitions built-in
 - Simple custom transition creation
+- Follows `beta` Flutter channel
 
 ## Example Project
 
