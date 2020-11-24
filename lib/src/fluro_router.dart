@@ -65,7 +65,6 @@ class FluroRouter {
       bool clearStack = false,
       bool maintainState = true,
       bool rootNavigator = false,
-      bool nullOk = false,
       TransitionType transition,
       Duration transitionDuration,
       RouteTransitionsBuilder transitionBuilder,
@@ -87,7 +86,7 @@ class FluroRouter {
       }
       if (route != null) {
         final navigator =
-            Navigator.of(context, rootNavigator: rootNavigator, nullOk: nullOk);
+            Navigator.of(context, rootNavigator: rootNavigator);
         if (clearStack) {
           future = navigator.pushAndRemoveUntil(route, (check) => false);
         } else {
