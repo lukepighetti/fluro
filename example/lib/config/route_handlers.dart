@@ -50,7 +50,7 @@ var demoFunctionHandler = Handler(
             actions: <Widget>[
               Padding(
                 padding: EdgeInsets.only(bottom: 8.0, right: 8.0),
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(true);
                   },

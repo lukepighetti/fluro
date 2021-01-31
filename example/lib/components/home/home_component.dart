@@ -57,9 +57,7 @@ class HomeComponentState extends State<HomeComponent> {
           opacity: _deepLinkOpacity,
           duration: Duration(milliseconds: 250),
           child: Center(
-            child: FlatButton(
-              highlightColor: const Color(0x11FFFFFF),
-              splashColor: const Color(0x22FFFFFF),
+            child: TextButton(
               onPressed: () {
                 if (_deepLinkOpacity == 1.0) {
                   Timer(Duration(milliseconds: 2000), () {
@@ -139,15 +137,6 @@ class HomeComponentState extends State<HomeComponent> {
                 ),
               ),
             ),
-//            Padding(
-//              padding: EdgeInsets.only(top: 35.0, bottom: 25),
-//              child: Center(
-//                child: ConstrainedBox(
-//                  constraints: BoxConstraints.tightFor(height: 60.0),
-//                  child: deepLinkWidget(context),
-//                ),
-//              ),
-//            ),
           ],
         ),
       ),
@@ -161,10 +150,7 @@ class HomeComponentState extends State<HomeComponent> {
       padding: EdgeInsets.all(4.0),
       child: Container(
         height: 42.0,
-        child: FlatButton(
-          color: const Color(0x22FFFFFF),
-          highlightColor: const Color(0x11FFFFFF),
-          splashColor: const Color(0x22FFFFFF),
+        child: TextButton(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,

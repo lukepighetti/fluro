@@ -50,11 +50,7 @@ class DemoSimpleComponent extends StatelessWidget {
             padding: EdgeInsets.only(top: 15.0),
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: 42.0),
-              child: FlatButton(
-                highlightColor:
-                    ColorHelpers.blackOrWhiteContrastColor(color).withAlpha(17),
-                splashColor:
-                    ColorHelpers.blackOrWhiteContrastColor(color).withAlpha(34),
+              child: TextButton(
                 onPressed: () {
                   if (result == null) {
                     /// You can use [Navigator.pop]
