@@ -3,7 +3,7 @@
  * Created by Yakka
  * https://theyakka.com
  * 
- * Copyright (c) 2020 Luke Pighetti. All rights reserved.
+ * Copyright (c) 2021 Luke Pighetti. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 library fluro;
