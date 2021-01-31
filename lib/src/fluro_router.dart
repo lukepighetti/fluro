@@ -11,7 +11,6 @@ import 'dart:async';
 
 import 'package:fluro/fluro.dart';
 import 'package:fluro/src/common.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -112,7 +111,8 @@ class FluroRouter {
           settings: routeSettings,
           maintainState: maintainState ?? true,
           builder: (BuildContext context) {
-            return notFoundHandler!.handlerFunc!(context, parameters);
+            return notFoundHandler!.handlerFunc(context, parameters) ??
+                SizedBox.shrink();
           });
     };
     return creator(RouteSettings(name: path), null);
@@ -142,8 +142,7 @@ class FluroRouter {
     Handler handler = (route != null ? route.handler : notFoundHandler);
     TransitionType? transition = transitionType;
     if (transitionType == null) {
-      transition =
-          route != null ? route.transitionType : TransitionType.native;
+      transition = route != null ? route.transitionType : TransitionType.native;
     }
     if (route == null && notFoundHandler == null) {
       return RouteMatch(
@@ -153,7 +152,7 @@ class FluroRouter {
     Map<String, List<String>> parameters =
         match?.parameters ?? <String, List<String>>{};
     if (handler.type == HandlerType.function) {
-      handler.handlerFunc!(buildContext, parameters);
+      handler.handlerFunc(buildContext, parameters);
       return RouteMatch(matchType: RouteMatchType.nonVisual);
     }
 
@@ -167,7 +166,8 @@ class FluroRouter {
             fullscreenDialog: transition == TransitionType.nativeModal,
             maintainState: maintainState,
             builder: (BuildContext context) {
-              return handler.handlerFunc!(context, parameters);
+              return handler.handlerFunc(context, parameters) ??
+                  SizedBox.shrink();
             });
       } else if (transition == TransitionType.material ||
           transition == TransitionType.materialFullScreenDialog) {
@@ -177,7 +177,8 @@ class FluroRouter {
                 transition == TransitionType.materialFullScreenDialog,
             maintainState: maintainState,
             builder: (BuildContext context) {
-              return handler.handlerFunc!(context, parameters);
+              return handler.handlerFunc(context, parameters) ??
+                  SizedBox.shrink();
             });
       } else if (transition == TransitionType.cupertino ||
           transition == TransitionType.cupertinoFullScreenDialog) {
@@ -187,7 +188,8 @@ class FluroRouter {
                 transition == TransitionType.cupertinoFullScreenDialog,
             maintainState: maintainState,
             builder: (BuildContext context) {
-              return handler.handlerFunc!(context, parameters);
+              return handler.handlerFunc(context, parameters) ??
+                  SizedBox.shrink();
             });
       } else {
         RouteTransitionsBuilder? routeTransitionsBuilder;
@@ -204,7 +206,8 @@ class FluroRouter {
           maintainState: maintainState,
           pageBuilder: (BuildContext context, Animation<double> animation,
               Animation<double> secondaryAnimation) {
-            return handler.handlerFunc!(context, parameters);
+            return handler.handlerFunc(context, parameters) ??
+                SizedBox.shrink();
           },
           transitionDuration: transition == TransitionType.none
               ? Duration.zero

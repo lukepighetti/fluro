@@ -22,8 +22,8 @@ class AppRouteMatch {
   AppRouteMatch(this.route);
 
   // properties
-  AppRoute? route;
-  Map<String, List<String>>? parameters = <String, List<String>>{};
+  AppRoute route;
+  Map<String, List<String>> parameters = <String, List<String>>{};
 }
 
 /// A matched [RouteTreeNode]
@@ -39,7 +39,7 @@ class RouteTreeNodeMatch {
   }
 
   // properties
-  RouteTreeNode? node;
+  RouteTreeNode node;
   Map<String, List<String>> parameters = <String, List<String>>{};
 }
 
@@ -49,7 +49,7 @@ class RouteTreeNode {
   RouteTreeNode(this.part, this.type);
 
   // properties
-  String? part;
+  String part;
   RouteTreeNodeType? type;
   List<AppRoute>? routes = <AppRoute>[];
   List<RouteTreeNode>? nodes = <RouteTreeNode>[];
@@ -68,7 +68,7 @@ class RouteTree {
 
   // addRoute - add a route to the route tree
   void addRoute(AppRoute route) {
-    String path = route.route!;
+    String path = route.route;
     // is root/default route, just add it
     if (path == Navigator.defaultRouteName) {
       if (_hasDefaultRoute) {
@@ -142,13 +142,12 @@ class RouteTree {
           RouteTreeNodeMatch match =
               RouteTreeNodeMatch.fromMatch(parentMatch, node);
           if (node.isParameter()) {
-            String paramKey = node.part!.substring(1);
+            String paramKey = node.part.substring(1);
             match.parameters[paramKey] = [pathPart];
           }
           if (queryMap != null) {
             match.parameters.addAll(queryMap);
           }
-//          print("matched: ${node.part}, isParam: ${node.isParameter()}, params: ${match.parameters}");
           currentMatches[node] = match;
           if (node.nodes != null) {
             nextNodes.addAll(node.nodes!);
@@ -165,11 +164,8 @@ class RouteTree {
     if (matches.length > 0) {
       RouteTreeNodeMatch match = matches.first;
       RouteTreeNode? nodeToUse = match.node;
-//			print("using match: ${match}, ${nodeToUse?.part}, ${match?.parameters}");
-      if (nodeToUse != null &&
-          nodeToUse.routes != null &&
-          nodeToUse.routes!.length > 0) {
-        List<AppRoute> routes = nodeToUse.routes!;
+      final routes = nodeToUse.routes;
+      if (routes != null && routes.length > 0) {
         AppRouteMatch routeMatch = AppRouteMatch(routes[0]);
         routeMatch.parameters = match.parameters;
         return routeMatch;
@@ -196,7 +192,7 @@ class RouteTree {
     }
   }
 
-  RouteTreeNode? _nodeForComponent(String? component, RouteTreeNode? parent) {
+  RouteTreeNode? _nodeForComponent(String component, RouteTreeNode? parent) {
     List<RouteTreeNode> nodes = _nodes;
     if (parent != null) {
       // search parent for sub-node matches

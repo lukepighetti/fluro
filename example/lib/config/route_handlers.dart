@@ -61,6 +61,7 @@ var demoFunctionHandler = Handler(
           );
         },
       );
+      return;
     });
 
 /// Handles deep links into the app
