@@ -24,9 +24,9 @@ A null-safe version is available as a git dependency.
 
 ```yaml
 fluro:
-    git: 
-      url: https://github.com/lukepighetti/fluro
-      ref: null-safety
+  git: 
+    url: https://github.com/lukepighetti/fluro
+    ref: null-safety
 ```
 ## Example Project
 
