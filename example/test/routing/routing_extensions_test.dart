@@ -1,6 +1,10 @@
-import 'package:example/routing/route_match.dart';
-import 'package:example/routing/routing_extensions.dart';
+import 'package:example/extensions.dart';
+import 'package:example/models/fluro_alias.dart';
+import 'package:example/models/fluro_guard.dart';
+import 'package:example/models/route_match.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import '../stub_build_context.dart';
 
 void main() {
   group('FluroStringX', () {
@@ -170,6 +174,95 @@ void main() {
         result = routes.route('/foo');
         expect(result.matches, isFalse);
       });
+    });
+  });
+
+  group('FluroListFluroAliasX', () {
+    test('route', () {
+      final context = StubBuildContext();
+
+      final aliases = [
+        FluroAlias('/alias', (context, params) {
+          return '/alias/redirect';
+        }),
+        FluroAlias('/alias/:uid', (context, params) {
+          /// Params are automatically passed through
+          return '/alias/:uid/redirect';
+        }),
+      ];
+
+      /// `/alias` => `/alias/redirect` via `/alias`
+      var result = aliases.route(context, '/alias');
+      expect(result.matches, isTrue);
+      expect(result.route, equals('/alias/redirect'));
+
+      /// `/alias/:uid` => `/alias/:uid/redirect`via `/alias/user_id`
+      result = aliases.route(context, '/alias/user_id');
+      expect(result.matches, isTrue);
+      expect(result.route, equals('/alias/:uid/redirect'));
+      expect(result.parameters, containsPair('uid', 'user_id'));
+
+      /// `/alias/:uid` => `/alias/:uid/redirect` via `/alias/user_id?foo=42&bar=43`
+      result = aliases.route(context, '/alias/user_id?foo=42&bar=43');
+      expect(result.matches, isTrue);
+      expect(result.route, equals('/alias/:uid/redirect'));
+      expect(result.parameters, containsPair('uid', 'user_id'));
+      expect(result.parameters, containsPair('foo', '42'));
+      expect(result.parameters, containsPair('bar', '43'));
+
+      /// None found
+      result = aliases.route(context, '/');
+      expect(result.matches, isFalse);
+    });
+  });
+
+  group('FluroListFluroGuardX', () {
+    test('route', () {
+      final context = StubBuildContext();
+
+      bool isAuthenticated = false;
+      bool hasOnboarded = false;
+
+      /// Auth guard
+      final authGuard = FluroGuard((context, params) {
+        if (isAuthenticated == false) return '/login';
+      });
+
+      /// Onboarding guard
+      final onboardingGuard = FluroGuard((context, params) {
+        if (hasOnboarded == false) return '/onboarding';
+      });
+
+      /// Parameter guard
+      final parameterGuard = FluroGuard((context, params) {
+        if (params['uid'] == 'me') return '/uid-is-me';
+      });
+
+      final guards = [authGuard, onboardingGuard, parameterGuard];
+
+      /// Hasn't authenticated or onboarded
+      isAuthenticated = false;
+      hasOnboarded = false;
+      var result = guards.resolve(context, {});
+      expect(result, equals('/login'));
+
+      /// Has authenticated, hasn't onboarded
+      isAuthenticated = true;
+      hasOnboarded = false;
+      result = guards.resolve(context, {});
+      expect(result, equals('/onboarding'));
+
+      /// Has authenticated and onboarded
+      isAuthenticated = true;
+      hasOnboarded = true;
+      result = guards.resolve(context, {});
+      expect(result, isNull);
+
+      /// Params
+      isAuthenticated = true;
+      hasOnboarded = true;
+      result = guards.resolve(context, {'uid': 'me'});
+      expect(result, equals('/uid-is-me'));
     });
   });
 }

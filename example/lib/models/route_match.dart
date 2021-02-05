@@ -7,13 +7,20 @@ class RouteMatch {
     required this.path,
   });
 
+  /// Used if a route match wasn't found in a list of routes.
+  RouteMatch.notFound({required String path})
+      : matches = false,
+        pathParameters = const {},
+        path = path,
+        route = '';
+
   /// The route being referenced
   final String route;
 
-  /// The path being routes
+  /// The path being routed
   final String path;
 
-  /// If the path
+  /// If the [path] matches the [route]
   final bool matches;
 
   /// The parameters extracted from route wildcards

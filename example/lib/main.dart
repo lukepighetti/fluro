@@ -1,55 +1,109 @@
-import 'package:example/fluro.dart';
-import 'package:example/routing/fluro_route.dart';
+import 'package:example/models/fluro_route.dart';
+import 'package:example/view/fluro_provider.dart';
+import 'package:example/view/fluro_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 void main() {
-  runApp(MyApp());
+  // runApp(MyApp());
+  runApp(TestMyApp());
 }
 
-class MyApp extends StatelessWidget {
+class TestMyApp extends StatefulWidget {
+  @override
+  _TestMyAppState createState() => _TestMyAppState();
+}
+
+class _TestMyAppState extends State<TestMyApp> {
+  final mainKey = GlobalKey<FluroViewState>();
+  final subKey = GlobalKey<FluroViewState>();
+
+  @override
+  void initState() {
+    asyncInitState();
+    super.initState();
+  }
+
+  void asyncInitState() async {
+    final pauseDuration = Duration(milliseconds: 500);
+
+    await Future.delayed(pauseDuration);
+
+    mainKey.currentState!.updatePages([
+      MaterialPage(
+        child: FluroView(
+          key: subKey,
+          name: 'Sub',
+        ),
+      ),
+    ]);
+
+    await Future.delayed(Duration(milliseconds: 100));
+
+    SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+      subKey.currentState!.updatePages([stubPage('Weeee')]);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Fluro 2',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      routeInformationParser: FluroRouteInformationParser(),
-      routerDelegate: FluroRouterDelegate(
-        children: [
-          /// `/`
-          FluroRoute(
-            '/',
-            page: _stubPage('/'),
-          ),
-
-          /// `/foo`
-          FluroRoute(
-            '/foo',
-            page: _stubPage('/foo'),
-            children: [
-              /// `/foo/nested`
-              FluroRoute(
-                '/nested',
-                page: _stubPage('/nested'),
-              ),
-            ],
-          ),
-
-          /// `/bar`
-          FluroRoute(
-            '/bar',
-            page: _stubPage('/bar'),
-          ),
-        ],
+    return MaterialApp(
+      home: FluroView(
+        key: mainKey,
+        name: 'Main',
       ),
     );
   }
 }
 
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FluroProvider(
+      fallbackPage: (context, params) => stubPage('Fallback page'),
+      routes: [
+        /// `/`
+        FluroRoute(
+          '/',
+          page: (_, params) => stubPage('/'),
+        ),
+
+        /// `/foo`
+        FluroRoute(
+          '/foo',
+          page: (_, params) => stubPage('/foo'),
+          children: [
+            /// `/foo/nested`
+            FluroRoute(
+              '/nested',
+              page: (_, params) => stubPage('/nested'),
+            ),
+          ],
+        ),
+
+        /// `/bar`
+        FluroRoute(
+          '/bar',
+          page: (_, params) => stubPage('/bar'),
+        ),
+      ],
+      builder: (context, routeInformationParser, routerDelegate) {
+        return MaterialApp.router(
+          title: 'Fluro 2',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          routeInformationParser: routeInformationParser,
+          routerDelegate: routerDelegate,
+        );
+      },
+    );
+  }
+}
+
 /// Just a super quick way to make a [MaterialPage]
-Page _stubPage(String text) {
+Page stubPage(String text) {
   return MaterialPage(
     child: Scaffold(
       body: Center(
@@ -57,33 +111,4 @@ Page _stubPage(String text) {
       ),
     ),
   );
-}
-
-/// A semantically odd way to make a [MaterialPage]
-class MyPage extends MaterialPage {
-  MyPage(String text)
-      : super(
-          child: Scaffold(
-            body: Center(
-              child: Text(text),
-            ),
-          ),
-        );
-}
-
-/// A naiive way to make custom pages.
-class MyPage2 extends Page<bool> {
-  @override
-  Route<bool> createRoute(BuildContext context) {
-    return PageRouteBuilder(
-      pageBuilder: (BuildContext context, Animation<double> animation,
-          Animation<double> secondaryAnimation) {
-        return Scaffold(
-          body: Center(
-            child: Text('MyPage2'),
-          ),
-        );
-      },
-    );
-  }
 }

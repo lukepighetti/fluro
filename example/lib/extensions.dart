@@ -1,27 +1,9 @@
-import 'package:example/routing/route_match.dart';
+import 'package:example/models/route_match.dart';
 
-import 'fluro_route.dart';
-
-extension ListFluroRouteX on List<FluroRoute> {
-  /// Resolve a list of [FluroRoute] into a list of [String] routes.
-  List<String> resolvePaths() {
-    /// The list of resolved paths
-    final paths = <String>[];
-
-    void _visit(List<FluroRoute> routes, String parentPath) {
-      for (var e in routes) {
-        final trimmedPath = e.path.sanitizePath();
-        final path = '$parentPath/$trimmedPath';
-        paths.add(path);
-        _visit(e.children, path);
-      }
-    }
-
-    _visit(this, '');
-
-    return paths;
-  }
-}
+export 'models/fluro_alias.dart' show FluroListFluroAliasX;
+export 'models/fluro_guard.dart' show FluroListFluroGuardX;
+export 'models/fluro_route.dart' show ListFluroRouteX;
+export 'models/resolved_path.dart' show FluroListResolvedPathX;
 
 extension FluroListStringX on List<String> {
   /// Assuming this list is a bunch of routing paths, find the right match.
@@ -35,11 +17,8 @@ extension FluroListStringX on List<String> {
     }
 
     /// None found
-    return RouteMatch(
-      matches: false,
-      pathParameters: {},
+    return RouteMatch.notFound(
       path: path,
-      route: '',
     );
   }
 }
