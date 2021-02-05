@@ -1,30 +1,31 @@
 import 'package:flutter/widgets.dart' show BuildContext;
 
+/// {@macro FluroGuard}
 class FluroGuard {
-  /// Used to optionally redirect to another path.
+  /// {@template FluroGuard}
+  /// Used to guard a [FluroRoute] from access.
   ///
+  /// If a string is provided by [builder] redirect to another path.
   /// If `null`, the redirect will coalesce to the original destination.
+  /// {@endtemplate}
   FluroGuard(this.builder);
 
-  /// See [FluroGuardBuilder]
+  /// {@macro FluroGuardBuilder}
   final FluroGuardBuilder builder;
 }
 
+/// {@template FluroGuardBuilder}
 /// Used to optionally redirect to another path.
 ///
 /// If `null`, the redirect will coalesce to the original destination.
+/// {@endtemplate}
 typedef FluroGuardBuilder = String? Function(
     BuildContext context, Map<String, String> params);
 
-/// A stub authentication guard that allows every path to proceed.
-///
-/// In other words, a guard that never fails.
-///
-/// Intended only for development purposes.
-final FluroGuardBuilder allowAllAuthenticationGuard = (context, params) => null;
-
 extension FluroListFluroGuardX on List<FluroGuard> {
-  /// Resolve a list of guards into a RouteMatch
+  /// Resolve a list of guards into an optional [String].
+  ///
+  /// `null` if no redirect should occur.
   String? resolve(BuildContext context, Map<String, String> parameters) {
     for (var e in this) {
       final resolvedGuard = e.builder(context, parameters);

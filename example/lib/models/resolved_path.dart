@@ -4,10 +4,13 @@ import '../extensions.dart';
 import 'fluro_route.dart';
 import 'resolved_path_match.dart';
 
+/// {@macro ResolvedPath}
 class ResolvedPath {
+  /// {@template ResolvedPath}
   /// A path that has been resolved to a flattened path and a mapping
   /// of router tree depth to route. This is used to walk the router tree
   /// so we can place the correct route.
+  /// {@endtemplate}
   ResolvedPath(this.route, this.routerMap);
 
   /// The path flattened completely.
@@ -27,7 +30,7 @@ class ResolvedPath {
 }
 
 extension FluroListResolvedPathX on List<ResolvedPath> {
-  /// Assuming this list is a bunch of routing paths, find the right match.
+  /// Route a path through a list of resolved paths.
   ResolvedPathMatch route(String path) {
     for (var resolvedPath in this) {
       final result = resolvedPath.route.route(path);

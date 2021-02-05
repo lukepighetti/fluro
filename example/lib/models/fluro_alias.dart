@@ -4,12 +4,6 @@ import '../extensions.dart';
 import 'resolved_path_match.dart';
 import 'route_match.dart';
 
-/// Used to alias one route to another.
-///
-/// ie `/timeline => /timeline/latest`
-typedef FluroAliasBuilder = String Function(
-    BuildContext context, Map<String, String> params);
-
 class FluroAlias {
   /// Used to alias one route to another.
   ///
@@ -27,8 +21,14 @@ class FluroAlias {
   final FluroAliasBuilder builder;
 }
 
+/// Used to alias one route to another.
+///
+/// ie `/timeline => /timeline/latest`
+typedef FluroAliasBuilder = String Function(
+    BuildContext context, Map<String, String> params);
+
 extension FluroListFluroAliasX on List<FluroAlias> {
-  /// Assuming this list is a bunch of routing paths, find the right match.
+  /// Route a path through a list of aliases.
   RouteMatch route(BuildContext context, String path) {
     for (var e in this) {
       final routeMatch = e.path.route(path);

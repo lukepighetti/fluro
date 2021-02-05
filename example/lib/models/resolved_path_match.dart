@@ -4,9 +4,12 @@ import 'package:example/models/route_match.dart';
 
 import 'fluro_route.dart';
 
+/// {@macro ResolvedPathMatch}
 class ResolvedPathMatch implements ResolvedPath, RouteMatch {
+  /// {@template ResolvedPathMatch}
   /// A data class that contains the sum of [ResolvedPath] and [RouteMatch],
   /// where the [route] property is taken from [ResolvedPath]
+  /// {@endtemplate}
   ResolvedPathMatch(this.resolvedPath, this.routeMatch);
 
   /// The path match to use when there is no result.

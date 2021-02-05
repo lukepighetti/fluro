@@ -8,8 +8,11 @@ import '../extensions.dart';
 typedef FluroPageBuilder = Page Function(
     BuildContext context, Map<String, String> params);
 
+/// {@macro FluroRoute}
 class FluroRoute {
+  /// {@template FluroRoute}
   /// A route with a path, page to display, and optional children.
+  /// {@endtemplate}
   FluroRoute(
     this.path, {
     required this.page,

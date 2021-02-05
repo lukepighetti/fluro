@@ -1,5 +1,8 @@
+/// {@macro RouteMatch}
 class RouteMatch {
+  /// {@template RouteMatch}
   /// The result of trying to match a path to a route.
+  /// {@endtemplate}
   RouteMatch({
     required this.matches,
     required this.pathParameters,
