@@ -34,11 +34,14 @@ class FluroRouter {
   /// Generic handler for when a route has not been defined
   Handler? notFoundHandler;
 
+  /// The default transition duration to use throughout Fluro
+  static const defaultTransitionDuration = const Duration(milliseconds: 250);
+
   /// Creates a [PageRoute] definition for the passed [RouteHandler]. You can optionally provide a default transition type.
   void define(String routePath,
       {required Handler? handler,
       TransitionType? transitionType,
-      Duration? transitionDuration = const Duration(milliseconds: 250),
+      Duration transitionDuration = defaultTransitionDuration,
       RouteTransitionsBuilder? transitionBuilder}) {
     _routeTree.addRoute(
       AppRoute(routePath, handler,
@@ -94,7 +97,7 @@ class FluroRouter {
         }
         completer.complete();
       } else {
-        String error = "No registered route was found to handle '$path'.";
+        final error = "No registered route was found to handle '$path'.";
         print(error);
         completer.completeError(RouteNotFoundException(error, path));
       }
@@ -106,16 +109,16 @@ class FluroRouter {
   Route<Null> _notFoundRoute(BuildContext context, String path,
       {bool? maintainState}) {
     RouteCreator<Null> creator =
-        (RouteSettings? routeSettings, Map<String, List<String>>? parameters) {
+        (RouteSettings? routeSettings, Map<String, List<String>> parameters) {
       return MaterialPageRoute<Null>(
           settings: routeSettings,
           maintainState: maintainState ?? true,
           builder: (BuildContext context) {
-            return notFoundHandler!.handlerFunc(context, parameters) ??
+            return notFoundHandler?.handlerFunc(context, parameters) ??
                 SizedBox.shrink();
           });
     };
-    return creator(RouteSettings(name: path), null);
+    return creator(RouteSettings(name: path), {});
   }
 
   /// Attempt to match a route to the provided [path].
@@ -125,11 +128,9 @@ class FluroRouter {
       Duration? transitionDuration,
       RouteTransitionsBuilder? transitionsBuilder,
       bool maintainState = true}) {
-    RouteSettings? settingsToUse = routeSettings;
-    if (routeSettings == null) {
-      settingsToUse = RouteSettings(name: path);
-    }
-    if (settingsToUse!.name == null) {
+    RouteSettings settingsToUse = routeSettings ?? RouteSettings(name: path);
+
+    if (settingsToUse.name == null) {
       settingsToUse = settingsToUse.copyWith(name: path);
     }
     AppRouteMatch? match = _routeTree.matchRoute(path!);
@@ -157,7 +158,7 @@ class FluroRouter {
     }
 
     RouteCreator creator =
-        (RouteSettings? routeSettings, Map<String, List<String>>? parameters) {
+        (RouteSettings? routeSettings, Map<String, List<String>> parameters) {
       bool isNativeTransition = (transition == TransitionType.native ||
           transition == TransitionType.nativeModal);
       if (isNativeTransition) {
@@ -211,10 +212,14 @@ class FluroRouter {
           },
           transitionDuration: transition == TransitionType.none
               ? Duration.zero
-              : (transitionDuration ?? route?.transitionDuration)!,
+              : (transitionDuration ??
+                  route?.transitionDuration ??
+                  defaultTransitionDuration),
           reverseTransitionDuration: transition == TransitionType.none
               ? Duration.zero
-              : (transitionDuration ?? route?.transitionDuration)!,
+              : (transitionDuration ??
+                  route?.transitionDuration ??
+                  defaultTransitionDuration),
           transitionsBuilder: transition == TransitionType.none
               ? (_, __, ___, child) => child
               : routeTransitionsBuilder!,
