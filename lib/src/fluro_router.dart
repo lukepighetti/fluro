@@ -136,7 +136,7 @@ class FluroRouter {
     AppRouteMatch? match = _routeTree.matchRoute(path!);
     AppRoute? route = match?.route;
 
-    if (route?.transitionDuration != null) {
+    if (transitionDuration == null && route?.transitionDuration != null) {
       transitionDuration = route?.transitionDuration;
     }
 
