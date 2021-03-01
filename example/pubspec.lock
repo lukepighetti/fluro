@@ -63,7 +63,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "2.0.2"
+    version: "2.0.3"
   flutter:
     dependency: "direct main"
     description: flutter

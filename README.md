@@ -18,16 +18,6 @@ The brightest, hippest, coolest router for Flutter.
 - Simple custom transition creation
 - Follows `beta` Flutter channel
 
-## Null safety opt-in
-
-A null-safe version is available as a git dependency.
-
-```yaml
-fluro:
-  git: 
-    url: https://github.com/lukepighetti/fluro
-    ref: null-safety
-```
 ## Example Project
 
 There is a pretty sweet example project in the `example` folder. Check it out. Otherwise, keep reading to get up and running.
