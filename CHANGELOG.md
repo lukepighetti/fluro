@@ -1,3 +1,7 @@
+# 2.0.1
+
+- null-safety
+
 # 1.7.8
 
 - remove nullOk
