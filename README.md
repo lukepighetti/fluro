@@ -17,6 +17,7 @@ The brightest, hippest, coolest router for Flutter.
 - Common transitions built-in
 - Simple custom transition creation
 - Follows `beta` Flutter channel
+- Null-safety
 
 ## Example Project
 
