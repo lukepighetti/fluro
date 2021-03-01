@@ -51,8 +51,8 @@ class RouteTreeNode {
   // properties
   String part;
   RouteTreeNodeType? type;
-  List<AppRoute>? routes = <AppRoute>[];
-  List<RouteTreeNode>? nodes = <RouteTreeNode>[];
+  List<AppRoute> routes = <AppRoute>[];
+  List<RouteTreeNode> nodes = <RouteTreeNode>[];
   RouteTreeNode? parent;
 
   bool isParameter() {
@@ -97,15 +97,11 @@ class RouteTree {
         if (parent == null) {
           _nodes.add(node);
         } else {
-          parent.nodes!.add(node);
+          parent.nodes.add(node);
         }
       }
       if (i == pathComponents.length - 1) {
-        if (node.routes == null) {
-          node.routes = [route];
-        } else {
-          node.routes!.add(route);
-        }
+        node.routes.add(route);
       }
       parent = node;
     }
@@ -149,9 +145,7 @@ class RouteTree {
             match.parameters.addAll(queryMap);
           }
           currentMatches[node] = match;
-          if (node.nodes != null) {
-            nextNodes.addAll(node.nodes!);
-          }
+          nextNodes.addAll(node.nodes);
         }
       }
       nodeMatches = currentMatches;
@@ -161,11 +155,11 @@ class RouteTree {
       }
     }
     List<RouteTreeNodeMatch> matches = nodeMatches.values.toList();
-    if (matches.length > 0) {
+    if (matches.isNotEmpty) {
       RouteTreeNodeMatch match = matches.first;
       RouteTreeNode? nodeToUse = match.node;
       final routes = nodeToUse.routes;
-      if (routes != null && routes.length > 0) {
+      if (routes.isNotEmpty) {
         AppRouteMatch routeMatch = AppRouteMatch(routes[0]);
         routeMatch.parameters = match.parameters;
         return routeMatch;
@@ -179,14 +173,14 @@ class RouteTree {
   }
 
   void _printSubTree({RouteTreeNode? parent, int level = 0}) {
-    List<RouteTreeNode>? nodes = parent != null ? parent.nodes : _nodes;
-    for (RouteTreeNode node in nodes!) {
+    List<RouteTreeNode> nodes = parent != null ? parent.nodes : _nodes;
+    for (RouteTreeNode node in nodes) {
       String indent = "";
       for (int i = 0; i < level; i++) {
         indent += "    ";
       }
-      print("$indent${node.part}: total routes=${node.routes!.length}");
-      if (node.nodes != null && node.nodes!.length > 0) {
+      print("$indent${node.part}: total routes=${node.routes.length}");
+      if (node.nodes.isNotEmpty) {
         _printSubTree(parent: node, level: level + 1);
       }
     }
@@ -196,7 +190,7 @@ class RouteTree {
     List<RouteTreeNode> nodes = _nodes;
     if (parent != null) {
       // search parent for sub-node matches
-      nodes = parent.nodes!;
+      nodes = parent.nodes;
     }
     for (RouteTreeNode node in nodes) {
       if (node.part == component) {
@@ -220,13 +214,14 @@ class RouteTree {
   }
 
   Map<String, List<String>> parseQueryString(String query) {
-    var search = RegExp('([^&=]+)=?([^&]*)');
-    var params = Map<String, List<String>>();
+    final search = RegExp('([^&=]+)=?([^&]*)');
+    final params = Map<String, List<String>>();
     if (query.startsWith('?')) query = query.substring(1);
     decode(String s) => Uri.decodeComponent(s.replaceAll('+', ' '));
     for (Match match in search.allMatches(query)) {
       String key = decode(match.group(1)!);
       String value = decode(match.group(2)!);
+
       if (params.containsKey(key)) {
         params[key]!.add(value);
       } else {

@@ -25,13 +25,13 @@ class Handler {
 
 /// A function that creates new routes.
 typedef Route<T> RouteCreator<T>(
-    RouteSettings route, Map<String, List<String>>? parameters);
+    RouteSettings route, Map<String, List<String>> parameters);
 
 /// Builds out a screen based on string path [parameters] and context.
 ///
 /// Note: you can access [RouteSettings] with the [context.settings] extension
 typedef Widget? HandlerFunc(
-    BuildContext? context, Map<String, List<String>>? parameters);
+    BuildContext? context, Map<String, List<String>> parameters);
 
 /// A route that is added to the router tree.
 class AppRoute {
