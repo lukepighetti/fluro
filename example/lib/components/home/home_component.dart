@@ -187,7 +187,7 @@ class HomeComponentState extends State<HomeComponent> {
   void tappedMenuButton(BuildContext context, String key) {
     String message = "";
     String hexCode = "#FFFFFF";
-    String result;
+    String? result;
     TransitionType transitionType = TransitionType.native;
     if (key != "custom" && key != "function-call" && key != "fixed-trans") {
       if (key == "native") {
