@@ -29,20 +29,22 @@ class FluroRouter {
   static final appRouter = FluroRouter();
 
   /// The tree structure that stores the defined routes
-  final RouteTree _routeTree = RouteTree();
+  final _routeTree = RouteTree();
 
   /// Generic handler for when a route has not been defined
   Handler? notFoundHandler;
 
   /// The default transition duration to use throughout Fluro
-  static const defaultTransitionDuration = const Duration(milliseconds: 250);
+  static const defaultTransitionDuration = Duration(milliseconds: 250);
 
   /// Creates a [PageRoute] definition for the passed [RouteHandler]. You can optionally provide a default transition type.
-  void define(String routePath,
-      {required Handler? handler,
-      TransitionType? transitionType,
-      Duration transitionDuration = defaultTransitionDuration,
-      RouteTransitionsBuilder? transitionBuilder}) {
+  void define(
+    String routePath, {
+    required Handler? handler,
+    TransitionType? transitionType,
+    Duration transitionDuration = defaultTransitionDuration,
+    RouteTransitionsBuilder? transitionBuilder,
+  }) {
     _routeTree.addRoute(
       AppRoute(routePath, handler,
           transitionType: transitionType,
@@ -62,30 +64,39 @@ class FluroRouter {
       Navigator.of(context).pop(result);
 
   /// Similar to [Navigator.push] but with a few extra features.
-  Future navigateTo(BuildContext context, String path,
-      {bool replace = false,
-      bool clearStack = false,
-      bool maintainState = true,
-      bool rootNavigator = false,
-      TransitionType? transition,
-      Duration? transitionDuration,
-      RouteTransitionsBuilder? transitionBuilder,
-      RouteSettings? routeSettings}) {
-    RouteMatch routeMatch = matchRoute(context, path,
-        transitionType: transition,
-        transitionsBuilder: transitionBuilder,
-        transitionDuration: transitionDuration,
-        maintainState: maintainState,
-        routeSettings: routeSettings);
+  Future navigateTo(
+    BuildContext context,
+    String path, {
+    bool replace = false,
+    bool clearStack = false,
+    bool maintainState = true,
+    bool rootNavigator = false,
+    TransitionType? transition,
+    Duration? transitionDuration,
+    RouteTransitionsBuilder? transitionBuilder,
+    RouteSettings? routeSettings,
+  }) {
+    RouteMatch routeMatch = matchRoute(
+      context,
+      path,
+      transitionType: transition,
+      transitionsBuilder: transitionBuilder,
+      transitionDuration: transitionDuration,
+      maintainState: maintainState,
+      routeSettings: routeSettings,
+    );
+
     Route<dynamic>? route = routeMatch.route;
     Completer completer = Completer();
     Future future = completer.future;
+
     if (routeMatch.matchType == RouteMatchType.nonVisual) {
       completer.complete("Non visual route type.");
     } else {
       if (route == null && notFoundHandler != null) {
         route = _notFoundRoute(context, path, maintainState: maintainState);
       }
+
       if (route != null) {
         final navigator = Navigator.of(context, rootNavigator: rootNavigator);
         if (clearStack) {
@@ -106,33 +117,44 @@ class FluroRouter {
     return future;
   }
 
-  Route<Null> _notFoundRoute(BuildContext context, String path,
-      {bool? maintainState}) {
-    RouteCreator<Null> creator =
-        (RouteSettings? routeSettings, Map<String, List<String>> parameters) {
+  Route<Null> _notFoundRoute(
+    BuildContext context,
+    String path, {
+    bool? maintainState,
+  }) {
+    RouteCreator<Null> creator = (
+      RouteSettings? routeSettings,
+      Map<String, List<String>> parameters,
+    ) {
       return MaterialPageRoute<Null>(
-          settings: routeSettings,
-          maintainState: maintainState ?? true,
-          builder: (BuildContext context) {
-            return notFoundHandler?.handlerFunc(context, parameters) ??
-                SizedBox.shrink();
-          });
+        settings: routeSettings,
+        maintainState: maintainState ?? true,
+        builder: (BuildContext context) {
+          return notFoundHandler?.handlerFunc(context, parameters) ??
+              SizedBox.shrink();
+        },
+      );
     };
+
     return creator(RouteSettings(name: path), {});
   }
 
   /// Attempt to match a route to the provided [path].
-  RouteMatch matchRoute(BuildContext? buildContext, String? path,
-      {RouteSettings? routeSettings,
-      TransitionType? transitionType,
-      Duration? transitionDuration,
-      RouteTransitionsBuilder? transitionsBuilder,
-      bool maintainState = true}) {
+  RouteMatch matchRoute(
+    BuildContext? buildContext,
+    String? path, {
+    RouteSettings? routeSettings,
+    TransitionType? transitionType,
+    Duration? transitionDuration,
+    RouteTransitionsBuilder? transitionsBuilder,
+    bool maintainState = true,
+  }) {
     RouteSettings settingsToUse = routeSettings ?? RouteSettings(name: path);
 
     if (settingsToUse.name == null) {
       settingsToUse = settingsToUse.copyWith(name: path);
     }
+
     AppRouteMatch? match = _routeTree.matchRoute(path!);
     AppRoute? route = match?.route;
 
@@ -142,56 +164,66 @@ class FluroRouter {
 
     Handler handler = (route != null ? route.handler : notFoundHandler);
     TransitionType? transition = transitionType;
+
     if (transitionType == null) {
       transition = route != null ? route.transitionType : TransitionType.native;
     }
+
     if (route == null && notFoundHandler == null) {
       return RouteMatch(
-          matchType: RouteMatchType.noMatch,
-          errorMessage: "No matching route was found");
+        matchType: RouteMatchType.noMatch,
+        errorMessage: "No matching route was found",
+      );
     }
-    Map<String, List<String>> parameters =
-        match?.parameters ?? <String, List<String>>{};
+
+    final parameters = match?.parameters ?? <String, List<String>>{};
+
     if (handler.type == HandlerType.function) {
       handler.handlerFunc(buildContext, parameters);
       return RouteMatch(matchType: RouteMatchType.nonVisual);
     }
 
-    RouteCreator creator =
-        (RouteSettings? routeSettings, Map<String, List<String>> parameters) {
+    RouteCreator creator = (
+      RouteSettings? routeSettings,
+      Map<String, List<String>> parameters,
+    ) {
       bool isNativeTransition = (transition == TransitionType.native ||
           transition == TransitionType.nativeModal);
+
       if (isNativeTransition) {
         return MaterialPageRoute<dynamic>(
-            settings: routeSettings,
-            fullscreenDialog: transition == TransitionType.nativeModal,
-            maintainState: maintainState,
-            builder: (BuildContext context) {
-              return handler.handlerFunc(context, parameters) ??
-                  SizedBox.shrink();
-            });
+          settings: routeSettings,
+          fullscreenDialog: transition == TransitionType.nativeModal,
+          maintainState: maintainState,
+          builder: (BuildContext context) {
+            return handler.handlerFunc(context, parameters) ??
+                SizedBox.shrink();
+          },
+        );
       } else if (transition == TransitionType.material ||
           transition == TransitionType.materialFullScreenDialog) {
         return MaterialPageRoute<dynamic>(
-            settings: routeSettings,
-            fullscreenDialog:
-                transition == TransitionType.materialFullScreenDialog,
-            maintainState: maintainState,
-            builder: (BuildContext context) {
-              return handler.handlerFunc(context, parameters) ??
-                  SizedBox.shrink();
-            });
+          settings: routeSettings,
+          fullscreenDialog:
+              transition == TransitionType.materialFullScreenDialog,
+          maintainState: maintainState,
+          builder: (BuildContext context) {
+            return handler.handlerFunc(context, parameters) ??
+                SizedBox.shrink();
+          },
+        );
       } else if (transition == TransitionType.cupertino ||
           transition == TransitionType.cupertinoFullScreenDialog) {
         return CupertinoPageRoute<dynamic>(
-            settings: routeSettings,
-            fullscreenDialog:
-                transition == TransitionType.cupertinoFullScreenDialog,
-            maintainState: maintainState,
-            builder: (BuildContext context) {
-              return handler.handlerFunc(context, parameters) ??
-                  SizedBox.shrink();
-            });
+          settings: routeSettings,
+          fullscreenDialog:
+              transition == TransitionType.cupertinoFullScreenDialog,
+          maintainState: maintainState,
+          builder: (BuildContext context) {
+            return handler.handlerFunc(context, parameters) ??
+                SizedBox.shrink();
+          },
+        );
       } else {
         RouteTransitionsBuilder? routeTransitionsBuilder;
 
@@ -226,6 +258,7 @@ class FluroRouter {
         );
       }
     };
+
     return RouteMatch(
       matchType: RouteMatchType.visual,
       route: creator(settingsToUse, parameters),
@@ -234,17 +267,22 @@ class FluroRouter {
 
   RouteTransitionsBuilder _standardTransitionsBuilder(
       TransitionType? transitionType) {
-    return (BuildContext context, Animation<double> animation,
-        Animation<double> secondaryAnimation, Widget child) {
+    return (
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child,
+    ) {
       if (transitionType == TransitionType.fadeIn) {
         return FadeTransition(opacity: animation, child: child);
       } else {
-        const Offset topLeft = const Offset(0.0, 0.0);
-        const Offset topRight = const Offset(1.0, 0.0);
-        const Offset bottomLeft = const Offset(0.0, 1.0);
+        const topLeft = const Offset(0.0, 0.0);
+        const topRight = const Offset(1.0, 0.0);
+        const bottomLeft = const Offset(0.0, 1.0);
 
-        Offset startOffset = bottomLeft;
-        Offset endOffset = topLeft;
+        var startOffset = bottomLeft;
+        var endOffset = topLeft;
+
         if (transitionType == TransitionType.inFromLeft) {
           startOffset = const Offset(-1.0, 0.0);
           endOffset = topLeft;
@@ -274,8 +312,12 @@ class FluroRouter {
   /// if any defined handler is found. It can also be used with the [MaterialApp.onGenerateRoute]
   /// property as callback to create routes that can be used with the [Navigator] class.
   Route<dynamic>? generator(RouteSettings routeSettings) {
-    RouteMatch match =
-        matchRoute(null, routeSettings.name, routeSettings: routeSettings);
+    RouteMatch match = matchRoute(
+      null,
+      routeSettings.name,
+      routeSettings: routeSettings,
+    );
+
     return match.route;
   }
 
