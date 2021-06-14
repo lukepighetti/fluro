@@ -18,30 +18,44 @@ enum HandlerType {
 
 /// The handler to register with [FluroRouter.define]
 class Handler {
-  Handler({this.type = HandlerType.route, required this.handlerFunc});
+  Handler({
+    this.type = HandlerType.route,
+    required this.handlerFunc,
+  });
+
   final HandlerType type;
   final HandlerFunc handlerFunc;
 }
 
 /// A function that creates new routes.
 typedef Route<T> RouteCreator<T>(
-    RouteSettings route, Map<String, List<String>> parameters);
+  RouteSettings route,
+  Map<String, List<String>> parameters,
+);
 
 /// Builds out a screen based on string path [parameters] and context.
 ///
 /// Note: you can access [RouteSettings] with the [context.settings] extension
 typedef Widget? HandlerFunc(
-    BuildContext? context, Map<String, List<String>> parameters);
+  BuildContext? context,
+  Map<String, List<String>> parameters,
+);
 
 /// A route that is added to the router tree.
 class AppRoute {
+  AppRoute(
+    this.route,
+    this.handler, {
+    this.transitionType,
+    this.transitionDuration,
+    this.transitionBuilder,
+  });
+
   String route;
   dynamic handler;
   TransitionType? transitionType;
   Duration? transitionDuration;
   RouteTransitionsBuilder? transitionBuilder;
-  AppRoute(this.route, this.handler,
-      {this.transitionType, this.transitionDuration, this.transitionBuilder});
 }
 
 /// The type of transition to use when pushing/popping a route.
@@ -72,10 +86,12 @@ enum RouteMatchType {
 
 /// The route that was matched.
 class RouteMatch {
-  RouteMatch(
-      {this.matchType = RouteMatchType.noMatch,
-      this.route,
-      this.errorMessage = "Unable to match route. Please check the logs."});
+  RouteMatch({
+    this.matchType = RouteMatchType.noMatch,
+    this.route,
+    this.errorMessage = "Unable to match route. Please check the logs.",
+  });
+
   final Route<dynamic>? route;
   final RouteMatchType matchType;
   final String errorMessage;
@@ -83,9 +99,13 @@ class RouteMatch {
 
 /// When the route is not found.
 class RouteNotFoundException implements Exception {
+  RouteNotFoundException(
+    this.message,
+    this.path,
+  );
+
   final String message;
   final String path;
-  RouteNotFoundException(this.message, this.path);
 
   @override
   String toString() {
