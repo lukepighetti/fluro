@@ -75,6 +75,7 @@ class FluroRouter {
     Duration? transitionDuration,
     RouteTransitionsBuilder? transitionBuilder,
     RouteSettings? routeSettings,
+        bool opaque = false,
   }) {
     RouteMatch routeMatch = matchRoute(
       context,
@@ -84,6 +85,7 @@ class FluroRouter {
       transitionDuration: transitionDuration,
       maintainState: maintainState,
       routeSettings: routeSettings,
+        opaque:opaque,
     );
 
     Route<dynamic>? route = routeMatch.route;
@@ -148,6 +150,7 @@ class FluroRouter {
     Duration? transitionDuration,
     RouteTransitionsBuilder? transitionsBuilder,
     bool maintainState = true,
+    bool opaque = false,
   }) {
     RouteSettings settingsToUse = routeSettings ?? RouteSettings(name: path);
 
@@ -235,6 +238,7 @@ class FluroRouter {
         }
 
         return PageRouteBuilder<dynamic>(
+          opaque: opaque,
           settings: routeSettings,
           maintainState: maintainState,
           pageBuilder: (BuildContext context, Animation<double> animation,
