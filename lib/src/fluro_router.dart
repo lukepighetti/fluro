@@ -240,7 +240,7 @@ class FluroRouter {
         }
 
         return PageRouteBuilder<dynamic>(
-          opaque: opaque ?? route?.opaque ?? false,
+          opaque: opaque ?? route?.opaque ?? true,
           settings: routeSettings,
           maintainState: maintainState,
           pageBuilder: (BuildContext context, Animation<double> animation,
