@@ -1,4 +1,4 @@
-[English](./README.md) | [Português](./translations/pt/README.md)
+[English](./README.md) | [Português](./translations/pt/README.md) | [简体中文](./translations/zh-CN/README.md)
 
 <img src="https://storage.googleapis.com/product-logos/logo_fluro.png" width="220">
 <br/><br/>
