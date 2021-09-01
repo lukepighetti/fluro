@@ -69,12 +69,14 @@ class FluroRouter {
     String path, {
     bool replace = false,
     bool clearStack = false,
+    bool isPushAndRemove = false,
     bool maintainState = true,
     bool rootNavigator = false,
     TransitionType? transition,
     Duration? transitionDuration,
     RouteTransitionsBuilder? transitionBuilder,
     RouteSettings? routeSettings,
+    RoutePredicate? predicate,
   }) {
     RouteMatch routeMatch = matchRoute(
       context,
@@ -99,8 +101,14 @@ class FluroRouter {
 
       if (route != null) {
         final navigator = Navigator.of(context, rootNavigator: rootNavigator);
-        if (clearStack) {
-          future = navigator.pushAndRemoveUntil(route, (check) => false);
+        if (clearStack) isPushAndRemove = true;
+        if (isPushAndRemove && predicate == null) clearStack = true;
+
+        if (isPushAndRemove) {
+          future = navigator.pushAndRemoveUntil(
+            route,
+            clearStack ? (check) => false : predicate!,
+          );
         } else {
           future = replace
               ? navigator.pushReplacement(route)
