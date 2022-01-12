@@ -10,7 +10,6 @@
 import 'dart:async';
 
 import 'package:fluro/fluro.dart';
-import 'package:fluro/src/common.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -38,14 +37,12 @@ class FluroRouter {
   static const defaultTransitionDuration = Duration(milliseconds: 250);
 
   /// Creates a [PageRoute] definition for the passed [RouteHandler]. You can optionally provide a default transition type.
-  void define(
-    String routePath, {
-    required Handler? handler,
-    TransitionType? transitionType,
-    Duration transitionDuration = defaultTransitionDuration,
-    RouteTransitionsBuilder? transitionBuilder,
-    bool? opaque
-  }) {
+  void define(String routePath,
+      {required Handler? handler,
+      TransitionType? transitionType,
+      Duration transitionDuration = defaultTransitionDuration,
+      RouteTransitionsBuilder? transitionBuilder,
+      bool? opaque}) {
     _routeTree.addRoute(
       AppRoute(routePath, handler,
           transitionType: transitionType,
