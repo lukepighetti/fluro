@@ -9,7 +9,6 @@
 import '../helpers/color_helpers.dart';
 import '../components/demo/demo_simple_component.dart';
 import '../components/home/home_component.dart';
-import 'package:flutter/painting.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
