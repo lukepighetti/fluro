@@ -49,6 +49,7 @@ class AppRoute {
     this.transitionType,
     this.transitionDuration,
     this.transitionBuilder,
+    this.opaque,
   });
 
   String route;
@@ -56,6 +57,7 @@ class AppRoute {
   TransitionType? transitionType;
   Duration? transitionDuration;
   RouteTransitionsBuilder? transitionBuilder;
+  bool? opaque;
 }
 
 /// The type of transition to use when pushing/popping a route.
