@@ -121,8 +121,8 @@ class RouteTree {
 
     var components = usePath.split("/");
 
-    if (path == Navigator.defaultRouteName) {
-      components = ["/"];
+    if (RegExp(r"(\/$|\/\?.*)").hasMatch(path)) {
+      components = [path];
     }
 
     var nodeMatches = <RouteTreeNode, RouteTreeNodeMatch>{};
