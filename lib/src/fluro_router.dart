@@ -329,3 +329,14 @@ class FluroRouter {
     _routeTree.printTree();
   }
 }
+
+extension on RouteSettings {
+  // shim for 3.5.0 breaking change
+  // ignore: unused_element
+  RouteSettings copyWith({String? name, Object? arguments}) {
+    return RouteSettings(
+      name: name ?? this.name,
+      arguments: arguments ?? this.arguments,
+    );
+  }
+}
