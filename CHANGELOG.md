@@ -1,3 +1,7 @@
+# 2.0.5
+
+- change RouteSettings.copyWith to copyWithShim
+
 # 2.0.4
 
 - shim RouteSettings.copyWith for Flutter ~3.5.0
