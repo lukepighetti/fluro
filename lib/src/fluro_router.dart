@@ -154,7 +154,7 @@ class FluroRouter {
     RouteSettings settingsToUse = routeSettings ?? RouteSettings(name: path);
 
     if (settingsToUse.name == null) {
-      settingsToUse = settingsToUse.copyWith(name: path);
+      settingsToUse = settingsToUse.copyWithShim(name: path);
     }
 
     AppRouteMatch? match = _routeTree.matchRoute(path!);
@@ -333,7 +333,7 @@ class FluroRouter {
 extension on RouteSettings {
   // shim for 3.5.0 breaking change
   // ignore: unused_element
-  RouteSettings copyWith({String? name, Object? arguments}) {
+  RouteSettings copyWithShim({String? name, Object? arguments}) {
     return RouteSettings(
       name: name ?? this.name,
       arguments: arguments ?? this.arguments,
